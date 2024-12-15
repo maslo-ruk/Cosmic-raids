@@ -18,7 +18,7 @@ while running:
     screen.blit(galacktika1, (480, -300))
     galacktika2 = pygame.image.load("../images/Galactika2.png")
     galacktika2 = pygame.transform.scale(galacktika2, (1000, 500))
-    screen.blit(galacktika2, (100, -300))
+    screen.blit(galacktika2, (30, -300))
     spend_galackika1 = 1
     spend_galackika2 = 0.5
     galacktika2_y = 200
@@ -34,7 +34,7 @@ while running:
         galacktika1_y += spend_galackika1
         galacktika2_y += spend_galackika2
         screen.blit(galacktika1, (480, galacktika1_y))
-        screen.blit(galacktika2, (100, galacktika2_y))
+        screen.blit(galacktika2, (30, galacktika2_y))
         pygame.display.update()
     while galacktika1_y > -300 and galacktika2_y > 200:
         pygame.time.delay(30)
@@ -47,7 +47,7 @@ while running:
         galacktika1_y -= spend_galackika1
         galacktika2_y -= spend_galackika2
         screen.blit(galacktika1, (480, galacktika1_y))
-        screen.blit(galacktika2, (100, galacktika2_y))
+        screen.blit(galacktika2, (30, galacktika2_y))
         pygame.display.update()
     # limits FPS to 60
     # independent physics.
