@@ -17,12 +17,13 @@ while running:
     galacktika1 = pygame.transform.scale(galacktika1, (800, 1000))
     screen.blit(galacktika1, (480, -300))
     galacktika2 = pygame.image.load("../images/Galactika2.png")
-    galacktika2 = pygame.transform.scale(galacktika2, (800, 1000))
-    screen.blit(galacktika2, (400, -300))
-    spend_galackikas = 1
-    galacktika2_y = -300
+    galacktika2 = pygame.transform.scale(galacktika2, (1000, 500))
+    screen.blit(galacktika2, (100, -300))
+    spend_galackika1 = 1
+    spend_galackika2 = 0.5
+    galacktika2_y = 200
     galacktika1_y = -300
-    while galacktika1_y < -280 and galacktika2_y < -280:
+    while galacktika1_y < -280 and galacktika2_y < 220:
         pygame.time.delay(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -30,12 +31,12 @@ while running:
                 exit()
         screen.blit(fon, (0, 0))
         # Изменяем значение координаты Y
-        galacktika1_y += spend_galackikas
-        galacktika2_y += spend_galackikas
+        galacktika1_y += spend_galackika1
+        galacktika2_y += spend_galackika2
         screen.blit(galacktika1, (480, galacktika1_y))
-        screen.blit(galacktika2, (480, galacktika2_y))
+        screen.blit(galacktika2, (100, galacktika2_y))
         pygame.display.update()
-    while galacktika1_y > -300 and galacktika2_y > -300:
+    while galacktika1_y > -300 and galacktika2_y > 200:
         pygame.time.delay(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,10 +44,10 @@ while running:
                 exit()
         screen.blit(fon, (0, 0))
         # Изменяем значение координаты Y
-        galacktika1_y -= spend_galackikas
-        galacktika2_y -= spend_galackikas
+        galacktika1_y -= spend_galackika1
+        galacktika2_y -= spend_galackika2
         screen.blit(galacktika1, (480, galacktika1_y))
-        screen.blit(galacktika2, (480, galacktika2_y))
+        screen.blit(galacktika2, (100, galacktika2_y))
         pygame.display.update()
     # limits FPS to 60
     # independent physics.
