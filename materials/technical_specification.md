@@ -46,4 +46,16 @@
 4. Структура проекта
 5. Структура кода
 6. Графический интерфейс
+    1) Меню:
+       ![Menu_test.png](..%2Fimages%2FMenu_test.png)
+    2) Настройки:
+       ![Settings_test.png](..%2Fimages%2FSettings_test.png)
+    3) Корабль(пространство до боя):
+       ![Spaceship_test.png](..%2Fimages%2FSpaceship_test.png)
+    4) Баннер:
+       ![Banner_test.png](..%2Fimages%2FBanner_test.png)
+    5) Персонажи:
+       ![Characters_test.png](..%2Fimages%2FCharacters_test.png)
+    6) Инвентарь:
+       ![Inventory_test.png](..%2Fimages%2FInventory_test.png)
 7. Дедлайны
