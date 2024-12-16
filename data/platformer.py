@@ -29,11 +29,11 @@ up = False
 while running:
     tick = clock.tick(60)
     screen.fill('white')
-    for y in range(len(map)):
-        for x in range(len(map[y])):
-            pos = y * 30, x * 30
-            if map[y][x] == '-':
-                block.place(pos)
+    # for y in range(len(map)):
+    #     for x in range(len(map[y])):
+    #         pos = y * 30, x * 30
+    #         if map[y][x] == '-':
+    #             block.place(pos)
 
     for rect in rects:
         pygame.draw.rect(screen, 'green', rect)
