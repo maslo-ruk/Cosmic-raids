@@ -1,5 +1,5 @@
 import pygame
-from Block import Block
+from data.Block import Block
 
 
 WIDTH = 30

@@ -1,6 +1,7 @@
 import pygame
 from data.platformer import Platformer
 
+
 def main():
     pygame.init()
     size = width, height = 900, 600
@@ -13,3 +14,5 @@ def main():
         current_scene.run()
 
 
+if __name__ == '__main__':
+    main()
