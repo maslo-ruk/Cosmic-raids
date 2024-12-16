@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from Block import Block
+from Projectiles import Bullets
 
 pygame.init()
 size = width, height = 900, 600
@@ -36,24 +37,6 @@ for i in range(len(map)):
         if string[j] == '-':
             block = Block(pos, screen)
             blocks.add(block)
-
-class Bullets(pygame.sprite.Sprite):
-    def __init__(self, start_pos, angle):
-        super().__init__()
-        self.image = pygame.Surface((5, 5))
-        self.image.fill('red')
-        self.rect = self.image.get_rect(center=start_pos)
-        self.angle = angle
-
-    def update(self):
-        # Двигаем линию в зависимости от угла
-        self.rect.x += 10 * self.angle[0]
-        self.rect.y += 10 * self.angle[1]
-
-        # Удаляем линию, если она выходит за границы экрана
-        if self.rect.x < 0 or self.rect.x > 1280 or self.rect.y < 0 or self.rect.y > 720:
-            self.kill()
-
 
 all_b = pygame.sprite.Group()
 lines = pygame.sprite.Group()
@@ -97,5 +80,5 @@ while running:
     all_b.draw(screen)
     player.update(right, left, up, blocks)
     screen.blit(player.image, (player.rect.x, player.rect.y))
-    lines.update()
+    lines.update(blocks)
     pygame.display.flip()
