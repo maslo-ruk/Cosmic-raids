@@ -42,7 +42,7 @@ while running:
         galacktika1_y += speed_galackika1
         galacktika2_y += speed_galackika2
         planeta2_y -= speed_planeta2
-        screen.blit(galacktika1, (480, galacktika1_y))
+        screen.blit(galacktika1, (481, galacktika1_y))
         screen.blit(galacktika2, (30, galacktika2_y))
         screen.blit(planeta2, (-200, planeta2_y))
         pygame.display.update()
