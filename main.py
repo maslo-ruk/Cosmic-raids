@@ -1,18 +1,18 @@
-# Example file showing a circle moving on screen
-# Примеры событий
-# python -m pygame.examples.eventlist
-
 import pygame
+from data.platformer import Platformer
+
 
 def main():
     pygame.init()
-    size = width, height = 1280, 720
+    size = width, height = 900, 600
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Белий кролик")
-    running = True
-    MYEVENTTYPE = pygame.USEREVENT + 1
-    pygame.time.set_timer(MYEVENTTYPE, 1000)
+    pygame.display.set_caption("CosmicRaids")
+    current_scene = Platformer(size, screen, clock)
+    runi = True
+    while runi:
+        current_scene.run()
 
 
-pygame.quit()
+if __name__ == '__main__':
+    main()
