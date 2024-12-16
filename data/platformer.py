@@ -1,8 +1,9 @@
 import pygame
 from player import Player
+from Block import Block
 
 pygame.init()
-size = width, height = 500, 500
+size = width, height = 900, 600
 bottom = pygame.Rect(0, 400, 500, 100)
 left = pygame.Rect(25, 300, 200, 50)
 print(left.bottom)
@@ -13,6 +14,13 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 pygame.display.set_caption("shariki")
 running = True
+map = ['-'*30]
+count = 0
+for i in range(18):
+    if count % 2 == 1:
+        map.append('-00--00000---000000000-000000-')
+    else:
+        map.append('-0000000000000000000000000000-')
 
 player = Player()
 right = False
@@ -20,7 +28,13 @@ left = False
 up = False
 while running:
     tick = clock.tick(60)
-    screen.fill('blue')
+    screen.fill('white')
+    for y in range(len(map)):
+        for x in range(len(map[y])):
+            pos = y * 30, x * 30
+            if map[y][x] == '-':
+                block.place(pos)
+
     for rect in rects:
         pygame.draw.rect(screen, 'green', rect)
     for event in pygame.event.get():
