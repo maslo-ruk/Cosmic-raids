@@ -1,8 +1,9 @@
 import pygame
+from Block import Block
 
 
-WIDTH = 20
-HEIGHT = 20
+WIDTH = 30
+HEIGHT = 60
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 JUMPSPEED = 14
@@ -57,8 +58,8 @@ class Player(pygame.sprite.Sprite):
         if not self.col2:
             self.inair = True
 
-    def collides(self, rects: list[pygame.Rect]):
+    def collides(self, rects: list[Block]):
         for i in rects:
-            if self.rect.colliderect(i):
-                return i
+            if self.rect.colliderect(i.rect):
+                return i.rect
         return False
