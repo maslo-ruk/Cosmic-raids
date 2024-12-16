@@ -1,39 +1,35 @@
+# Тест меню
 import pygame
 
+# pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+size = width, height = 1920, 1280
+screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
+pygame.display.set_caption("Тестовое меню")
 running = True
-dt = 0
-
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            exit()
+    fon = pygame.image.load("../images/Space sky.png")
+    fon = pygame.transform.scale(fon, (1920, 1280))
+    screen.blit(fon, (0, 0))
+    galacktika1 = pygame.image.load("../images/Galactika1.png")
+    galacktika1 = pygame.transform.scale(galacktika1, (800, 1000))
+    screen.blit(galacktika1, (480, -300))
+    galacktika2 = pygame.image.load("../images/galactika2.png")
+    galacktika2 = pygame.transform.scale(galacktika2, (1000, 500))
+    screen.blit(galacktika2, (30, 200))
+    # planeta2 = pygame.image.load("../images/planet2.png")
+    # planeta2 = pygame.transform.scale(planeta2, (1700, 900))
+    # screen.blit(planeta2, (300, 100))
+    planeta = pygame.image.load("../images/planet.png")
+    planeta = pygame.transform.scale(planeta, (1200, 600))
+    screen.blit(planeta, (300, 100))
+    pygame.display.update()
+    dt = clock.tick(30) / 1000
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("black")
-
-    pygame.draw.circle(screen, "red", player_pos, 40)
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
-
-    # flip() the display to put your work on screen
-    pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
+pygame.quit()

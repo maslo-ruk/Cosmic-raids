@@ -19,9 +19,12 @@ while running:
     galacktika2 = pygame.image.load("../images/galactika2.png")
     galacktika2 = pygame.transform.scale(galacktika2, (1000, 500))
     screen.blit(galacktika2, (30, -300))
-    planeta2 = pygame.image.load("../images/Без названия1153_20241214145529.png")
+    planeta2 = pygame.image.load("../images/planet2.png")
     planeta2 = pygame.transform.scale(planeta2, (1700, 900))
     screen.blit(planeta2, (300, 100))
+    # planeta = pygame.image.load("../images/planet.png")
+    # planeta = pygame.transform.scale(planeta, (1200, 600))
+    # screen.blit(planeta, (300, 100))
     speed_planeta2 = 0.7
     speed_galackika1 = 1
     speed_galackika2 = 0.5
@@ -35,6 +38,7 @@ while running:
                 pygame.quit()
                 exit()
         screen.blit(fon, (0, 0))
+        # screen.blit(planeta, (100, 100))
         galacktika1_y += speed_galackika1
         galacktika2_y += speed_galackika2
         planeta2_y -= speed_planeta2
