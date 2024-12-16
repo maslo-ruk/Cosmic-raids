@@ -49,36 +49,15 @@ left = False
 up = False
 while running:
     tick = clock.tick(60)
-    screen.fill('white')
+    screen.fill('blue')
     # for y in range(len(map)):
     #     for x in range(len(map[y])):
     #         pos = y * 30, x * 30
     #         if map[y][x] == '-':
     #             block.place(pos)
-
     for rect in rects:
         pygame.draw.rect(screen, 'green', rect)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        right = True
-    else:
-        right = False
-    if keys[pygame.K_a]:
-        left = True
-    else:
-        left = False
-    if keys[pygame.K_SPACE]:
-        up = True
-    else:
-        up = False
-    # tick = clock.tick(60)
-    screen.fill('blue')
-    for rect in rects:
-        pygame.draw.rect(screen, 'green', rect)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -94,8 +73,21 @@ while running:
                     line = Bullets(player.rect.center, direction)
                     all_b.add(line)
                     lines.add(line)
+    if keys[pygame.K_d]:
+        right = True
+    else:
+        right = False
+    if keys[pygame.K_a]:
+        left = True
+    else:
+        left = False
+    if keys[pygame.K_SPACE]:
+        up = True
+    else:
+        up = False
 
-
+    all_b.update()
     player.update(right, left, up, rects)
     screen.blit(player.image, (player.rect.x, player.rect.y))
+    lines.update()
     pygame.display.flip()
