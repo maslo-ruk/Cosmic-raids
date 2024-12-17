@@ -4,7 +4,7 @@ import pygame
 # pygame setup
 pygame.init()
 size = width, height = 1920, 1280
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 pygame.display.set_caption("Тестовое меню")
 running = True
