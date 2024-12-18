@@ -46,6 +46,12 @@ while running:
     planetka = pygame.image.load("../images/mini_planetka.png")
     planetka = pygame.transform.scale(planetka, (width, height))
     screen.blit(planetka, (0, 0))
+    exit_esc = pygame.image.load("../images/Exit.png")
+    exit_esc = pygame.transform.scale(exit_esc, (width, height))
+    screen.blit(exit_esc, (0, 0))
+
+
+    #Дальше идут важные кнопки для самой игры
     new_game_button = pygame.image.load("../images/newGametextures.png")
     new_game_button = pygame.transform.scale(new_game_button, (width, height))
     screen.blit(new_game_button, (0, 0))
@@ -55,9 +61,6 @@ while running:
     settings = pygame.image.load("../images/menu_textures.png")
     settings = pygame.transform.scale(settings, (width, height))
     screen.blit(settings, (0, 0))
-    exit_esc = pygame.image.load("../images/Exit.png")
-    exit_esc = pygame.transform.scale(exit_esc, (width, height))
-    screen.blit(exit_esc, (0, 0))
     pygame.display.update()
     dt = clock.tick(30) / 1000
 
