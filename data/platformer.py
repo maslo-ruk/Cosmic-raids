@@ -16,7 +16,7 @@ class Scene:
 class Platformer(Scene):
     def __init__(self, size, screen, clock):
         super().__init__(size, screen, clock)
-        self.player = Player((250, 200))
+        self.player = Player((300, 200))
         self.Enemies = pygame.sprite.Group()
         self.map = []
         self.all_collides = pygame.sprite.Group()
@@ -56,7 +56,7 @@ class Platformer(Scene):
 
     def run(self):
         self.make_map()
-        enemy = Enemy((600, 530))
+        enemy = Enemy((600, 510))
         self.Enemies.add(enemy)
         self.blocks.add(self.player)
         for i in self.Enemies:

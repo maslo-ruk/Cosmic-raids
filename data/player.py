@@ -21,8 +21,8 @@ class Entity(pygame.sprite.Sprite):
         self.inair = True
         self.size = SIZE
         self.pos = pos
-        self.rect = pygame.Rect(POS, SIZE)
-        self.image = pygame.Surface(SIZE)
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image = pygame.Surface(self.size)
         self.image.fill(COLOR)
         self.col1 = False
         self.col2 = False
@@ -49,6 +49,7 @@ class Entity(pygame.sprite.Sprite):
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1)
+        print(self.pos)
         self.x_speed = SPEED
 
 
@@ -97,6 +98,7 @@ class Player(Entity):
 class Enemy(Entity):
     def __init__(self, pos):
         super().__init__(pos)
+        print(self.pos)
 
     def update(self, screen, rects):
         super().update()
