@@ -13,6 +13,8 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 pygame.display.set_caption("shariki")
 running = True
+icxod = 5
+count = icxod
 
 
 class Bullets(pygame.sprite.Sprite):
@@ -54,6 +56,8 @@ while running:
     else:
         up = False
     # tick = clock.tick(60)
+    if keys[pygame.K_r]:
+        count = icxod
     screen.fill('blue')
     for rect in rects:
         pygame.draw.rect(screen, 'green', rect)
@@ -62,16 +66,18 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-                dx = mouse_x - player.rect.x
-                dy = mouse_y - player.rect.y
-                angle = (dx, dy)
-                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
-                    norm = (dx ** 2 + dy ** 2) ** 0.5
-                    direction = (dx / norm, dy / norm)
-                    line = Bullets(player.rect.center, direction)
-                    all_b.add(line)
-                    lines.add(line)
+                if count - 1 >= 0:
+                    count -= 1
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    dx = mouse_x - player.rect.x
+                    dy = mouse_y - player.rect.y
+                    angle = (dx, dy)
+                    if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
+                        norm = (dx ** 2 + dy ** 2) ** 0.5
+                        direction = (dx / norm, dy / norm)
+                        line = Bullets(player.rect.center, direction)
+                        all_b.add(line)
+                        lines.add(line)
 
 
     player.update(right, left, up, rects)
