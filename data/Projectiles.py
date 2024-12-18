@@ -27,17 +27,20 @@ class Bullets(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
 
-    def update(self, rects):
+    def update(self, rects, t):
         # Двигаем линию в зависимости от угла
         self.rect.x += 10 * self.angle[0]
         self.rect.y += 10 * self.angle[1]
 
-        a = self.collides(rects)
+        a = self.collides(rects, t)
         # Удаляем линию, если она выходит за границы экрана
         if a:
             self.kill()
 
-    def collides(self, rects):
+    def collides(self, rects, own_rect):
+        from data.player import Entity
         for i in rects:
-            if self.rect.colliderect(i.rect):
+            if self.rect.colliderect(i.rect) and i.rect != own_rect:
+                if isinstance(i, Entity):
+                    i.hp -= 1
                 return True
