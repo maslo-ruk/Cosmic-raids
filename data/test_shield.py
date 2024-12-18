@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-
+# просто пример работы с py_gui
 pygame.init()
 
 pygame.display.set_caption('Quick Start')
