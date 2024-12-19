@@ -96,6 +96,7 @@ class Platformer(Scene):
                         i.shoot(self.player.rect.x, self.player.rect.y)
             if keys[pygame.K_d]:
                 right = True
+                print('a')
             else:
                 right = False
             if keys[pygame.K_a]:
@@ -113,7 +114,4 @@ class Platformer(Scene):
                 self.screen.blit(i.image, (i.rect.x, i.rect.y))
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
-            print(self.player.hp)
-            for i in self.Enemies:
-                print(i.hp)
         pygame.quit()

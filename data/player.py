@@ -49,7 +49,6 @@ class Entity(pygame.sprite.Sprite):
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1)
-        print(self.pos)
         self.x_speed = SPEED
 
 
