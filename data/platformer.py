@@ -79,16 +79,6 @@ class Platformer(Scene):
                     break
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        # mouse_x, mouse_y = pygame.mouse.get_pos()
-                        # dx = mouse_x - self.player.rect.x
-                        # dy = mouse_y - self.player.rect.y
-                        # angle = (dx, dy)
-                        # if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
-                        #     norm = (dx ** 2 + dy ** 2) ** 0.5
-                        #     direction = (dx / norm, dy / norm)
-                        #     line = Bullets(self.player.rect.center, direction)
-                        #     all_b.add(line)
-                        #     lines.add(line)
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                 if event.type == self.SHOOTEVENT:
@@ -107,6 +97,9 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
+            if keys[pygame.K_r]:
+                self.player.count = self.player.kolvo
+
 
             self.player.update(self.screen, right, left, up, self.blocks)
             for i in self.Enemies:
