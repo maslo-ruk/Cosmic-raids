@@ -33,12 +33,9 @@ while running:
         start_button.events(event)
         new_game_button.events(event)
         settings_button.events(event)
-<<<<<<< HEAD
         # if settings_button.events(event) == False:
         #     pygame.quit()
         #     exit()
-=======
->>>>>>> origin/Kulpinsky_Helen
             # выход через esc
     fon = pygame.image.load("../images/Space_sky.png")
     fon = pygame.transform.scale(fon, (width, height))
