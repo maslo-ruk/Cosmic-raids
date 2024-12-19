@@ -28,10 +28,11 @@ class Entity(pygame.sprite.Sprite):
         self.col2 = False
         self.all_b = pygame.sprite.Group()
         self.lines = pygame.sprite.Group()
+        self.is_alive = True
 
     def update(self, *args, **kwargs):
         if self.hp <= 0:
-            self.kill()
+            self.die()
 
     def shoot(self, dest_x, dest_y):
         from data.Projectiles import Bullets
@@ -45,12 +46,16 @@ class Entity(pygame.sprite.Sprite):
             self.all_b.add(line)
             self.lines.add(line)
 
+    def die(self):
+        self.is_alive = False
+        self.kill()
+
 
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1)
-        self.x_speed = SPEED
 
+        self.x_speed = SPEED
 
     def update(self, screen, a, b, c, rects):
         super().update()
@@ -92,6 +97,7 @@ class Player(Entity):
             if self.rect.colliderect(i.rect) and i.rect != self.rect:
                 return i.rect
         return False
+
 
 
 class Enemy(Entity):
