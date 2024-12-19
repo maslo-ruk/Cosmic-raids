@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f2c8d2c-7be6-49ed-a472-7959ceb54814" name="Changes" comment="Эксперименты" />
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="начало">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="devoloper" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -22,52 +24,45 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2qIiJyHCPDSSUpBUt0lcgJs0kIB" />
+  <component name="ProjectId" id="2qJDpI77peFyhbm3kfnNCDlmCir" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Zhavoronkov__Egor&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/zhavoronkoved/PycharmProjects/Cosmic-raids1/data&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Zhavoronkov__Egor",
+    "last_opened_file_path": "C:/Users/user/CosmicRaid/data"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data" />
+      <recent name="C:\Users\user\CosmicRaid\data" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7f2c8d2c-7be6-49ed-a472-7959ceb54814" name="Changes" comment="" />
-      <created>1734356421854</created>
+      <changelist id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Жаворонков Егор: В ТЗ добавлена структура проекта и кода" />
+      <created>1734371966206</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1734356421854</updated>
+      <updated>1734371966206</updated>
     </task>
-    <task id="LOCAL-00001" summary="Эксперименты">
+    <task id="LOCAL-00001" summary="начало">
       <option name="closed" value="true" />
-      <created>1734360512491</created>
+      <created>1734376415326</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1734360512491</updated>
+      <updated>1734376415326</updated>
     </task>
-    <task id="LOCAL-00002" summary="Эксперименты">
-      <option name="closed" value="true" />
-      <created>1734360732791</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1734360732791</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -75,26 +70,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Эксперименты" />
-    <option name="LAST_COMMIT_MESSAGE" value="Эксперименты" />
+    <MESSAGE value="Добавлена карта + изменен игрок" />
+    <MESSAGE value="Жаворонков Егор: В ТЗ добавлена структура проекта и кода" />
+    <MESSAGE value="начало" />
+    <option name="LAST_COMMIT_MESSAGE" value="начало" />
   </component>
 </project>
