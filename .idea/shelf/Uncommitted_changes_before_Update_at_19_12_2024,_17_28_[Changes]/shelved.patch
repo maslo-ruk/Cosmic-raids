@@ -1,0 +1,68 @@
+Index: data/platformer.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\nfrom player import Player\nfrom Block import Block\n\npygame.init()\nsize = width, height = 900, 600\nbottom = pygame.Rect(0, 400, 500, 100)\nleft = pygame.Rect(25, 300, 200, 50)\nprint(left.bottom)\nright = pygame.Rect(275, 300, 200, 50)\nrects = [bottom, right, left]\nborders_x, borders_y = ([0, 400], [0, 400])\nscreen = pygame.display.set_mode(size)\nclock = pygame.time.Clock()\npygame.display.set_caption(\"shariki\")\nrunning = True\nmap = ['-'*30]\ncount = 0\nfor i in range(18):\n    if count % 2 == 1:\n        map.append('-00--00000---000000000-000000-')\n    else:\n        map.append('-0000000000000000000000000000-')\n\n\nclass Bullets(pygame.sprite.Sprite):\n    def __init__(self, start_pos, angle):\n        super().__init__()\n        self.image = pygame.Surface((5, 5))\n        self.image.fill('red')\n        self.rect = self.image.get_rect(center=start_pos)\n        self.angle = angle\n\n    def update(self):\n        # Двигаем линию в зависимости от угла\n        self.rect.x += 10 * self.angle[0]\n        self.rect.y += 10 * self.angle[1]\n\n        # Удаляем линию, если она выходит за границы экрана\n        if self.rect.x < 0 or self.rect.x > 1280 or self.rect.y < 0 or self.rect.y > 720:\n            self.kill()\n\n\nall_b = pygame.sprite.Group()\nlines = pygame.sprite.Group()\nplayer = Player()\nright = False\nleft = False\nup = False\nwhile running:\n    tick = clock.tick(60)\n    screen.fill('white')\n    # for y in range(len(map)):\n    #     for x in range(len(map[y])):\n    #         pos = y * 30, x * 30\n    #         if map[y][x] == '-':\n    #             block.place(pos)\n\n    for rect in rects:\n        pygame.draw.rect(screen, 'green', rect)\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_d]:\n        right = True\n    else:\n        right = False\n    if keys[pygame.K_a]:\n        left = True\n    else:\n        left = False\n    if keys[pygame.K_SPACE]:\n        up = True\n    else:\n        up = False\n    # tick = clock.tick(60)\n    screen.fill('blue')\n    for rect in rects:\n        pygame.draw.rect(screen, 'green', rect)\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n        if event.type == pygame.MOUSEBUTTONDOWN:\n            if event.button == 1:\n                mouse_x, mouse_y = pygame.mouse.get_pos()\n                dx = mouse_x - player.rect.x\n                dy = mouse_y - player.rect.y\n                angle = (dx, dy)\n                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль\n                    norm = (dx ** 2 + dy ** 2) ** 0.5\n                    direction = (dx / norm, dy / norm)\n                    line = Bullets(player.rect.center, direction)\n                    all_b.add(line)\n                    lines.add(line)\n\n\n    player.update(right, left, up, rects)\n    screen.blit(player.image, (player.rect.x, player.rect.y))\n    pygame.display.flip()\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/platformer.py b/data/platformer.py
+--- a/data/platformer.py	(revision ca9db44f241f24a3931e1d7b8e6539b0c8ab6be9)
++++ b/data/platformer.py	(date 1734361190926)
+@@ -49,7 +49,7 @@
+ up = False
+ while running:
+     tick = clock.tick(60)
+-    screen.fill('white')
++    screen.fill('blue')
+     # for y in range(len(map)):
+     #     for x in range(len(map[y])):
+     #         pos = y * 30, x * 30
+@@ -61,6 +61,18 @@
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             running = False
++        if event.type == pygame.MOUSEBUTTONDOWN:
++            if event.button == 1:
++                mouse_x, mouse_y = pygame.mouse.get_pos()
++                dx = mouse_x - player.rect.x
++                dy = mouse_y - player.rect.y
++                angle = (dx, dy)
++                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
++                    norm = (dx ** 2 + dy ** 2) ** 0.5
++                    direction = (dx / norm, dy / norm)
++                    line = Bullets(player.rect.center, direction)
++                    all_b.add(line)
++                    lines.add(line)
+ 
+     keys = pygame.key.get_pressed()
+     if keys[pygame.K_d]:
+@@ -75,27 +87,9 @@
+         up = True
+     else:
+         up = False
+-    # tick = clock.tick(60)
+-    screen.fill('blue')
+-    for rect in rects:
+-        pygame.draw.rect(screen, 'green', rect)
+-    for event in pygame.event.get():
+-        if event.type == pygame.QUIT:
+-            running = False
+-        if event.type == pygame.MOUSEBUTTONDOWN:
+-            if event.button == 1:
+-                mouse_x, mouse_y = pygame.mouse.get_pos()
+-                dx = mouse_x - player.rect.x
+-                dy = mouse_y - player.rect.y
+-                angle = (dx, dy)
+-                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
+-                    norm = (dx ** 2 + dy ** 2) ** 0.5
+-                    direction = (dx / norm, dy / norm)
+-                    line = Bullets(player.rect.center, direction)
+-                    all_b.add(line)
+-                    lines.add(line)
+-
+ 
+     player.update(right, left, up, rects)
++    all_b.draw(screen)
+     screen.blit(player.image, (player.rect.x, player.rect.y))
++    lines.update()
+     pygame.display.flip()
