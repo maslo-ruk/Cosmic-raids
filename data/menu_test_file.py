@@ -1,6 +1,5 @@
 # Тест меню
 import pygame
-import Menu_fon
 from data.buttons import Button
 
 # pygame setup
@@ -11,14 +10,16 @@ height = screen_info.current_h #высота
 
 increase_byx = (width / 631) #увеличение по x и y
 increase_byy = (height / 330)
-# print("Ширина экрана:", width)
-# print("Высота экрана:", height)
+print("Ширина экрана:", width)
+print("Высота экрана:", height)
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
 start_button = Button(0, 0, width, height, '', "../images/start_textures.png", "../images/start_textures2.png", '',
-                           (643, 893), (307, 578))
+                           (643*(width/1536), 893*(width/1536)), (307*(height/864), 578*(height/854)), False)
 new_game_button = Button(0, 0, width, height, '', "../images/newGametextures.png", "../images/newGametextures2.png", '',
                            (610, 922), (612, 727))
+settings_button = Button(0, 0, width, height, '', "../images/menu_textures.png", "../images/menu_textures2.png", '',
+                           (37, 143), (40, 154))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Тестовое меню")
 running = True
@@ -30,6 +31,11 @@ while running:
             pygame.quit()
             exit()
         start_button.events(event)
+        new_game_button.events(event)
+        settings_button.events(event)
+        # if settings_button.events(event) == False:
+        #     pygame.quit()
+        #     exit()
             # выход через esc
     fon = pygame.image.load("../images/Space_sky.png")
     fon = pygame.transform.scale(fon, (width, height))
@@ -62,16 +68,9 @@ while running:
     start_button.draw(screen)
     new_game_button.check_mishka(pygame.mouse.get_pos())
     new_game_button.draw(screen)
+    settings_button.check_mishka(pygame.mouse.get_pos())
+    settings_button.draw(screen)
     pygame.display.flip()
-    # new_game_button = pygame.image.load("../images/newGametextures.png")
-    # new_game_button = pygame.transform.scale(new_game_button, (width, height))
-    # screen.blit(new_game_button, (0, 0))
-    # # start_button = pygame.image.load("../images/start_textures.png")
-    # start_button = pygame.transform.scale(start_button, (width, height))
-    # # screen.blit(start_button, (0, 0))
-    # settings = pygame.image.load("../images/menu_textures.png")
-    # settings = pygame.transform.scale(settings, (width, height))
-    # screen.blit(settings, (0, 0))
     dt = clock.tick(30) / 1000
 
 pygame.quit()
