@@ -15,7 +15,7 @@ print("Высота экрана:", height)
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
 start_button = Button(0, 0, width, height, '', "../images/start_textures.png", "../images/start_textures2.png", '',
-                           (643*(width/1536), 893*(width/1536)), (307*(height/864), 578*(height/854)), False)
+                           (643*(width/1536), 893*(width/1536)), (307*(height/864), 578*(height/854)))
 new_game_button = Button(0, 0, width, height, '', "../images/newGametextures.png", "../images/newGametextures2.png", '',
                            (610, 922), (612, 727))
 settings_button = Button(0, 0, width, height, '', "../images/menu_textures.png", "../images/menu_textures2.png", '',
