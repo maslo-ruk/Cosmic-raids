@@ -12,7 +12,8 @@ def main():
     runi = True
     while runi:
         current_scene.run()
+    pygame.quit()
 
 
 if __name__ == '__main__':
-    main()
+    main() 
