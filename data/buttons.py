@@ -36,7 +36,6 @@ class Button:
         screen.blit(text_sur, text_rect)
 
     def check_mishka(self, mouse_pos):
-        # print(mouse_pos)
         if self.diapaz_x and self.diapaz_y:
             if int(mouse_pos[0]) > int(self.diapaz_x[0]) and int(mouse_pos[0]) < int(self.diapaz_x[1]) and int(mouse_pos[1]) > int(self.diapaz_y[0]) and int(mouse_pos[1]) < int(self.diapaz_y[1]):
                 self.mishka_on = True
@@ -46,8 +45,7 @@ class Button:
             self.mishka_on = self.rect.collidepoint(mouse_pos)
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.mishka_on:
+            print("Вы нажали кнопку^^")
             if self.sound:
                 self.sound.play()
             pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
-            print("Привета")
-            print("лоаыва")
