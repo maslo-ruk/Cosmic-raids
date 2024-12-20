@@ -51,6 +51,5 @@ class Button:
             if self.sound:
                 self.sound.play()
             pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
-            # if self.flag:
-            #     return False
+            return True
 
