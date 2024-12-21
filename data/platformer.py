@@ -78,15 +78,15 @@ class Platformer(Scene):
                     pygame.quit()
                     break
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
+                    if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
-                if event.type == self.SHOOTEVENT:
+                        self.player.count -= 1
+                if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)
             if keys[pygame.K_d]:
                 right = True
-                print('a')
             else:
                 right = False
             if keys[pygame.K_a]:
