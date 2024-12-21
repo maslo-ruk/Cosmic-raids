@@ -1,8 +1,7 @@
 #тест среда для баннера
 import pygame
 from data.buttons import Button
-from pygame import display, movie
-from pyvidplayer import Video
+# from pyvidplayer import VideoPlayer
 
 
 pygame.init()
@@ -17,23 +16,10 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 pygame.display.set_caption("Тестовый баннер")
 running = True
+# animation = VideoPlayer("../videos/test.mp4")
 
-def banner_animation():
-    movie = pygame.movie.Movie("../videos/test.mp4")
-    screen = pygame.display.set_mode(movie.get_size())
-    movie_screen = pygame.Surface(movie.get_size()).convert()
-    movie.set_display(movie_screen)
-    movie.play()
-    playing = True
-    while playing:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                movie.stop()
-                playing = False
-        screen.blit(movie_screen, (0, 0))
-        pygame.display.update()
-        clock.tick(FPS)
-    pygame.quit()
+# def banner_animation():
+#     animation.play_video()
 
 
 def main_banner():
@@ -61,8 +47,8 @@ def main_banner():
             if close.events(event):
                 pygame.quit()
                 exit()
-            # if do_it_1.events(event):
-            #     banner_animation()
+            if do_it_1.events(event):
+                pass
             if keys[pygame.K_ESCAPE]:
                 pygame.quit()
                 exit()
@@ -86,4 +72,4 @@ def main_banner():
         dt = clock.tick(30) / 1000
 
     pygame.quit()
-banner_animation()
+main_banner()
