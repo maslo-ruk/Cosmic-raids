@@ -7,7 +7,7 @@ SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 JUMPSPEED = 14
 GRAVI = 0.8
-COLOR = 'red'
+COLOR = 'green'
 POS = (250, 200)
 
 
@@ -23,7 +23,7 @@ class Entity(pygame.sprite.Sprite):
         self.pos = pos
         self.rect = pygame.Rect(self.pos, self.size)
         self.image = pygame.Surface(self.size)
-        self.image.fill(COLOR)
+
         self.col1 = False
         self.col2 = False
         self.all_b = pygame.sprite.Group()
@@ -55,6 +55,7 @@ class Player(Entity):
         self.x_speed = SPEED
         self.kolvo = 5
         self.count = self.kolvo
+        self.image.fill('green')
 
 
     def update(self, screen, a, b, c, rects):
@@ -102,6 +103,7 @@ class Player(Entity):
 class Enemy(Entity):
     def __init__(self, pos):
         super().__init__(pos)
+        self.image.fill('red')
 
 
     def update(self, screen, rects):
