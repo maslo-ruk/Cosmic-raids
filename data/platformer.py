@@ -101,10 +101,11 @@ class Platformer(Scene):
                 self.player.count = self.player.kolvo
 
 
-            self.player.update(self.screen, right, left, up, self.blocks)
+            if self.player.is_alive:
+                self.player.update(self.screen, right, left, up, self.blocks)
+                self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             for i in self.Enemies:
                 i.update(self.screen, self.blocks)
                 self.screen.blit(i.image, (i.rect.x, i.rect.y))
-            self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
         pygame.quit()

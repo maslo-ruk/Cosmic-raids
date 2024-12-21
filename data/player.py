@@ -2,7 +2,7 @@ import pygame
 from data.Block import Block
 
 WIDTH = 30
-HEIGHT = 45
+HEIGHT = 60
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 JUMPSPEED = 14
@@ -50,8 +50,6 @@ class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1)
         self.x_speed = SPEED
-        self.kolvo = 5
-        self.count = self.kolvo
 
 
     def update(self, screen, a, b, c, rects):
@@ -88,11 +86,6 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
-
-    def shoot(self, dest_x, dest_y):
-        if self.count > 0:
-            super().shoot(dest_x, dest_y)
-            self.count -= 1
 
     def collides(self, rects: list[Block]):
         for i in rects:
