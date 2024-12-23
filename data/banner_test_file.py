@@ -1,7 +1,6 @@
 #тест среда для баннера
 import pygame
 from data.buttons import Button
-# from pyvidplayer import VideoPlayer
 
 
 pygame.init()
@@ -11,16 +10,11 @@ height = screen_info.current_h #высота
 
 increase_byx = (width / 631) #увеличение по x и y
 increase_byy = (height / 330)
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((width, height))
 
 clock = pygame.time.Clock()
 pygame.display.set_caption("Тестовый баннер")
 running = True
-# animation = VideoPlayer("../videos/test.mp4")
-
-# def banner_animation():
-#     animation.play_video()
-
 
 def main_banner():
     fon = pygame.image.load("../images/for_banner/fone_for_banner_test.png")
@@ -44,19 +38,18 @@ def main_banner():
     while running:
         keys = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if close.events(event):
-                pygame.quit()
-                exit()
-            if do_it_1.events(event):
-                pass
             if keys[pygame.K_ESCAPE]:
                 pygame.quit()
                 exit()
-
-            do_it_1.events(event)
-            do_it_10.events(event)
-            shoping.events(event)
-            close.events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                close.events()
+                do_it_1.events()
+                if close.events():
+                    exit()
+            do_it_1.events()
+            do_it_10.events()
+            shoping.events()
+            close.events()
             # выход через esc
         screen.blit(fon, (0, 0))
         screen.blit(banner, (0, 0))
@@ -72,4 +65,3 @@ def main_banner():
         dt = clock.tick(30) / 1000
 
     pygame.quit()
-main_banner()
