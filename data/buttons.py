@@ -45,8 +45,8 @@ class Button:
                 self.mishka_on = False
         else:
             self.mishka_on = self.rect.collidepoint(mouse_pos)
-    def events(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.mishka_on:
+    def events(self):
+        if self.mishka_on:
             print("Вы нажали кнопку^^")
             if self.sound:
                 self.sound.play()
