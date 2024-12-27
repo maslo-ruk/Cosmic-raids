@@ -23,6 +23,7 @@ class Platformer(Scene):
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
+        self.MOVEEVENT = pygame.USEREVENT + 1
 
     def make_map(self):
         self.map = ['------------------------------',
@@ -68,6 +69,7 @@ class Platformer(Scene):
         left = False
         up = False
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
+        pygame.time.set_timer(self.MOVEEVENT, 2000)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -79,21 +81,15 @@ class Platformer(Scene):
                     break
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        # mouse_x, mouse_y = pygame.mouse.get_pos()
-                        # dx = mouse_x - self.player.rect.x
-                        # dy = mouse_y - self.player.rect.y
-                        # angle = (dx, dy)
-                        # if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
-                        #     norm = (dx ** 2 + dy ** 2) ** 0.5
-                        #     direction = (dx / norm, dy / norm)
-                        #     line = Bullets(self.player.rect.center, direction)
-                        #     all_b.add(line)
-                        #     lines.add(line)
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                 if event.type == self.SHOOTEVENT:
                     for i in self.Enemies:
-                        i.shoot(self.player.rect.x, self.player.rect.y)
+                        if i.see_player:
+                            i.shoot(self.player.rect.x, self.player.rect.y)
+                if event.type == self.MOVEEVENT:
+                    for i in self.Enemies:
+                        i.random_move()
             if keys[pygame.K_d]:
                 right = True
                 print('a')
@@ -108,10 +104,11 @@ class Platformer(Scene):
             else:
                 up = False
 
-            self.player.update(self.screen, right, left, up, self.blocks)
+            if self.player.is_alive:
+                self.player.update(self.screen, right, left, up, self.blocks)
+                self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             for i in self.Enemies:
-                i.update(self.screen, self.blocks)
+                i.update(self.screen, self.blocks, self.player.rect)
                 self.screen.blit(i.image, (i.rect.x, i.rect.y))
-            self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
         pygame.quit()

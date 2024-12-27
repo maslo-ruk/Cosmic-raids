@@ -12,9 +12,9 @@ POS = (250, 200)
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, pos):
+    def __init__(self, pos, speed):
         super().__init__()
-        self.hp = 15
+        self.hp = 10
         self.x_speed = SPEED
         self.xvel = 0
         self.y_speed = 0
@@ -28,10 +28,11 @@ class Entity(pygame.sprite.Sprite):
         self.col2 = False
         self.all_b = pygame.sprite.Group()
         self.lines = pygame.sprite.Group()
+        self.is_alive = True
 
     def update(self, *args, **kwargs):
         if self.hp <= 0:
-            self.kill()
+            self.die()
 
     def shoot(self, dest_x, dest_y):
         from data.Projectiles import Bullets
@@ -45,12 +46,22 @@ class Entity(pygame.sprite.Sprite):
             self.all_b.add(line)
             self.lines.add(line)
 
+    def die(self):
+        self.is_alive = False
+        self.kill()
+
+    def collides(self, rects: list[Block]):
+        for i in rects:
+            if self.rect.colliderect(i.rect) and i.rect != self.rect:
+                return i.rect
+        return False
+
 
 class Player(Entity):
     def __init__(self, POS1):
-        super().__init__(POS1)
-        self.x_speed = SPEED
+        super().__init__(POS1, SPEED)
 
+        self.x_speed = SPEED
 
     def update(self, screen, a, b, c, rects):
         super().update()
@@ -87,19 +98,58 @@ class Player(Entity):
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
 
-    def collides(self, rects: list[Block]):
-        for i in rects:
-            if self.rect.colliderect(i.rect) and i.rect != self.rect:
-                return i.rect
-        return False
+
+
+ENEMY_SPEED = 2
 
 
 class Enemy(Entity):
-    def __init__(self, pos):
-        super().__init__(pos)
-        print(self.pos)
+        def __init__(self, pos):
+            super().__init__(pos, ENEMY_SPEED)
+            self.x_speed = ENEMY_SPEED
+            self.hp = 5
+            self.x_vision = 12
+            self.y_vision = 4
+            self.x_shooting = 6
+            self.randdir = 0
+            self.rand_stat = False
+            self.see_player = False
 
-    def update(self, screen, rects):
-        super().update()
-        self.lines.update(rects, self.rect)
-        self.all_b.draw(screen)
+        def update(self, screen, rects, player_pos):
+            super().update()
+            if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
+                    self.rect.y - player_pos.y) <= self.y_vision * 30:
+                if abs(self.rect.x - player_pos.x) > self.x_shooting * 30:
+                    self.see_player = False
+                    if self.rect.x < player_pos.x:
+                        self.xvel = 1
+                    elif self.rect.x > player_pos.x:
+                        self.xvel = -1
+                    else:
+                        self.xvel = 0
+                else:
+                    self.see_player = True
+                    self.xvel = 0
+            else:
+                self.see_player = False
+                self.xvel = 0
+                self.move_to_player(self.randdir, rects)
+            self.move_to_player(self.xvel, rects)
+            self.lines.update(rects, self.rect)
+            self.all_b.draw(screen)
+
+        def move_to_player(self, vel, rects):
+            self.rect.x += self.x_speed * vel
+            self.col1 = self.collides(rects)
+            if self.col1 and (vel > 0):
+                self.rect.right = self.col1.left
+            if self.col1 and (vel < 0):
+                self.rect.left = self.col1.right
+
+        def random_move(self):
+            import random
+            self.rand_stat = not self.rand_stat
+            if self.rand_stat:
+                self.randdir = random.choice([0.4, -0.4])
+            else:
+                self.randdir = 0
