@@ -23,6 +23,7 @@ class Platformer(Scene):
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
+        self.RELOADEVENT = pygame.USEREVENT + 1
 
     def make_map(self):
         self.map = ['------------------------------',
@@ -68,6 +69,7 @@ class Platformer(Scene):
         left = False
         up = False
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
+        pygame.time.set_timer(self.RELOADEVENT, 2000)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -85,6 +87,9 @@ class Platformer(Scene):
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)
+                if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
+                    self.player.count += 1
+                    print(self.player.count)
             if keys[pygame.K_d]:
                 right = True
             else:
@@ -97,8 +102,8 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
-            if keys[pygame.K_r]:
-                self.player.count = self.player.kolvo
+            # if keys[pygame.K_r]:
+            #     self.player.count = self.player.kolvo
 
 
             if self.player.is_alive:
