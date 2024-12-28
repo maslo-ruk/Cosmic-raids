@@ -9,6 +9,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
 
+
     def update(self):
         # Двигаем линию в зависимости от угла
         self.rect.x += 10 * self.angle[0]
@@ -23,7 +24,7 @@ class Bullets(pygame.sprite.Sprite):
     def __init__(self, start_pos, angle):
         super().__init__()
         self.image = pygame.Surface((5, 5))
-        self.image.fill('red')
+        self.image.fill('pink')
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
 

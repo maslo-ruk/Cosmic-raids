@@ -60,8 +60,10 @@ class Entity(pygame.sprite.Sprite):
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
-
         self.x_speed = SPEED
+        self.kolvo = 5
+        self.count = self.kolvo
+
 
     def update(self, screen, a, b, c, rects):
         super().update()
@@ -98,10 +100,7 @@ class Player(Entity):
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
 
-
-
 ENEMY_SPEED = 2
-
 
 class Enemy(Entity):
         def __init__(self, pos):

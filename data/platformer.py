@@ -24,6 +24,7 @@ class Platformer(Scene):
         self.blocks_map = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
         self.MOVEEVENT = pygame.USEREVENT + 1
+        self.RELOADEVENT = pygame.USEREVENT + 1
 
     def make_map(self):
         self.map = ['------------------------------',
@@ -70,6 +71,7 @@ class Platformer(Scene):
         up = False
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MOVEEVENT, 2000)
+        pygame.time.set_timer(self.RELOADEVENT, 2000)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -80,19 +82,22 @@ class Platformer(Scene):
                     pygame.quit()
                     break
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
+                    if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
-                if event.type == self.SHOOTEVENT:
+                        self.player.count -= 1
+                if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
                             i.shoot(self.player.rect.x, self.player.rect.y)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
                         i.random_move()
+                if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
+                    self.player.count += 1
+                    print(self.player.count)
             if keys[pygame.K_d]:
                 right = True
-                print('a')
             else:
                 right = False
             if keys[pygame.K_a]:
@@ -103,6 +108,9 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
+            # if keys[pygame.K_r]:
+            #     self.player.count = self.player.kolvo
+
 
             if self.player.is_alive:
                 self.player.update(self.screen, right, left, up, self.blocks)
