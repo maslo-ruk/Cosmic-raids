@@ -100,7 +100,7 @@ class Player(Entity):
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
 
-ENEMY_SPEED = 2
+ENEMY_SPEED = 3.5
 
 class Enemy(Entity):
         def __init__(self, pos):
