@@ -46,8 +46,8 @@ def main_banner():
                 do_it_1.events()
                 if close.events():
                     exit()
-            do_it_1.events()
-            do_it_10.events()
+                do_it_1.events()
+                do_it_10.events()
             shoping.events()
             close.events()
             # выход через esc
@@ -65,3 +65,4 @@ def main_banner():
         dt = clock.tick(30) / 1000
 
     pygame.quit()
+main_banner()
