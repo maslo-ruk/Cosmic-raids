@@ -161,12 +161,12 @@ class Video:
         self.is_muted = False
         self.__ff.set_volume(self.__volume_before_mute)
 
-    @property
+
     def volume(self) -> float:
         """ Volume of the audio playback. """
         return self.__volume
 
-    @volume.setter
+
     def volume(self, value: float) -> None:
         self.__volume = value
         if not self.is_muted:
@@ -174,28 +174,28 @@ class Video:
 
     # Duration methods & properties
 
-    @property
+
     def duration(self) -> float:
         """ Total duration of the video in milliseconds. """
         return (self.total_frames / self.fps) * 1000
 
-    @property
+
     def current_time(self) -> float:
         """ Current time into the video in milliseconds. """
         if not self.is_ready or not self.is_playing: return 0
         return self.__vidcap.get(cv2.CAP_PROP_POS_MSEC)
 
-    @property
+
     def remaining_time(self) -> float:
         """ Remaining time left in the video in milliseconds. """
         return self.duration - self.current_time
 
-    @property
+
     def current_frame(self) -> int:
         """ Current frame into the video. """
         return self.__vidcap.get(cv2.CAP_PROP_POS_FRAMES)
 
-    @property
+
     def remaining_frames(self) -> int:
         """ Remaining frames left in the video. """
         return self.frame_count - self.current_frame
