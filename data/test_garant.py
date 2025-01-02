@@ -62,13 +62,23 @@ class Crutki(Wishes):
             else:
                 print("На 50ой крутке")
                 self.otcricheno_do_legi = 0
+            print(self.otcricheno_do_chetvirki)
+            print(self.otcricheno_do_legi)
+    def do_it_10(self):
+        for i in range(10):
+            self.do_it_1()
 
 
-molitva = Crutki()
+
+
 a = int(input())
+molitva = Crutki()
 while a != 3:
     if a == 1:
         molitva.do_it_1()
+        a = int(input())
+    elif a == 10:
+        molitva.do_it_10()
         a = int(input())
     else:
         break
