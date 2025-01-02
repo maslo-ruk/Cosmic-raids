@@ -1,6 +1,7 @@
 #тест среда для баннера
 import pygame
 from data.buttons import Button
+from test_garant import Wishes, Crutki
 
 
 pygame.init()
@@ -17,6 +18,7 @@ pygame.display.set_caption("Тестовый баннер")
 running = True
 
 def main_banner():
+    crutki = Crutki()
     fon = pygame.image.load("../images/for_banner/fone_for_banner_test.png")
     fon = pygame.transform.scale(fon, (width, height))
     screen.blit(fon, (0, 0))
@@ -46,8 +48,10 @@ def main_banner():
                 do_it_1.events()
                 if close.events():
                     exit()
-                do_it_1.events()
-                do_it_10.events()
+                elif do_it_1.events():
+                    crutki.do_it_1()
+                elif do_it_10.events():
+                    crutki.do_it_10()
             shoping.events()
             close.events()
             # выход через esc

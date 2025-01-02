@@ -70,15 +70,3 @@ class Crutki(Wishes):
 
 
 
-
-a = int(input())
-molitva = Crutki()
-while a != 3:
-    if a == 1:
-        molitva.do_it_1()
-        a = int(input())
-    elif a == 10:
-        molitva.do_it_10()
-        a = int(input())
-    else:
-        break
