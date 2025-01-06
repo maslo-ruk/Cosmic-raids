@@ -1,7 +1,7 @@
 import pygame
 from data.player import Player, Enemy
 from data.Block import Block
-from data.Projectiles import Bullets
+from data.projectiles import Bullets
 
 pygame.init()
 
@@ -32,7 +32,7 @@ class Platformer(Scene):
                     '-0000000000000000000000000000-',
                     '-000000000000-----00000000000-',
                     '-0000000000000000000000000000-',
-                    '-----00000000000000000000000000-',
+                    '-----000000000000000000000000-',
                     '-0000000000000000000000000000-',
                     '-0000000000000000000000000000-',
                     '-000000000---0000000000000000-',
@@ -84,6 +84,10 @@ class Platformer(Scene):
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         self.player.count -= 1
+                    elif event.button == 2:
+                        dest_x, dest_y = pygame.mouse.get_pos()
+                        self.player.throw(200, dest_x, dest_y)
+                        print('sfd')
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)

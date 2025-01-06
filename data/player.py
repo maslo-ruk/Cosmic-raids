@@ -37,7 +37,7 @@ class Entity(pygame.sprite.Sprite):
             self.is_alive = False
 
     def shoot(self, dest_x, dest_y):
-        from data.Projectiles import Bullets
+        from data.projectiles import Bullets
         dx = dest_x - self.rect.x
         dy = dest_y - self.rect.y
         angle = (dx, dy)
@@ -48,6 +48,21 @@ class Entity(pygame.sprite.Sprite):
             self.all_b.add(line)
             self.lines.add(line)
 
+    def throw(self, velocity, dest_x, dest_y):
+        from data.projectiles import Grenade
+        dx = dest_x - self.rect.centerx
+        dy = dest_y - self.rect.centery
+        norm = (dx ** 2 + dy ** 2) ** 0.5
+
+        if norm != 0:  # Проверка для избежания деления на ноль
+            direction = (dx / norm, dy / norm)
+
+            self.velocity_x = velocity * dx / norm
+            self.velocity_y = -velocity * dy / norm
+            self.is_launched = True
+            self.time = 0  # сброс времени для нового броска
+            grenade = Grenade(self.rect.center, direction)
+            self.all_b.add(grenade)
 
 class Player(Entity):
     def __init__(self, POS1):
@@ -56,6 +71,7 @@ class Player(Entity):
         self.kolvo = 5
         self.count = self.kolvo
         self.image.fill('green')
+
 
 
     def update(self, screen, a, b, c, rects):

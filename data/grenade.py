@@ -11,20 +11,58 @@ pygame.display.set_caption("Бросок квадрата")
 
 # Цвета
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+GREEN = (130, 108, 52)
 
 # Параметры движения
-x = 100  # начальная позиция по x
-y = height  # начальная позиция по y
-angle = 90  # угол броска в градусах
-velocity = 0  # начальная скорость
-gravity = 10  # ускорение свободного падения
-time = 0  # время
-is_launched = False  # флаг, указывающий, был ли осуществлен бросок
-flag = False
+class Square(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.Surface((50, 50))  # создаем квадрат размером 50x50
+        self.image.fill(GREEN)  # заполняем его синим цветом
+        self.rect = self.image.get_rect(center=(x, y))  # устанавливаем начальную позицию
+
+        self.velocity_x = 0  # начальная скорость по x
+        self.velocity_y = 0  # начальная скорость по y
+        self.gravity = 10  # ускорение свободного падения
+        self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
+        self.time = 0  # время
+
+    def launch(self, velocity, mouse_x, mouse_y):
+        dx = mouse_x - self.rect.centerx
+        dy = mouse_y - self.rect.centery
+        norm = (dx ** 2 + dy ** 2) ** 0.5
+        if norm != 0:  # Проверка для избежания деления на ноль
+            self.velocity_x = velocity * dx / norm
+            self.velocity_y = -velocity * dy / norm
+            self.is_launched = True
+            self.time = 0  # сброс времени для нового броска
+
+    def update(self):
+        if self.is_launched:
+            self.time += 0.1  # обновление времени
+            # Обновление положения квадрата
+            self.rect.x += self.velocity_x * 0.1
+            self.rect.y += self.velocity_y * 0.1 + 0.5 * self.gravity * self.time ** 2
+
+            # Проверка на рикошет
+            if self.rect.y >= height - 50:
+                self.rect.y = height - 50
+                self.velocity_x *= 0.9
+                self.velocity_y = -self.velocity_y * 0.7  # уменьшение скорости при рикошете
+                self.time = 0  # сброс времени для рикошета
+
+            # Если квадрат упал достаточно низко, сбрасываем флаг
+            if self.rect.y >= height - 50 and abs(self.velocity_y) < 1:
+                self.is_launched = False
+
+# Создаем спрайт и группу спрайтов
+square = Square(25, height - 25)  # начальная позиция по y - ниже на 50
+all_sprites = pygame.sprite.Group()
+all_sprites.add(square)
 
 # Основной цикл
 running = True
+flag = False
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -35,51 +73,19 @@ while running:
                 # Установка начальных параметров броска
                 velocity = 200  # начальная скорость
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                dx = mouse_x - x
-                dy = mouse_y - y
-                angle = (dx, dy)
-                print(angle)
-                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
-                    norm = (dx ** 2 + dy ** 2) ** 0.5
-                    # direction = (dx / norm, dy / norm)
-                    # print(direction)
-                # angle_rad = math.radians(angle)
-
-                # Начальные скорости
-                velocity_x = velocity * dx / norm
-                velocity_y = -velocity * dy / norm
-                time = 0  # сброс времени для нового броска
-                is_launched = True  # устанавливаем флаг броска
+                square.launch(velocity, mouse_x, mouse_y)
 
     # Очистка экрана
     screen.fill(WHITE)
 
-    if is_launched:
-        # Обновление времени
-        time += 0.1
+    # Обновление спрайтов
+    all_sprites.update()
 
-        # Обновление положения квадрата
-        x += velocity_x * 0.1
-        y += velocity_y * 0.1 + 0.5 * gravity * time ** 2
-
-        # Проверка на рикошет
-        if y >= height - 50:
-            y = height - 50
-            velocity_x = velocity_x * 0.9
-            velocity_y = -velocity_y * 0.7  # уменьшение скорости при рикошете
-            time = 0  # сброс времени для рикошета
-
-        # Отрисовка квадрата
-        pygame.draw.rect(screen, BLUE, (x, y, 50, 50))
-
-        # Если квадрат упал достаточно низко, сбрасываем флаг
-        if y >= height - 50 and abs(velocity_y) < 1:
-            # is_launched = False
-            flag = False
+    # Отрисовка всех спрайтов
+    all_sprites.draw(screen)
 
     # Обновление экрана
     pygame.display.flip()
     pygame.time.delay(30)
-
 
 pygame.quit()
