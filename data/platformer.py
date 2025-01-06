@@ -2,6 +2,7 @@ import pygame
 from data.player import Player, Enemy
 from data.Block import Block
 from data.Projectiles import Bullets
+from data.map_generator import *
 
 pygame.init()
 
@@ -42,16 +43,19 @@ class Platformer(Scene):
                     '-00000000000000000000----0000-',
                     '-0000000000000000000000000000-',
                     '-0000000000000000000000000000-',
-                    '-0000000-----0000000000000000-',
+                    '-0000000000000000000000000000-',
                     '-0000000000000000000000000000-',
                     '-0000000000000000000000000000-',
                     '-0000000000000000000000000000-',
                     '------------------------------']
+        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
+        strategy = Platforms(room, 7)
+        self.map = strategy.all()
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
                 pos = (j * 30, i * 30)
-                if string[j] == '-':
+                if string[j] == '-' or string[j] == '#':
                     block = Block(pos, self.screen)
                     self.blocks.add(block)
                     self.blocks_map.add(block)
@@ -86,6 +90,7 @@ class Platformer(Scene):
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         self.player.count -= 1
+                    print(self.player.rect.right, self.player.rect.bottom)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
