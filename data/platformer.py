@@ -28,29 +28,26 @@ class Platformer(Scene):
         self.RELOADEVENT = pygame.USEREVENT + 1
 
     def make_map(self):
-        self.map = ['------------------------------',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000-------00000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '---00000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-000000000---0000000000000000-',
-                    '-0000000000000000000000000----',
-                    '-00000000000000---00000000000-',
-                    '-00000000000000000000----0000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '-0000000000000000000000000000-',
-                    '------------------------------']
+        self.map_y = []
+        for i in range(self.size[1] // 30):
+            if i == 0 or i == self.size[1] // 30 - 1:
+                self.map_y.append('#' * (self.size[0] // 30))
+            else:
+                self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
         room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
         strategy = Platforms(room, 5)
-        self.map = strategy.all()
+        self.map_x = strategy.all()
+        self.map = []
+        for i in self.map_y:
+            print(i)
+        for i in range(len(self.map_x)):
+            new_str = ''
+            for j in range(len(self.map_x[i])):
+                if self.map_x[i][j] == '#':
+                    new_str += self.map_x[i][j]
+                else:
+                    new_str += self.map_y[i][j]
+            self.map.append(new_str)
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
@@ -96,7 +93,8 @@ class Platformer(Scene):
                             i.shoot(self.player.rect.x, self.player.rect.y)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
-                        i.random_move()
+                        if not i.unseed:
+                            i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
                     print(self.player.count)

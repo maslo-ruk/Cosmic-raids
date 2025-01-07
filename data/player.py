@@ -111,13 +111,16 @@ class Enemy(Entity):
             self.y_vision = 4
             self.x_shooting = 6
             self.randdir = 0
+            self.unseed = True
             self.rand_stat = False
             self.see_player = False
+            self.inair = True
 
         def update(self, screen, rects, player_pos):
             super().update()
             if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                     self.rect.y - player_pos.y) <= self.y_vision * 30:
+                self.unseed = True
                 if abs(self.rect.x - player_pos.x) > self.x_shooting * 30:
                     self.see_player = False
                     if self.rect.x < player_pos.x:
@@ -131,24 +134,44 @@ class Enemy(Entity):
                     self.xvel = 0
             else:
                 self.see_player = False
-                self.xvel = 0
+                if self.unseed:
+                    self.unseed = False
+                    self.xvel = 0
                 self.move_to_player(self.randdir, rects)
+
             self.move_to_player(self.xvel, rects)
+            self.fall(rects)
             self.lines.update(rects, self.rect)
             self.all_b.draw(screen)
 
         def move_to_player(self, vel, rects):
-            self.rect.x += self.x_speed * vel
+            self.rect.x += self.x_speed * self.xvel
             self.col1 = self.collides(rects)
-            if self.col1 and (vel > 0):
+            if self.col1 and (self.xvel > 0):
                 self.rect.right = self.col1.left
-            if self.col1 and (vel < 0):
+            if self.col1 and (self.xvel < 0):
                 self.rect.left = self.col1.right
+
+        def fall(self, rects):
+            if self.inair:
+                self.y_speed += GRAVI
+            self.rect.y += self.y_speed
+            self.col2 = self.collides(rects)
+            if self.col2 and (self.y_speed < 0):
+                self.rect.top = self.col2.bottom
+                self.y_speed = 0
+            if self.col2 and (self.y_speed > 0):
+                self.rect.bottom = self.col2.top
+                self.y_speed = 0
+                self.inair = False
+            if not self.col2:
+                self.inair = True
+
 
         def random_move(self):
             import random
             self.rand_stat = not self.rand_stat
             if self.rand_stat:
-                self.randdir = random.choice([0.4, -0.4])
+                self.xvel = random.choice([0.4, -0.4])
             else:
-                self.randdir = 0
+                self.xvel = 0
