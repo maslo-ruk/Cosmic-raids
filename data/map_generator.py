@@ -10,7 +10,7 @@ g = GRAVI
 WIDTH = 30
 HEIGHT = 30
 COLOR = pygame.Color(215, 215, 215)
-CELL_SIZE = 1
+CELL_SIZE = 30
 
 
 class Cell:
@@ -39,6 +39,9 @@ class Platform:
     def __init__(self, cells : list[Cell]):
         self.cells = cells
         self.rect = pygame.Rect(self.cells[0].pos[0], self.cells[0].pos[1], len(self.cells),  1)
+
+    def update(self):
+        self.rect = pygame.Rect(self.cells[0].pos[0], self.cells[0].pos[1], len(self.cells), 1)
 
     def can_get_to(self, platform2):
         n = 0
@@ -122,32 +125,33 @@ class Platforms(Strategy):
     def generate(self):
         length = self.room.width
         height = self.room.height
-        v_step = 3
+        v_step = 4
         h_step = self.av + 4
         v_pos = 0
         h_pos = 0
         cur_grid = random.choice([True, False])
         self.begins = cur_grid
         while v_pos < height:
+            v_pos += v_step
             self.grid_platforms.append([])
             h_pos += int(cur_grid) * (self.av + 2)
             cur_grid = not cur_grid
             while h_pos < length:
                 cells = []
+                if h_pos + self.av >= length:
+                    break
                 for i in range(self.av):
-                    cells.append(Cell(((h_pos + i) * CELL_SIZE, v_pos * CELL_SIZE), 1))
+                    cells.append(Cell(((h_pos + i), v_pos), 1))
                 self.grid_platforms[-1].append(Platform(cells))
-                h_pos += self.av
-                h_pos += h_step
+                h_pos += self.av + h_step
             h_pos = 0
-            v_pos += v_step
 
 
     def choose_and_build(self):
-        plats_count = self.room.height // 5
+        plats_count = 3
         poses = []
         final_poses = set()
-        poses.append((0, -1))
+        poses.append((0, len(self.grid_platforms[0])-1))
         a = list(range(0, len(self.grid_platforms)))
         for i in range(plats_count):
             choice = a.pop(random.randrange(0, len(a)))
@@ -156,8 +160,12 @@ class Platforms(Strategy):
         for y_0, x_0 in poses:
             y = y_0
             x = x_0
+            while y >= len(self.grid_platforms):
+                y -= 1
+            while x >= len(self.grid_platforms[y]):
+                x -= 1
             final_poses.add((y, x))
-            while y > 0:
+            while y < len(self.grid_platforms):
                 if self.begins and y % 2 == 0 or (not self.begins) and y % 2 == 1:
                     if x != self.grid_platforms[y][-1]:
                         m = random.choice([0, 1])
@@ -168,13 +176,27 @@ class Platforms(Strategy):
                         m = random.choice([-1, 0])
                     else:
                         m = 0
-                y -= 1
+                y += 1
+                if y >= len(self.grid_platforms):
+                    break
                 x += m
                 while x >= len(self.grid_platforms[y]):
                     x -= 1
                 final_poses.add((y, x))
         for i, j in final_poses:
-            self.platforms.append(self.grid_platforms[i][j])
+            try:
+                platform = self.grid_platforms[i][j]
+            except Exception:
+                print(i, j)
+            new_len = random.randrange(-self.av, self.av)
+            dir = random.choice([-1, 1])
+            for i in range(new_len):
+                platform.cells.append(Cell((platform.rect.right + dir + i * dir, platform.rect.top), 1))
+            platform.update()
+            self.platforms.append(platform)
+        # for i in self.grid_platforms:
+        #     for j in i:
+        #         self.platforms.append(j)
 
 
     def build_map(self):
@@ -193,9 +215,4 @@ class Platforms(Strategy):
         for i in res:
             print(i)
         return res
-
-
-room = Room(30, 22, (0,0), (25,25))
-strategy = Platforms(room, 4)
-strategy.all()
 

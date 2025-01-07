@@ -2,7 +2,7 @@ import pygame
 from data.Block import Block
 
 WIDTH = 30
-HEIGHT = 60
+HEIGHT = 30
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 JUMPSPEED = 14
@@ -81,15 +81,7 @@ class Player(Entity):
             self.rect.left = self.col1.right
 
         if self.inair:
-            x = True
-            if self.y_speed < 0:
-                x = True
-            else:
-                x = False
             self.y_speed += GRAVI
-            if self.y_speed >= 0 and x:
-                print(self.rect.left, self.rect.bottom)
-                x = False
         if c and not self.inair:
             self.inair = True
             self.y_speed = -JUMPSPEED

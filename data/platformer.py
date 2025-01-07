@@ -49,7 +49,7 @@ class Platformer(Scene):
                     '-0000000000000000000000000000-',
                     '------------------------------']
         room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
-        strategy = Platforms(room, 7)
+        strategy = Platforms(room, 5)
         self.map = strategy.all()
         for i in range(len(self.map)):
             string = self.map[i]
@@ -90,7 +90,6 @@ class Platformer(Scene):
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         self.player.count -= 1
-                    print(self.player.rect.right, self.player.rect.bottom)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
