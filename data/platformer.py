@@ -20,12 +20,14 @@ class Platformer(Scene):
         self.player = Player((300, 200))
         self.Enemies = pygame.sprite.Group()
         self.map = []
+        self.spawns = []
         self.all_collides = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
-        self.MOVEEVENT = pygame.USEREVENT + 1
-        self.RELOADEVENT = pygame.USEREVENT + 1
+        self.MOVEEVENT = pygame.USEREVENT + 2
+        self.RELOADEVENT = pygame.USEREVENT + 3
+        self.SPAWNEVENT = pygame.USEREVENT + 4
 
     def make_map(self):
         self.map_y = []
@@ -35,8 +37,8 @@ class Platformer(Scene):
             else:
                 self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
         room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
-        strategy = Platforms(room, 5)
-        self.map_x = strategy.all()
+        strategy = Platforms(room, 10)
+        self.map_x = strategy.all(self)
         self.map = []
         for i in self.map_y:
             print(i)
@@ -72,7 +74,8 @@ class Platformer(Scene):
         up = False
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MOVEEVENT, 2000)
-        pygame.time.set_timer(self.RELOADEVENT, 2000)
+        pygame.time.set_timer(self.RELOADEVENT, 1000)
+        pygame.time.set_timer(self.SPAWNEVENT, 4000)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -97,7 +100,11 @@ class Platformer(Scene):
                             i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
-                    print(self.player.count)
+                if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
+                    sppoint = random.choice(self.spawns)
+                    enemy = sppoint.spawn()
+                    self.blocks.add(enemy)
+                    self.Enemies.add(enemy)
             if keys[pygame.K_d]:
                 right = True
             else:
@@ -110,8 +117,6 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
-            # if keys[pygame.K_r]:
-            #     self.player.count = self.player.kolvo
 
 
             if self.player.is_alive:

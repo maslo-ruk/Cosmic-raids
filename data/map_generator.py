@@ -1,6 +1,6 @@
 import pygame
 import random
-from data.player import JUMPSPEED, SPEED, GRAVI
+from data.player import JUMPSPEED, SPEED, GRAVI, Enemy, HEIGHT
 import math
 
 vx = SPEED
@@ -116,9 +116,9 @@ class Platforms(Strategy):
         for i in range(self.room.height):
             self.map.append([])
 
-    def all(self):
+    def all(self, scene):
         self.generate()
-        self.choose_and_build()
+        self.choose_and_build(scene)
         a = self.build_map()
         return a
 
@@ -147,11 +147,12 @@ class Platforms(Strategy):
             h_pos = 0
 
 
-    def choose_and_build(self):
+    def choose_and_build(self, scene):
         plats_count = 3
         poses = []
         final_poses = set()
-        poses.append((0, len(self.grid_platforms[0])-1))
+        popi = random.randrange(1, len(self.grid_platforms[0]))
+        poses.append((0, popi))
         a = list(range(0, len(self.grid_platforms)))
         for i in range(plats_count):
             choice = a.pop(random.randrange(0, len(a)))
@@ -193,6 +194,7 @@ class Platforms(Strategy):
             for i in range(new_len):
                 platform.cells.append(Cell((platform.rect.right + dir + i * dir, platform.rect.top), 1))
             platform.update()
+            scene.spawns.append(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
             self.platforms.append(platform)
         # for i in self.grid_platforms:
         #     for j in i:
@@ -216,3 +218,15 @@ class Platforms(Strategy):
             print(i)
         return res
 
+
+class Spawn_zone:
+    def __init__(self, pos_x, pos_y, height, width):
+        self.pos = (pos_x, pos_y + height)
+        self.bottom = pos_y
+        self.height=  height
+        self.width = width
+
+    def spawn(self):
+        pos = random.randrange(self.pos[0], self.pos[0] + self.width) * CELL_SIZE
+        new_enemy = Enemy((pos, (self.bottom) * 30 - HEIGHT))
+        return new_enemy

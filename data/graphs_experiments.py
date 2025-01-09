@@ -1,3 +1,8 @@
 import random
-print(random.randrange(0, 6))
+a = [1, 2, 3]
 
+def add_1(x):
+    x.append(1)
+
+add_1(a)
+print(a)
