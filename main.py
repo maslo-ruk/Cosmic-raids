@@ -1,6 +1,6 @@
 import pygame
-from data.menu_test_file import menu_ecr
-
+from data.menu_test_file import Menu
+from data.sound_function import sound
 
 if __name__ == '__main__':
     pygame.init()
@@ -14,6 +14,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((width, height))
     clock = pygame.time.Clock()
     pygame.display.set_caption("Тестовое меню")
+    menu_ecr = Menu(width, height, screen)
     running = True
     while running:
-        menu_ecr().run()
+        menu_ecr.run()
