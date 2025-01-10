@@ -118,13 +118,11 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
-
-
             if self.player.is_alive:
                 self.player.update(self.screen, right, left, up, self.blocks)
                 self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             for i in self.Enemies:
-                i.update(self.screen, self.blocks, self.player.rect)
+                i.update(self.screen, self.blocks, self.player)
                 self.screen.blit(i.image, (i.rect.x, i.rect.y))
             pygame.display.flip()
         pygame.quit()

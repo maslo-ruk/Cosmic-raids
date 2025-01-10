@@ -83,10 +83,13 @@ class Player(Entity):
         self.x_speed = SPEED
         self.kolvo = 5
         self.count = self.kolvo
+        self.score = 0
 
 
     def update(self, screen, a, b, c, rects):
         super().update()
+        if self.is_alive == False:
+            print(self.score)
         if a:
             self.xvel = self.x_speed
         if b:
@@ -136,8 +139,11 @@ class Enemy(Entity):
             self.see_player = False
             self.inair = True
 
-        def update(self, screen, rects, player_pos):
+        def update(self, screen, rects, player):
             super().update()
+            if self.is_alive == False:
+                player.score += 1
+            player_pos = player.rect
             if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                     self.rect.y - player_pos.y) <= self.y_vision * 30:
                 self.unseed = True
