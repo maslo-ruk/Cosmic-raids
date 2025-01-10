@@ -2,6 +2,7 @@
 import pygame
 from data.buttons import Button
 from data.sound_function import sound
+from data.Corabl_test import Hub
 class Menu:
     def __init__(self, width, height, screen):
         self.width = width
@@ -62,7 +63,8 @@ class Menu:
                     new_game_button.events()
                     settings_button.events()
                     if start_button.events():
-                        exit()
+                        swe = Hub(self.width, self.height, self.screen)
+                        swe.run()
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     start_button.check_mishka(x_pos)
