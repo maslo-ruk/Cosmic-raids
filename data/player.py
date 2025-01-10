@@ -5,6 +5,7 @@ WIDTH = 30
 HEIGHT = 30
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
+HUB_SPEED = 4
 JUMPSPEED = 14
 GRAVI = 0.8
 COLOR = 'red'
@@ -15,7 +16,7 @@ class Entity(pygame.sprite.Sprite):
     def __init__(self, pos, speed):
         super().__init__()
         self.hp = 10
-        self.x_speed = SPEED
+        self.x_speed = speed
         self.xvel = 0
         self.y_speed = 0
         self.inair = True
@@ -55,6 +56,25 @@ class Entity(pygame.sprite.Sprite):
             if self.rect.colliderect(i.rect) and i.rect != self.rect:
                 return i.rect
         return False
+
+
+class Hub_Player(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, HUB_SPEED)
+
+    def update(self, screen, hor, vert, rects):
+        self.rect.x += hor * self.x_speed
+        self.col1 = self.collides(rects)
+        if self.col1 and (hor > 0):
+            self.rect.right = self.col1.left
+        if self.col1 and (hor < 0):
+            self.rect.left = self.col1.right
+        self.rect.y += vert * self.x_speed
+        self.col2 = self.collides(rects)
+        if self.col2 and (vert < 0):
+            self.rect.top = self.col2.bottom
+        if self.col2 and (vert > 0):
+            self.rect.bottom = self.col2.top
 
 
 class Player(Entity):

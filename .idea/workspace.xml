@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Начата работа над генерацией карты">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="На карте случайным образом генерируются враги">
+      <change afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/graphs_experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/graphs_experiments.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
     </list>
@@ -59,20 +58,22 @@
   "keyToString": {
     "Python.Block.executor": "Run",
     "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
     "Python.main.executor": "Run",
     "Python.map_generator.executor": "Run",
     "Python.map_generator_copy.executor": "Run",
-    "Python.platformer.executor": "Debug",
+    "Python.platformer.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Zhavoronkov__Egor",
-    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids/data",
+    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
       <recent name="C:\Users\user\CosmicRaid\data" />
     </key>
@@ -150,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735599266707</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Начата работа над генерацией карты">
+      <option name="closed" value="true" />
+      <created>1736272856528</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736272856528</updated>
+    </task>
+    <task id="LOCAL-00006" summary="На карте случайным образом генерируются враги">
+      <option name="closed" value="true" />
+      <created>1736446216930</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736446216931</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,16 +189,14 @@
     <MESSAGE value="Удален ненужный файл" />
     <MESSAGE value="Начата работа над ии врага" />
     <MESSAGE value="хз коммитю workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="хз коммитю workspace.xml" />
+    <MESSAGE value="Исправлена ошибка что невозможно добраться до финальной платформы" />
+    <MESSAGE value="Начата работа над генерацией карты" />
+    <MESSAGE value="На карте случайным образом генерируются враги" />
+    <option name="LAST_COMMIT_MESSAGE" value="На карте случайным образом генерируются враги" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/map_generator.py</url>
-          <line>181</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/map_generator.py</url>
           <line>135</line>
