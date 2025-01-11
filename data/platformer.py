@@ -131,6 +131,8 @@ class Platformer(Scene):
 class Hub(Scene):
     def __init__(self, size, screen, clock):
         super().__init__(size, screen, clock)
+        self.width = size[0]
+        self.height = size[1]
         self.player = Hub_Player((size[0] // 2, size[1] // 2))
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
@@ -167,19 +169,32 @@ class Hub(Scene):
                     self.blocks_map.add(block)
 
     def run(self):
-        self.make_map()
+        fon = pygame.image.load("images/for_hub/hub_pic_test1.png").convert()
+        fon = pygame.transform.scale(fon, (self.width, self.height))
+        pet = pygame.image.load("images/for_hub/pet_pose_normal.png").convert_alpha()
+        pet = pygame.transform.scale(pet, (self.width, self.height))
+        nouneim = pygame.image.load("images/for_hub/who_normal.png")
+        nouneim = pygame.transform.scale(nouneim, (self.width, self.height)).convert_alpha()
+        # self.make_map() тут стенки делал, могу объяснить че это за говно потом
         running = True
         hor = 0
         vert = 0
+        a = 0
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             self.blocks_map.draw(self.screen)
+            self.screen.blit(fon, (0, 0))
+            self.screen.blit(pet, (0, 0))
+            self.screen.blit(nouneim, (0, 0))
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+            if keys[pygame.K_ESCAPE]:
+                pygame.quit()
+                exit()
             if keys[pygame.K_d]:
                 if hor == 0:
                     hor = 1
@@ -205,4 +220,6 @@ class Hub(Scene):
             pygame.display.flip()
             hor = 0
             vert = 0
+            a += 1
+            print('yo', a)
         pygame.quit()

@@ -5,8 +5,8 @@
 import pygame
 from data.menu_test_file import Menu
 from data.sound_function import sound
-from data.Corabl_test import Hub
 from data.platformer import Platformer
+
 
 def main_lena():
     pygame.init()

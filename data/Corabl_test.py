@@ -24,10 +24,11 @@ class Hub:
         while running:
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
-                if keys[pygame.K_ESCAPE]:
-                    pygame.quit()
-                    exit()
-                    # выход через esc
+                continue
+            if keys[pygame.K_ESCAPE]:
+                pygame.quit()
+                exit()
+                # выход через esc
             self.screen.blit(fon, (0, 0))
             self.screen.blit(pet, (0, 0))
             self.screen.blit(nouneim, (0, 0))
