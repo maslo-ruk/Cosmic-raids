@@ -1,9 +1,14 @@
+# Example file showing a circle moving on screen
+# Примеры событий
+# python -m pygame.examples.eventlist
+
 import pygame
 from data.menu_test_file import Menu
 from data.sound_function import sound
 from data.Corabl_test import Hub
+from data.platformer import Platformer
 
-if __name__ == '__main__':
+def main_lena():
     pygame.init()
     screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
     width = screen_info.current_w  # ширина
@@ -20,3 +25,19 @@ if __name__ == '__main__':
     while running:
         menu_ecr.run()
         print("пожалуйста дайте закомитеть")
+
+def main():
+    pygame.init()
+    size = width, height = 1500, 900
+    screen = pygame.display.set_mode(size)
+    clock = pygame.time.Clock()
+    pygame.display.set_caption("CosmicRaids")
+    current_scene = Platformer(size, screen, clock)
+    runi = True
+    while runi:
+        current_scene.run()
+    pygame.quit()
+#у меня другой мейн, я оставил твой, позже договоримся
+
+if __name__ == '__main__':
+    main()
