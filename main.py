@@ -1,7 +1,3 @@
-# Example file showing a circle moving on screen
-# Примеры событий
-# python -m pygame.examples.eventlist
-
 import pygame
 from data.menu_test_file import Menu
 from data.sound_function import sound
@@ -24,7 +20,6 @@ def main_lena():
     running = True
     while running:
         menu_ecr.run()
-        print("пожалуйста дайте закомитеть")
 
 def main():
     pygame.init()
