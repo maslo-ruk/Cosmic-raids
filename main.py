@@ -19,4 +19,3 @@ if __name__ == '__main__':
     running = True
     while running:
         menu_ecr.run()
-        print("пожалуйста дайте закомитеть")
