@@ -107,7 +107,7 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
-        self.grenades.update(screen, rects)
+        self.grenades.update(screen, rects, self.rect)
         self.grenades.draw(screen)
 
     def collides(self, rects: list[Block]):
