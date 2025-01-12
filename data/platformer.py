@@ -91,6 +91,9 @@ class Platformer(Scene):
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         self.player.count -= 1
+                    elif event.button == 3:
+                        dest_x, dest_y = pygame.mouse.get_pos()
+                        self.player.throw(15, dest_x, dest_y)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:

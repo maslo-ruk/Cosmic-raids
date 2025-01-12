@@ -28,15 +28,17 @@ class Entity(pygame.sprite.Sprite):
         self.col1 = False
         self.col2 = False
         self.all_b = pygame.sprite.Group()
+        self.grenades = pygame.sprite.Group()
         self.lines = pygame.sprite.Group()
         self.is_alive = True
+
 
     def update(self, *args, **kwargs):
         if self.hp <= 0:
             self.die()
 
     def shoot(self, dest_x, dest_y):
-        from data.Projectiles import Bullets
+        from data.projectiles import Bullets
         dx = dest_x - self.rect.x
         dy = dest_y - self.rect.y
         angle = (dx, dy)
@@ -50,6 +52,21 @@ class Entity(pygame.sprite.Sprite):
     def die(self):
         self.is_alive = False
         self.kill()
+
+    def throw(self, velocity, dest_x, dest_y):
+        from data.projectiles import Grenade
+        dx = dest_x - self.rect.centerx
+        dy = dest_y - self.rect.centery
+        norm = (dx ** 2 + dy ** 2) ** 0.5
+
+        if norm != 0:  # Проверка для избежания деления на ноль
+            direction = (dx / norm, dy / norm)
+            grenade = Grenade(self.rect.center, direction)
+            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            grenade.is_launched = True
+            grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(grenade)
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -76,7 +93,6 @@ class Hub_Player(Entity):
         if self.col2 and (vert > 0):
             self.rect.bottom = self.col2.top
 
-
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
@@ -84,6 +100,7 @@ class Player(Entity):
         self.kolvo = 5
         self.count = self.kolvo
         self.score = 0
+        self.image.fill('green')
 
 
     def update(self, screen, a, b, c, rects):
@@ -122,6 +139,8 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
+        self.grenades.update(screen, rects)
+        self.grenades.draw(screen)
 
 ENEMY_SPEED = 3.5
 
