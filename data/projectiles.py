@@ -49,12 +49,12 @@ class Bullets(pygame.sprite.Sprite):
 
 
 class Grenade(pygame.sprite.Sprite):
-    def __init__(self, start_pos, angle):
+    def __init__(self, start_pos, rects):
         super().__init__()
         self.image = pygame.Surface((20, 20))
         self.image.fill((130, 150, 52)) # болотный зеленый
         self.rect = self.image.get_rect(center=start_pos)
-        self.angle = angle
+        self.rects = rects
         self.velocity_x = 0  # начальная скорость по x
         self.velocity_y = 0  # начальная скорость по y
         self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
