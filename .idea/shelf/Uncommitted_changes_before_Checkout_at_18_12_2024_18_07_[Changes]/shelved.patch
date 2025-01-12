@@ -1,0 +1,83 @@
+Index: data/platformer.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nfrom player import Player\r\n\r\npygame.init()\r\nsize = width, height = 500, 500\r\nbottom = pygame.Rect(0, 400, 500, 100)\r\nleft = pygame.Rect(25, 300, 200, 50)\r\nprint(left.bottom)\r\nright = pygame.Rect(275, 300, 200, 50)\r\nrects = [bottom, right, left]\r\nborders_x, borders_y = ([0, 400], [0, 400])\r\nscreen = pygame.display.set_mode(size)\r\nclock = pygame.time.Clock()\r\npygame.display.set_caption(\"shariki\")\r\nrunning = True\r\n\r\n\r\nclass Bullets(pygame.sprite.Sprite):\r\n    def __init__(self, start_pos, angle):\r\n        super().__init__()\r\n        self.image = pygame.Surface((5, 5))\r\n        self.image.fill('red')\r\n        self.rect = self.image.get_rect(center=start_pos)\r\n        self.angle = angle\r\n\r\n    def update(self):\r\n        # Двигаем линию в зависимости от угла\r\n        self.rect.x += 10 * self.angle[0]\r\n        self.rect.y += 10 * self.angle[1]\r\n\r\n        # Удаляем линию, если она выходит за границы экрана\r\n        if self.rect.x < 0 or self.rect.x > 1280 or self.rect.y < 0 or self.rect.y > 720:\r\n            self.kill()\r\n\r\n\r\nall_b = pygame.sprite.Group()\r\nlines = pygame.sprite.Group()\r\nplayer = Player()\r\nright = False\r\nleft = False\r\nup = False\r\nwhile running:\r\n    keys = pygame.key.get_pressed()\r\n    if keys[pygame.K_d]:\r\n        right = True\r\n    else:\r\n        right = False\r\n    if keys[pygame.K_a]:\r\n        left = True\r\n    else:\r\n        left = False\r\n    if keys[pygame.K_SPACE]:\r\n        up = True\r\n    else:\r\n        up = False\r\n    # tick = clock.tick(60)\r\n    screen.fill('blue')\r\n    for rect in rects:\r\n        pygame.draw.rect(screen, 'green', rect)\r\n    for event in pygame.event.get():\r\n        if event.type == pygame.QUIT:\r\n            running = False\r\n        if event.type == pygame.MOUSEBUTTONDOWN:\r\n            if event.button == 1:\r\n                mouse_x, mouse_y = pygame.mouse.get_pos()\r\n                dx = mouse_x - player.rect.x\r\n                dy = mouse_y - player.rect.y\r\n                angle = (dx, dy)\r\n                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль\r\n                    norm = (dx ** 2 + dy ** 2) ** 0.5\r\n                    direction = (dx / norm, dy / norm)\r\n                    line = Bullets(player.rect.center, direction)\r\n                    all_b.add(line)\r\n                    lines.add(line)\r\n\r\n\r\n    player.update(right, left, up, rects)\r\n    all_b.draw(screen)\r\n    screen.blit(player.image, (player.rect.x, player.rect.y))\r\n    lines.update()\r\n    pygame.display.flip()\r\n    tick = clock.tick(60)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/platformer.py b/data/platformer.py
+--- a/data/platformer.py	
++++ b/data/platformer.py	
+@@ -13,6 +13,7 @@
+ clock = pygame.time.Clock()
+ pygame.display.set_caption("shariki")
+ running = True
++count = 30 # количество патронов в магазине
+ 
+ 
+ class Bullets(pygame.sprite.Sprite):
+@@ -53,6 +54,8 @@
+         up = True
+     else:
+         up = False
++    if keys[pygame.K_r]: #перезарядка оружия
++        count = 30
+     # tick = clock.tick(60)
+     screen.fill('blue')
+     for rect in rects:
+@@ -62,18 +65,23 @@
+             running = False
+         if event.type == pygame.MOUSEBUTTONDOWN:
+             if event.button == 1:
+-                mouse_x, mouse_y = pygame.mouse.get_pos()
+-                dx = mouse_x - player.rect.x
+-                dy = mouse_y - player.rect.y
+-                angle = (dx, dy)
+-                if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
+-                    norm = (dx ** 2 + dy ** 2) ** 0.5
+-                    direction = (dx / norm, dy / norm)
+-                    line = Bullets(player.rect.center, direction)
+-                    all_b.add(line)
+-                    lines.add(line)
++                if count - 1 >= 0:
++                    count -= 1
++                    mouse_x, mouse_y = pygame.mouse.get_pos()
++                    dx = mouse_x - player.rect.x
++                    dy = mouse_y - player.rect.y
++                    angle = (dx, dy)
++                    if dx != 0 or dy != 0:  # Проверка для избежания деления на ноль
++                        norm = (dx ** 2 + dy ** 2) ** 0.5
++                        direction = (dx / norm, dy / norm)
++                        line = Bullets(player.rect.center, direction)
++                        all_b.add(line)
++                        lines.add(line)
+ 
+ 
++
++
++
+     player.update(right, left, up, rects)
+     all_b.draw(screen)
+     screen.blit(player.image, (player.rect.x, player.rect.y))
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n<<<<<<<<< Temporary merge branch 1\r\n    <mapping directory=\"\" vcs=\"Git\" />\r\n=========\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n>>>>>>>>> Temporary merge branch 2\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	
++++ b/.idea/vcs.xml	
+@@ -1,10 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-<<<<<<<<< Temporary merge branch 1
+     <mapping directory="" vcs="Git" />
+-=========
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+->>>>>>>>> Temporary merge branch 2
+   </component>
+ </project>
+\ No newline at end of file
