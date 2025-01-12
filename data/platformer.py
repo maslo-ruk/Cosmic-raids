@@ -84,16 +84,14 @@ class Platformer(Scene):
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         self.player.count -= 1
-                    elif event.button == 2:
+                    elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.throw(200, dest_x, dest_y)
-                        print('sfd')
+                        self.player.throw(15, dest_x, dest_y)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
-                    print(self.player.count)
             if keys[pygame.K_d]:
                 right = True
             else:

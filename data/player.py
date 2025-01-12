@@ -27,9 +27,9 @@ class Entity(pygame.sprite.Sprite):
         self.col1 = False
         self.col2 = False
         self.all_b = pygame.sprite.Group()
+        self.grenades = pygame.sprite.Group()
         self.lines = pygame.sprite.Group()
         self.is_alive = True
-
 
     def update(self, *args, **kwargs):
         if self.hp <= 0:
@@ -56,13 +56,12 @@ class Entity(pygame.sprite.Sprite):
 
         if norm != 0:  # Проверка для избежания деления на ноль
             direction = (dx / norm, dy / norm)
-
-            self.velocity_x = velocity * dx / norm
-            self.velocity_y = -velocity * dy / norm
-            self.is_launched = True
-            self.time = 0  # сброс времени для нового броска
             grenade = Grenade(self.rect.center, direction)
-            self.all_b.add(grenade)
+            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            grenade.is_launched = True
+            grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(grenade)
 
 class Player(Entity):
     def __init__(self, POS1):
@@ -108,6 +107,8 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
+        self.grenades.update(screen, rects)
+        self.grenades.draw(screen)
 
     def collides(self, rects: list[Block]):
         for i in rects:

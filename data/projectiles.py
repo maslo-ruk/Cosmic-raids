@@ -51,8 +51,8 @@ class Bullets(pygame.sprite.Sprite):
 class Grenade(pygame.sprite.Sprite):
     def __init__(self, start_pos, angle):
         super().__init__()
-        self.image = pygame.Surface((13, 10))
-        self.image.fill((130, 108, 52))
+        self.image = pygame.Surface((20, 20))
+        self.image.fill((130, 150, 52)) # болотный зеленый
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
         self.velocity_x = 0  # начальная скорость по x
@@ -63,26 +63,40 @@ class Grenade(pygame.sprite.Sprite):
     # def launch(self, velocity, mouse_x, mouse_y):
     #     dx = mouse_x - self.rect.centerx
     #     dy = mouse_y - self.rect.centery
-    #     norm = (dx ** 2 + dy ** 2) ** 0.5
+    #     norm = (dx  2 + dy  2)  0.5
     #     if norm != 0:  # Проверка для избежания деления на ноль
     #         self.velocity_x = velocity * dx / norm
     #         self.velocity_y = -velocity * dy / norm
     #         self.is_launched = True
     #         self.time = 0  # сброс времени для нового броска
 
-    def update(self):
+    def update(self, rects, t):
         if self.is_launched:
-            self.time += 0.1  # обновление времени
+            self.time += 1  # обновление времени
             # Обновление положения квадрата
-            self.rect.x += self.velocity_x * 0.1
-            self.rect.y += self.velocity_y * 0.1 + 0.5 * 0.8 * self.time ** 2 # 0.8 - GRAVI
+            self.rect.x += self.velocity_x
+            self.rect.y += self.velocity_y #* 0.1 + 0.5 * 0.8 * self.time  2 / 0.8 - GRAVI
+            self.velocity_y += 0.8
 
             # Проверка на рикошет
             if self.rect.y >= 600 - 50:
                 self.rect.y = 600 - 50
-                self.velocity_x *= 0.9
+                self.velocity_x *= 0.6
                 self.velocity_y = -self.velocity_y * 0.7  # уменьшение скорости при рикошете
                 self.time = 0  # сброс времени для рикошета
+
+            if self.rect.x >= 900 - 50:
+                self.rect.x = 900 - 50
+                self.velocity_y *= 0.8
+                self.velocity_x = -self.velocity_x * 0.7  # уменьшение скорости при рикошете
+                self.time = 0  # сброс времени для рикошета
+
+            if self.rect.x <= 30:
+                self.rect.x = 30
+                self.velocity_y *= 0.8
+                self.velocity_x = -self.velocity_x * 0.7  # уменьшение скорости при рикошете
+                self.time = 0  # сброс времени для рикошета
+
 
             # Если квадрат упал достаточно низко, сбрасываем флаг
             if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
