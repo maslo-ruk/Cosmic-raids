@@ -1,7 +1,7 @@
 import pygame
 from data.player import Player, Enemy, Hub_Player
 from data.Block import Block
-from data.Projectiles import Bullets
+from data.projectiles import Bullets
 from data.map_generator import *
 
 pygame.init()
@@ -93,7 +93,7 @@ class Platformer(Scene):
                         self.player.count -= 1
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.throw(15, dest_x, dest_y)
+                        self.player.throw(10, dest_x, dest_y)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:

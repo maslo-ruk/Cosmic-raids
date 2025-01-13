@@ -60,16 +60,6 @@ class Grenade(pygame.sprite.Sprite):
         self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
         self.time = 0  # время
 
-    # def launch(self, velocity, mouse_x, mouse_y):
-    #     dx = mouse_x - self.rect.centerx
-    #     dy = mouse_y - self.rect.centery
-    #     norm = (dx  2 + dy  2)  0.5
-    #     if norm != 0:  # Проверка для избежания деления на ноль
-    #         self.velocity_x = velocity * dx / norm
-    #         self.velocity_y = -velocity * dy / norm
-    #         self.is_launched = True
-    #         self.time = 0  # сброс времени для нового броска
-
     def update(self, screen, rects, player_rect):
         if self.is_launched:
             self.time += 1  # обновление времени
@@ -93,11 +83,6 @@ class Grenade(pygame.sprite.Sprite):
                 self.rect.bottom = self.col2.top
                 self.velocity_y = -self.velocity_y * 0.7
             self.velocity_y += 0.5
-
-
-            # Если квадрат упал достаточно низко, сбрасываем флаг
-            if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
-                self.is_launched = False
 
     def collides(self, rects, player_rect):
         from data.player import Entity
