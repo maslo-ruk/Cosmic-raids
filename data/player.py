@@ -1,8 +1,9 @@
 import pygame
 from data.Block import Block
+from data.config import *
 
-WIDTH = 30
-HEIGHT = 30
+WIDTH = CELL_SIZE
+HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 HUB_SPEED = 4

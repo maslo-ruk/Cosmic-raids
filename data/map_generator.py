@@ -194,7 +194,8 @@ class Platforms(Strategy):
             for i in range(new_len):
                 platform.cells.append(Cell((platform.rect.right + dir + i * dir, platform.rect.top), 1))
             platform.update()
-            scene.spawns.append(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
+            scene.spawns.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
+            scene.all_sprites.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
             self.platforms.append(platform)
         # for i in self.grid_platforms:
         #     for j in i:
@@ -219,14 +220,22 @@ class Platforms(Strategy):
         return res
 
 
-class Spawn_zone:
+class Spawn_zone(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y, height, width):
+        super().__init__()
+        self.name = 'bildabot' + str(pos_x)
+        self.rect = pygame.Rect(pos_x * CELL_SIZE, (pos_y - height) * CELL_SIZE, width * CELL_SIZE, height * CELL_SIZE)
+        print(self.name, self.rect.x, self.rect.y)
         self.pos = (pos_x, pos_y + height)
         self.bottom = pos_y
         self.height=  height
         self.width = width
+        self.image = False
+        # self.image = pygame.Surface((self.rect.size[0], self.rect.size[1]))
+        # self.image.fill('white')
 
     def spawn(self):
-        pos = random.randrange(self.pos[0], self.pos[0] + self.width) * CELL_SIZE
-        new_enemy = Enemy((pos, (self.bottom) * 30 - HEIGHT))
+        pos = random.randrange(self.rect.x, self.rect.x + self.width)
+        print(self.name ,self.rect.x, self.rect.y)
+        new_enemy = Enemy((pos, self.rect.bottom - HEIGHT))
         return new_enemy
