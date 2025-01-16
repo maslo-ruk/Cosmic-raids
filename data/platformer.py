@@ -1,5 +1,5 @@
 import pygame
-
+from data.functions import *
 from data.player import Player, Enemy, Hub_Player
 from data.Block import Block
 from data.camera import Camera
@@ -14,15 +14,21 @@ class Scene:
         self.screen = screen
         self.clock = clock
         self.score = 0
+        self.player = Player((300, 200))
+        self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1])
+        self.r_border = pygame.Rect(-1, 0, 1, self.size[1])
+        self.l_border = pygame.Rect(self.size[0], 0, 1, self.size[1])
+        self.t_border = pygame.Rect(0, -1, self.size[0], 1)
+        self.b_border = pygame.Rect(0, self.size[1], self.size[0], 1)
+        self.v_borders = [self.b_border, self.t_border]
+        self.h_borders = [self.l_border, self.r_border]
         self.all_sprites = pygame.sprite.Group()
 
 
 class Platformer(Scene):
     def __init__(self, size, screen, clock):
         super().__init__(size, screen, clock)
-        self.player = Player((300, 200))
         self.all_sprites.add(self.player)
-        self.camera = Camera((self.player.rect.x, self.player.rect.y))
         self.Enemies = pygame.sprite.Group()
         self.map = []
         self.spawns = pygame.sprite.Group()
@@ -77,7 +83,7 @@ class Platformer(Scene):
             self.all_sprites.add(i)
         running = True
         all_b = pygame.sprite.Group()
-        lines = pygame.sprite.Group()
+        grenades = pygame.sprite.Group()
         right = False
         left = False
         up = False
@@ -95,8 +101,8 @@ class Platformer(Scene):
                     break
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and self.player.count > 0:
-                        dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.shoot(dest_x, dest_y)
+                        dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
+                        self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
                         self.player.count -= 1
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
@@ -104,7 +110,7 @@ class Platformer(Scene):
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
-                            i.shoot(self.player.rect.x, self.player.rect.y)
+                            i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
                         if not i.unseed:
@@ -133,11 +139,10 @@ class Platformer(Scene):
                 self.player.update(self.screen, right, left, up, self.blocks)
             for i in self.Enemies:
                 i.update(self.screen, self.blocks, self.player)
-            self.camera.apply(self.player)
+            self.camera.update(self.player)
             for i in self.all_sprites:
-                self.camera.update(i)
                 if i.image:
-                    self.screen.blit(i.image, (i.rect.x, i.rect.y))
+                    self.screen.blit(i.image, self.camera.apply(i))
             pygame.display.flip()
         pygame.quit()
 

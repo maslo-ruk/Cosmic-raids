@@ -8,7 +8,7 @@ def main():
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
-    current_scene = Platformer((3000, 900), screen, clock)
+    current_scene = Platformer((3000, 1200), screen, clock)
     runi = True
     while runi:
         current_scene.run()

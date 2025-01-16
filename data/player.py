@@ -38,7 +38,7 @@ class Entity(pygame.sprite.Sprite):
         if self.hp <= 0:
             self.die()
 
-    def shoot(self, dest_x, dest_y):
+    def shoot(self, dest_x, dest_y, all_b, all_sp):
         from data.projectiles import Bullets
         dx = dest_x - self.rect.x
         dy = dest_y - self.rect.y
@@ -48,7 +48,7 @@ class Entity(pygame.sprite.Sprite):
             direction = (dx / norm, dy / norm)
             line = Bullets(self.rect.center, direction)
             self.all_b.add(line)
-            self.lines.add(line)
+            all_sp.add(line)
 
     def die(self):
         self.is_alive = False
@@ -138,8 +138,7 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
-        self.lines.update(rects, self.rect)
-        self.all_b.draw(screen)
+        self.all_b.update(rects, self.rect)
         self.grenades.update(screen, rects, self.rect)
         self.grenades.draw(screen)
 
@@ -187,8 +186,7 @@ class Enemy(Entity):
 
             self.move_to_player(self.xvel, rects)
             self.fall(rects)
-            self.lines.update(rects, self.rect)
-            self.all_b.draw(screen)
+            self.all_b.update(rects, self.rect)
 
         def move_to_player(self, vel, rects):
             self.rect.x += self.x_speed * self.xvel
