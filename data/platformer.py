@@ -169,12 +169,18 @@ class Hub(Scene):
                     self.blocks_map.add(block)
 
     def run(self):
-        fon = pygame.image.load("images/for_hub/hub_pic_test1.png").convert()
-        fon = pygame.transform.scale(fon, (self.width, self.height))
-        pet = pygame.image.load("images/for_hub/pet_pose_normal.png").convert_alpha()
-        pet = pygame.transform.scale(pet, (self.width, self.height))
+        fon = pygame.image.load("images/for_hub/hub_pic_test1.png")
+        fon = pygame.transform.scale(fon, (self.width, self.height)).convert_alpha()
+        self.screen.blit(fon, (0, 0))
+        pet = pygame.image.load("images/for_hub/pet_pose_normal.png")
+        pet = pygame.transform.scale(pet, (self.width, self.height)).convert_alpha()
+        self.screen.blit(pet, (0, 0))
         nouneim = pygame.image.load("images/for_hub/who_normal.png")
         nouneim = pygame.transform.scale(nouneim, (self.width, self.height)).convert_alpha()
+        self.screen.blit(nouneim, (0, 0))
+        clock = pygame.time.Clock()
+        pygame.display.set_caption("Тестовое меню")
+        pygame.mouse.set_visible(False)
         # self.make_map() тут стенки делал, могу объяснить че это за говно потом
         running = True
         hor = 0
@@ -215,6 +221,9 @@ class Hub(Scene):
                     vert = 1
                 else:
                     vert = 0
+            #Егор, разработай ограничения передвижения в хабе
+            if keys[pygame.K_h]:
+                pass
             self.player.update(self.screen, hor,vert, self.blocks_map)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
