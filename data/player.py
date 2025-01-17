@@ -105,6 +105,11 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
+        if self.hp <= 0:
+            self.kill()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
+            self.is_alive = False
+
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
         self.grenades.update(screen, rects, self.rect)
@@ -122,8 +127,11 @@ class Enemy(Entity):
         super().__init__(pos)
         self.image.fill('red')
 
-
     def update(self, screen, rects):
         super().update()
+        if self.hp <= 0:
+            self.kill()
+            pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
+            self.is_alive = False
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
