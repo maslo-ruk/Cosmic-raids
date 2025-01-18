@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
-    </list>
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -238,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737141891886</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="разработана гильдия с кнопками">
+      <option name="closed" value="true" />
+      <created>1737208978011</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737208978011</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -265,7 +269,8 @@
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
     <MESSAGE value="Доработан переход из меню в хаб + добавление текстурок гильдии + начата разроботка самой гильдии и класса Button2 для нее" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработан переход из меню в хаб + добавление текстурок гильдии + начата разроботка самой гильдии и класса Button2 для нее" />
+    <MESSAGE value="разработана гильдия с кнопками" />
+    <option name="LAST_COMMIT_MESSAGE" value="разработана гильдия с кнопками" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
