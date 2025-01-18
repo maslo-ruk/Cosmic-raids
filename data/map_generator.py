@@ -148,9 +148,11 @@ class Platforms(Strategy):
                 cells = []
                 av = self.av
                 wall = False
-                if h_pos + av >= length and av != 0:
+                if h_pos + av >= length and av != 0 and not self.grid_platforms[-1][-1].ends_wall:
                     av -= 1
                     wall = True
+                elif h_pos + av >= length and self.grid_platforms[-1][-1].ends_wall:
+                    break
                 elif h_pos + av >= length and av == 0:
                     break
                 for i in range(av):
@@ -159,28 +161,38 @@ class Platforms(Strategy):
                 h_pos += av + h_step
             h_pos = 0
 
+    #создает выход из комнаты по имещимся платфомрмам так, чтобы выйти можно было всегда
     def find_ending(self):
-        self.ending_point = random.randrange(len(self.grid_platforms))
-        if self.ending_point % 2 == 0 and self.begins:
-            self.find_ending()
-        elif self.ending_point % 2 != 0 and not self.begins:
-            self.find_ending()
-        print(self.ending_point, self.begins)
-        self.ending_platform = self.grid_platforms[self.ending_point][-1]
-        vert_pos = self.ending_platform.rect.y - 1
+        check = True
+        points = list(range(len(self.grid_platforms)))
+        self.ending_point = random.choice(points)
+        points.remove(self.ending_point)
+        while self.ending_point % 2 == 0 and self.begins or self.ending_point % 2 != 0 and not self.begins and points:
+            self.ending_point = random.choice(points)
+            points.remove(self.ending_point)
+        while self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4 and points:
+            self.ending_point = random.choice(points)
+            points.remove(self.ending_point)
+        if self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4 and not points:
+            self.ending_point = self.room.height - 2
+            check = False
+            print('wtf')
+        vert_pos = self.grid_platforms[self.ending_point][-1].rect.y - 1 if check else self.ending_point
         self.ending_poses = []
         for i in range(3):
             self.ending_poses.append((self.room.width - 1, vert_pos - i))
-        return 0
+        return True
 
 
     def choose_and_build(self, scene):
-        self.find_ending()
         plats_count = 3
         poses = []
         final_poses = set()
-        popi = len(self.grid_platforms[0]) - 1
-        poses.append((self.ending_point, popi))
+        if self.find_ending():
+            popi = len(self.grid_platforms[0]) - 1
+            poses.append((self.ending_point, popi))
+        else:
+            plats_count += 1
         a = list(range(0, len(self.grid_platforms)))
         for i in range(plats_count):
             choice = a.pop(random.randrange(0, len(a)))
