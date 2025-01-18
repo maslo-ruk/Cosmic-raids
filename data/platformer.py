@@ -42,7 +42,7 @@ class Platformer(Scene):
                 self.map_y.append('#' * (self.size[0] // 30))
             else:
                 self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
-        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
+        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), self.size[1] - HEIGHT * 2 - 30)
         strategy = Platforms(room, 10)
         self.map_x = strategy.all(self)
         self.map = []
@@ -53,6 +53,8 @@ class Platformer(Scene):
             for j in range(len(self.map_x[i])):
                 if self.map_x[i][j] == '#':
                     new_str += self.map_x[i][j]
+                elif self.map_x[i][j] == 'd':
+                    new_str += '0'
                 else:
                     new_str += self.map_y[i][j]
             self.map.append(new_str)
