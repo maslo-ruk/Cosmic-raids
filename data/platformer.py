@@ -23,8 +23,8 @@ class Platformer(Scene):
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
-        self.RELOADEVENT = pygame.USEREVENT + 1
-        self.MUSICBGEVENT = pygame.USEREVENT + 1
+        self.RELOADEVENT = pygame.USEREVENT + 2
+        self.MUSICBGEVENT = pygame.USEREVENT + 3
 
     def make_map(self):
         self.map = ['------------------------------',
@@ -69,10 +69,11 @@ class Platformer(Scene):
         right = False
         left = False
         up = False
-
+        count = 0
+        sound = 'sounds/DORA_bg.mp3'
         pygame.time.set_timer(self.RELOADEVENT, 2000)
-        pygame.time.set_timer(self.MUSICBGEVENT, 100)
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
+        pygame.time.set_timer(self.MUSICBGEVENT, 91000)
 
         while running:
             tick = self.clock.tick(60)
@@ -80,16 +81,28 @@ class Platformer(Scene):
             self.blocks_map.draw(self.screen)
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
+                start_ticks = pygame.time.get_ticks()
+                print(start_ticks)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+
+                current_ticks = pygame.time.get_ticks()
+
+                if current_ticks - start_ticks > 0 and count == 0:
+                    pygame.mixer.Sound(sound).play()
+                    pygame.mixer.Sound(sound).set_volume(0.3)
+                    count += 1
+
                 if event.type == self.MUSICBGEVENT:
-                    pygame.mixer.Sound('sounds/DORA_bg.mp3').play()
+                    pygame.mixer.Sound(sound).play(-1)
+                    pygame.mixer.Sound(sound).set_volume(0.3)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
                         pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').play()
+                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').set_volume(0.5)
                         self.player.count -= 1
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
@@ -98,6 +111,7 @@ class Platformer(Scene):
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)
                         pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').play()
+                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').set_volume(0.5)
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
             if keys[pygame.K_d]:

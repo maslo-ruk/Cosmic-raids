@@ -108,6 +108,7 @@ class Player(Entity):
         if self.hp <= 0:
             self.kill()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
             self.is_alive = False
 
         self.lines.update(rects, self.rect)
