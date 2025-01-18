@@ -1,6 +1,6 @@
 # Тест меню
 import pygame
-from data.buttons import Button
+from data.buttons import Button, Block_for_person
 from data.platformer import Hub
 class Gildia:
     def __init__(self, width, height, screen):
@@ -10,7 +10,7 @@ class Gildia:
         self.size = self.width, self.height
 
     def run(self):
-        fon = pygame.image.load("images/for_gildia/gildia.png")
+        fon = pygame.image.load("images/for_gildia/gildia.png").convert_alpha()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         self.screen.blit(fon, (0, 0))
         shop_button = Button(0, 0, self.width, self.height, '', "images/for_gildia/shop_button.png",
@@ -29,7 +29,10 @@ class Gildia:
                                "images/for_gildia/dostig_button.png", '',
                                (244 * (self.width / 1536), 511 * (self.width / 1536)),
                                (169 * (self.height / 864), 348 * (self.height / 864)))
-        person_click =
+        person_click = Block_for_person(0, 0, self.width, self.height, '', "images/for_gildia/calm_Tih.png",
+                                 "images/for_gildia/angry_Tih.png", "images/for_gildia/love_Tih.png", '', '',
+                                 (544 * (self.width / 1536), 1030 * (self.width / 1536)),
+                                 (220 * (self.height / 864), 660 * (self.height / 864)), False)
         clock = pygame.time.Clock()
         pygame.display.set_caption("Тестовое меню")
         running = True
@@ -42,16 +45,20 @@ class Gildia:
                     pygame.quit()
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    x_pos = event.pos
                     zadania_button.events()
                     shop_button.events()
                     putish_button.events()
                     dostig_button.events()
+                    person_click.events()
+                    person_click.clicking()
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     zadania_button.check_mishka(x_pos)
                     shop_button.check_mishka(x_pos)
                     putish_button.check_mishka(x_pos)
                     dostig_button.check_mishka(x_pos)
+                    person_click.check_mishka(x_pos)
 
                     # выход через esc
             self.screen.blit(fon, (0, 0))
@@ -60,5 +67,6 @@ class Gildia:
             shop_button.draw(self.screen)
             putish_button.draw(self.screen)
             dostig_button.draw(self.screen)
+            person_click.draw(self.screen)
             pygame.display.flip()
             dt = clock.tick(100) / 1000

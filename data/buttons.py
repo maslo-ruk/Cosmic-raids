@@ -54,11 +54,9 @@ class Button:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
             return True
 
-class Block_for_persons:
-    import pygame
-    class Button:
-        def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after1=None, image_after2=None, sound=None,
-                     diapazone_x=None, diapazone_y=None):
+class Block_for_person:
+        def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after1=None, image_after2=None, sound=None, sound2=None,
+                     diapazone_x=None, diapazone_y=None, person=None):
             self.x_cord = x_cord
             self.y_cord = y_cord
             self.w = width
@@ -67,25 +65,35 @@ class Block_for_persons:
             self.diapaz_x = diapazone_x
             self.diapaz_y = diapazone_y
 
-            # self.flag = flag
-
             self.image_before = pygame.image.load(image_before)
             self.image_before = pygame.transform.scale(self.image_before, (width, height))
             self.image_after = self.image_before
+            self.mishka_on = True
 
             if image_after1:
-                self.image_after = pygame.image.load(image_after1)
-                self.image_after = pygame.transform.scale(self.image_after, (width, height))
+                self.image_after1 = pygame.image.load(image_after1).convert_alpha()
+                self.image_after1 = pygame.transform.scale(self.image_after1, (width, height))
+            if image_after2:
+                self.image_after2 = pygame.image.load(image_after2).convert_alpha()
+                self.image_after2 = pygame.transform.scale(self.image_after2, (width, height))
             self.rect = self.image_before.get_rect(topleft=(x_cord, y_cord))
-            self.sound = None
+            self.sound = sound
+            self.sound2 = sound2
             if sound:
                 self.sound = pygame.mixer.Sound(sound)
-
-            self.mishka_on = False
+            self.clicked = 0
+            #дальше пойдет функция для пасхалки(реакция только на одного персонажа)
+            self.persona = person
 
         def draw(self, screen):
-            if self.mishka_on:
-                current_img = self.image_after
+            if self.clicked > 5 and self.persona is False:
+                current_img = self.image_after1
+            elif self.clicked > 5 and self.persona:
+                if self.sound2:
+                    self.sound2.play()
+                    #проигрывается особая фраза
+            elif self.persona:
+                current_img = self.image_after2
             else:
                 current_img = self.image_before
             screen.blit(current_img, self.rect.topleft)
@@ -105,10 +113,14 @@ class Block_for_persons:
                     self.mishka_on = False
             else:
                 self.mishka_on = self.rect.collidepoint(mouse_pos)
+        def clicking(self):
+            # print(self.mishka_on)
+            if self.mishka_on:
+                self.clicked += 1
+                print("Да")
 
         def events(self):
             if self.mishka_on:
-                # print("Вы нажали кнопку^^")
                 if self.sound:
                     self.sound.play()
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
