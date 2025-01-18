@@ -37,6 +37,10 @@ class Entity(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if self.hp <= 0:
             self.die()
+        a = args[0]
+        if not a.rect.contains(self.rect):
+            self.die()
+
 
     def shoot(self, dest_x, dest_y, all_b, all_sp):
         from data.projectiles import Bullets
@@ -80,7 +84,8 @@ class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
 
-    def update(self, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects):
+        super().update(scene)
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
         if self.col1 and (hor > 0):
@@ -104,8 +109,8 @@ class Player(Entity):
         self.image.fill('green')
 
 
-    def update(self, screen, a, b, c, rects):
-        super().update()
+    def update(self, scene, screen, a, b, c, rects):
+        super().update(scene)
         if self.is_alive == False:
             print(self.score)
         if a:
@@ -158,9 +163,9 @@ class Enemy(Entity):
             self.see_player = False
             self.inair = True
 
-        def update(self, screen, rects, player):
-            super().update()
-            if self.is_alive == False:
+        def update(self, scene, screen, rects, player):
+            super().update(scene)
+            if not self.is_alive:
                 player.score += 1
             player_pos = player.rect
             if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(

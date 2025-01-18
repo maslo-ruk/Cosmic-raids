@@ -16,12 +16,7 @@ class Scene:
         self.score = 0
         self.player = Player((300, 200))
         self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1])
-        self.r_border = pygame.Rect(-1, 0, 1, self.size[1])
-        self.l_border = pygame.Rect(self.size[0], 0, 1, self.size[1])
-        self.t_border = pygame.Rect(0, -1, self.size[0], 1)
-        self.b_border = pygame.Rect(0, self.size[1], self.size[0], 1)
-        self.v_borders = [self.b_border, self.t_border]
-        self.h_borders = [self.l_border, self.r_border]
+        self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.all_sprites = pygame.sprite.Group()
 
 
@@ -136,9 +131,9 @@ class Platformer(Scene):
             else:
                 up = False
             if self.player.is_alive:
-                self.player.update(self.screen, right, left, up, self.blocks)
+                self.player.update(self, self.screen, right, left, up, self.blocks)
             for i in self.Enemies:
-                i.update(self.screen, self.blocks, self.player)
+                i.update(self, self.screen, self.blocks, self.player)
             self.camera.update(self.player)
             for i in self.all_sprites:
                 if i.image:
