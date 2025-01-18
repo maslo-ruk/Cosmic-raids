@@ -74,26 +74,17 @@ class Platformer(Scene):
         pygame.time.set_timer(self.RELOADEVENT, 2000)
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MUSICBGEVENT, 91000)
-
+        pygame.mixer.Sound(sound).play(-1)
+        pygame.mixer.Sound(sound).set_volume(0.3)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             self.blocks_map.draw(self.screen)
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
-                start_ticks = pygame.time.get_ticks()
-                print(start_ticks)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
-
-                current_ticks = pygame.time.get_ticks()
-
-                if current_ticks - start_ticks > 0 and count == 0:
-                    pygame.mixer.Sound(sound).play()
-                    pygame.mixer.Sound(sound).set_volume(0.3)
-                    count += 1
-
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
