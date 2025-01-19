@@ -117,9 +117,6 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
-            # if keys[pygame.K_r]:
-            #     self.player.count = self.player.kolvo
-
 
             if self.player.is_alive:
                 self.player.update(self.screen, right, left, up, self.blocks)
