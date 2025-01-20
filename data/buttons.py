@@ -11,12 +11,12 @@ class Button:
 
         # self.flag = flag
 
-        self.image_before = pygame.image.load(image_before)
+        self.image_before = pygame.image.load(image_before).convert_alpha()
         self.image_before = pygame.transform.scale(self.image_before, (width, height))
         self.image_after = self.image_before
 
         if image_after:
-            self.image_after = pygame.image.load(image_after)
+            self.image_after = pygame.image.load(image_after).convert_alpha().convert_alpha()
             self.image_after = pygame.transform.scale(self.image_after, (width, height))
         self.rect = self.image_before.get_rect(topleft=(x_cord,y_cord))
         self.sound = None
@@ -86,16 +86,15 @@ class Block_for_person:
             self.persona = person
 
         def draw(self, screen):
-            if self.clicked > 5 and self.persona is False:
-                current_img = self.image_after1
-            elif self.clicked > 5 and self.persona:
+            if self.persona is False:
+                current_img = self.image_before
+                if self.clicked > 5:
+                    current_img = self.image_after1
+            else:
+                current_img = self.image_after2
                 if self.sound2:
                     self.sound2.play()
                     #проигрывается особая фраза
-            elif self.persona:
-                current_img = self.image_after2
-            else:
-                current_img = self.image_before
             screen.blit(current_img, self.rect.topleft)
 
             font = pygame.font.Font(None, 36)

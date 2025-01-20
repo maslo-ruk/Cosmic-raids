@@ -2,8 +2,9 @@
 import pygame
 from data.buttons import Button
 from data.sound_function import sound
-from data.platformer import Hub
-class Menu:
+from data.platformer import *
+from data.map_generator import *
+class Menu(Scene):
     def __init__(self, width, height, screen):
         self.width = width
         self.height = height

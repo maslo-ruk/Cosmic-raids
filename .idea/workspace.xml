@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="" />
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/images/for_gildia/back_plz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_gildia/rules.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_hub/E-ing.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,28 +59,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
-    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Kulpinsky__Helen&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PycharmProjects/Comic_raids/images/for_gildia&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Block.executor": "Run",
+    "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.map_generator.executor": "Run",
+    "Python.map_generator_copy.executor": "Run",
+    "Python.platformer.executor": "Run",
+    "Python.player.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Kulpinsky__Helen",
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/for_hub",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PycharmProjects\Comic_raids\images\for_gildia" />
       <recent name="D:\PycharmProjects\Comic_raids\images\for_hub" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\for_gildia" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
       <recent name="C:\Users\user\CosmicRaid\data" />
@@ -242,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737208978011</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="разработана гильдия с кнопками">
+      <option name="closed" value="true" />
+      <created>1737216607809</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737216607809</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

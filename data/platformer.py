@@ -139,26 +139,12 @@ class Hub(Scene):
 
     def make_map(self):
         self.map_y = []
-        for i in range(self.size[1] // 30):
-            if i == 0 or i == self.size[1] // 30 - 1:
-                self.map_y.append('#' * (self.size[0] // 30))
+        for i in range(self.size[1] // 29):
+            if i == 0 or i == self.size[1] // 29 - 1:
+                self.map_y.append('#' * (self.size[0] // 29))
             else:
-                self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
+                self.map_y.append('#' + '0' * (self.size[0] // 29 - 2) + '#')
         self.map = self.map_y[:]
-        # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
-        # strategy = Platforms(room, 10)
-        # self.map_x = strategy.all(self)
-        # self.map = []
-        # for i in self.map_y:
-        #     print(i)
-        # for i in range(len(self.map_x)):
-        #     new_str = ''
-        #     for j in range(len(self.map_x[i])):
-        #         if self.map_x[i][j] == '#':
-        #             new_str += self.map_x[i][j]
-        #         else:
-        #             new_str += self.map_y[i][j]
-        #     self.map.append(new_str)
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
@@ -181,7 +167,7 @@ class Hub(Scene):
         clock = pygame.time.Clock()
         pygame.display.set_caption("Тестовое меню")
         pygame.mouse.set_visible(False)
-        # self.make_map() тут стенки делал, могу объяснить че это за говно потом
+        self.make_map()
         running = True
         hor = 0
         vert = 0

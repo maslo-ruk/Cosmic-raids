@@ -1,6 +1,7 @@
 import pygame
-from data.platformer import Platformer, Hub
+from data.platformer import Platformer
 from data.gildia_test_file import Gildia
+from data.menu_test_file import Menu
 
 
 def main():
@@ -12,7 +13,7 @@ def main():
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
-    menu_ecr = Gildia(width, height, screen)
+    menu_ecr = Menu(width, height, screen)
     running = True
     while running:
         menu_ecr.run()
