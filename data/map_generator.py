@@ -1,6 +1,7 @@
 import pygame
 import random
 from data.player import JUMPSPEED, SPEED, GRAVI, Enemy, HEIGHT
+from data.functions import sep
 import math
 
 vx = SPEED
@@ -96,12 +97,12 @@ class Room:
         self.end = ending_point
         self.map = []
 
-
-
 class Strategy:
     def __init__(self, room: Room):
         self.room = room
-        self.map = self.room.map
+        self.map = []
+        for i in range(self.room.height):
+            self.map.append([])
 
     def generate(self):
         pass
@@ -115,10 +116,9 @@ class Platforms(Strategy):
         self.begins = 0 # переменная определяющая как будет начинаться сетка платформ
         self.grid_platforms: list[list[Platform]] = [] #в эту перменную записывается сетка платформ
         self.platforms = [] * self.room.height
+        self.ending_plat = None
         self.random_gen = []
-        self.map = []
-        for i in range(self.room.height):
-            self.map.append([])
+
 
     #функция которая вызывается, когда комната создается на сцене
     def all(self, scene):
@@ -131,10 +131,11 @@ class Platforms(Strategy):
     def generate(self):
         length = self.room.width
         height = self.room.height
+        print(length)
         v_step = 4
         h_step = self.av + 4
         v_pos = 0
-        h_pos = 0
+        h_pos = 1
         cur_grid = random.choice([True, False])
         self.begins = cur_grid
         while v_pos < height:
@@ -148,18 +149,16 @@ class Platforms(Strategy):
                 cells = []
                 av = self.av
                 wall = False
-                if h_pos + av >= length and av != 0 and not self.grid_platforms[-1][-1].ends_wall:
+                while h_pos + av >= length and av != 0:
                     av -= 1
                     wall = True
-                elif h_pos + av >= length and self.grid_platforms[-1][-1].ends_wall:
-                    break
-                elif h_pos + av >= length and av == 0:
+                if av == 0:
                     break
                 for i in range(av):
                     cells.append(Cell(((h_pos + i), v_pos), 1))
                 self.grid_platforms[-1].append(Platform(cells, wall))
                 h_pos += av + h_step
-            h_pos = 0
+            h_pos = 1
 
     #создает выход из комнаты по имещимся платфомрмам так, чтобы выйти можно было всегда
     def find_ending(self):
@@ -167,13 +166,11 @@ class Platforms(Strategy):
         points = list(range(len(self.grid_platforms)))
         self.ending_point = random.choice(points)
         points.remove(self.ending_point)
-        while self.ending_point % 2 == 0 and self.begins or self.ending_point % 2 != 0 and not self.begins and points:
+        while (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and points:
             self.ending_point = random.choice(points)
             points.remove(self.ending_point)
-        while self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4 and points:
-            self.ending_point = random.choice(points)
-            points.remove(self.ending_point)
-        if self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4 and not points:
+            print(self.ending_point, points)
+        if (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and not points:
             self.ending_point = self.room.height - 2
             check = False
             print('wtf')
@@ -181,7 +178,8 @@ class Platforms(Strategy):
         self.ending_poses = []
         for i in range(3):
             self.ending_poses.append((self.room.width - 1, vert_pos - i))
-        return True
+        print(check, points)
+        return check
 
 
     def choose_and_build(self, scene):
@@ -189,8 +187,9 @@ class Platforms(Strategy):
         poses = []
         final_poses = set()
         if self.find_ending():
-            popi = len(self.grid_platforms[0]) - 1
+            popi = len(self.grid_platforms[self.ending_point]) - 1
             poses.append((self.ending_point, popi))
+            self.ending_plat = self.grid_platforms[self.ending_point][popi]
         else:
             plats_count += 1
         a = list(range(0, len(self.grid_platforms)))
@@ -255,9 +254,75 @@ class Platforms(Strategy):
             res.append('')
             for j in i:
                 res[-1] += str(j)
+        return res
+
+
+class Stairs(Strategy):
+    def __init__(self, room, stairs_average):
+        super().__init__(room)
+        self.av = stairs_average
+        self.width = self.room.width
+        self.height = self.room.height
+        self.entry = self.room.entry
+        self.end = self.room.end
+        print(self.end)
+        self.cells = []
+        self.door_cells = []
+        for i in (self.entry, self.end):
+            for j in range(3):
+                b = i[0], i[1] - j
+                self.door_cells.append((i[0], i[1] - j))
+
+    def generate(self):
+        h_pos = 0
+        v_pos = self.entry[1] + 1
+        end = self.end[1]
+        dir = (end - v_pos) // abs(end - v_pos)
+        check = dir > 0
+        step = 1
+        amount = abs(end - v_pos + 2 * check) // step
+        lengths = sep(self.width, amount)
+        print('we', amount, len(lengths))
+        for i in range(len(lengths)):
+            for j in range(v_pos, self.height):
+                for k in range(h_pos, h_pos + lengths[i]):
+                    self.cells.append((k, j))
+            v_pos += step * dir
+            h_pos += lengths[i]
+
+        # while True:
+        #     length = random.randrange(self.av//2, int(round(self.av * 1.5, 0)))
+        #     if h_pos + length >= self.width:
+        #         length = self.width - h_pos
+        #     for i in range(v_pos, self.height):
+        #         for j in range(h_pos, h_pos + length):
+        #             self.cells.append((j,i))
+        #     h_pos += length
+        #     v_pos += step
+        #     if v_pos * dir >= end * dir:
+        #         break
+
+    def build_map(self):
+        for i in range(self.room.height):
+            for j in range(self.room.width):
+                if (j, i) in self.door_cells:
+                    self.map[i].append(Cell((j, i), 2))
+                elif (j, i) in self.cells:
+                    self.map[i].append(Cell((j, i), 1))
+                else:
+                    self.map[i].append(Cell((j, i), 0))
+        res = []
+        for i in self.map:
+            res.append('')
+            for j in i:
+                res[-1] += str(j)
         for i in res:
             print(i)
         return res
+
+    def all(self):
+        self.generate()
+        return self.build_map()
 
 
 class Spawn_zone(pygame.sprite.Sprite):
@@ -276,7 +341,6 @@ class Spawn_zone(pygame.sprite.Sprite):
 
     def spawn(self):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
-        print(self.name ,self.rect.x, self.rect.y)
         new_enemy = Enemy((pos, self.rect.bottom - HEIGHT))
         return new_enemy
 

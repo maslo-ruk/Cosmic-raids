@@ -42,12 +42,10 @@ class Platformer(Scene):
                 self.map_y.append('#' * (self.size[0] // 30))
             else:
                 self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
-        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), self.size[1] - HEIGHT * 2 - 30)
-        strategy = Platforms(room, 10)
-        self.map_x = strategy.all(self)
+        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 20), (self.size[0]//30 - 1, 30))
+        strategy = Stairs(room, 10)
+        self.map_x = strategy.all()
         self.map = []
-        for i in self.map_y:
-            print(i)
         for i in range(len(self.map_x)):
             new_str = ''
             for j in range(len(self.map_x[i])):
@@ -114,12 +112,12 @@ class Platformer(Scene):
                             i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
-                if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
-                    sppoint = random.choice(list(self.spawns))
-                    enemy = sppoint.spawn()
-                    self.blocks.add(enemy)
-                    self.Enemies.add(enemy)
-                    self.all_sprites.add(enemy)
+                # if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
+                #     sppoint = random.choice(list(self.spawns))
+                #     enemy = sppoint.spawn()
+                #     self.blocks.add(enemy)
+                #     self.Enemies.add(enemy)
+                #     self.all_sprites.add(enemy)
             if keys[pygame.K_d]:
                 right = True
             else:
