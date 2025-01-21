@@ -1,6 +1,7 @@
 import pygame
 import random
 from data.config import *
+import importlib
 
 def camera_conf(camera, target):
     pos_x, pos_y = target.center
@@ -40,3 +41,12 @@ def sep(len, amount):
         res[ind + dir] -= delta
     print(len, sum(res))
     return res
+
+def cast_ray(self_pos, target_pos, rects):
+    for i in rects:
+        if i.clipline(self_pos, target_pos):
+            return False
+    return True
+
+def make_graph(map):
+    graph = {}

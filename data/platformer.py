@@ -1,6 +1,6 @@
 import pygame
 from data.functions import *
-from data.player import Player, Enemy, Hub_Player
+from data.player import Player, Common_Enemy, Hub_Player
 from data.Block import Block
 from data.camera import Camera
 from data.map_generator import *
@@ -43,8 +43,8 @@ class Platformer(Scene):
             else:
                 self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
         room = Room(self.size[0] // 30, self.size[1] // 30, (0, 20), (self.size[0]//30 - 1, 30))
-        strategy = Stairs(room, 10)
-        self.map_x = strategy.all()
+        strategy = Platforms(room, 10)
+        self.map_x = strategy.all(self)
         self.map = []
         for i in range(len(self.map_x)):
             new_str = ''
@@ -70,7 +70,7 @@ class Platformer(Scene):
 
     def run(self):
         self.make_map()
-        enemy = Enemy((600, 510))
+        enemy = Common_Enemy((600, 510))
         self.Enemies.add(enemy)
         self.blocks.add(self.player)
         for i in self.Enemies:
@@ -85,7 +85,7 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MOVEEVENT, 2000)
         pygame.time.set_timer(self.RELOADEVENT, 1000)
-        pygame.time.set_timer(self.SPAWNEVENT, 4000)
+        pygame.time.set_timer(self.SPAWNEVENT, 500)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -112,12 +112,12 @@ class Platformer(Scene):
                             i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
-                # if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
-                #     sppoint = random.choice(list(self.spawns))
-                #     enemy = sppoint.spawn()
-                #     self.blocks.add(enemy)
-                #     self.Enemies.add(enemy)
-                #     self.all_sprites.add(enemy)
+                if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
+                    sppoint = random.choice(list(self.spawns))
+                    enemy = sppoint.spawn()
+                    self.blocks.add(enemy)
+                    self.Enemies.add(enemy)
+                    self.all_sprites.add(enemy)
             if keys[pygame.K_d]:
                 right = True
             else:

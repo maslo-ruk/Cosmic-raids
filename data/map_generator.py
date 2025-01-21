@@ -1,6 +1,6 @@
 import pygame
 import random
-from data.player import JUMPSPEED, SPEED, GRAVI, Enemy, HEIGHT
+from data.player import JUMPSPEED, SPEED, GRAVI, Common_Enemy, FlyingEnemy, HEIGHT
 from data.functions import sep
 import math
 
@@ -341,12 +341,14 @@ class Spawn_zone(pygame.sprite.Sprite):
 
     def spawn(self):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
-        new_enemy = Enemy((pos, self.rect.bottom - HEIGHT))
+        new_enemy = FlyingEnemy((pos, self.rect.bottom - HEIGHT))
+        print('x')
         return new_enemy
 
 class Level:
     def __init__(self, length, av_room_size):
         self.length = length
+        self.map = []
         self.rooms_size_x = 100
         self.rooms_size_y = av_room_size[1]
         self.rooms = []
@@ -359,4 +361,4 @@ class Level:
             room_y = self.rooms_size_y + d
 
     def add_room(self, x, y, prev_room):
-        new_room = Room(x, y, )
+        new_map = self.map

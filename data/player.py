@@ -149,7 +149,12 @@ class Player(Entity):
 
 ENEMY_SPEED = 3.5
 
+
 class Enemy(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, ENEMY_SPEED)
+
+class Common_Enemy(Entity):
         def __init__(self, pos):
             super().__init__(pos, ENEMY_SPEED)
             self.x_speed = ENEMY_SPEED
@@ -224,3 +229,44 @@ class Enemy(Entity):
                 self.xvel = random.choice([0.4, -0.4])
             else:
                 self.xvel = 0
+
+
+class FlyingEnemy(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, ENEMY_SPEED)
+        self.hp = 3
+        self.speed = 8
+        self.xvel = 0
+        self.yvel = 0
+
+    def idle(self):
+        pass
+
+    def update(self, scene, screen, rects, player):
+        self.get_direction(player)
+        self.rect.x += self.xvel
+        self.col1 = self.collides(rects)
+        if self.col1 and (self.xvel > 0):
+            self.rect.right = self.col1.left
+        elif self.col1 and (self.xvel < 0):
+            self.rect.left = self.col1.right
+        self.rect.y += self.yvel
+        self.col2 = self.collides(rects)
+        if self.col2 and (self.yvel < 0):
+            self.rect.top = self.col2.bottom
+        elif self.col2 and (self.yvel > 0):
+            self.rect.bottom = self.col2.top
+
+    def find_way(self, map):
+        pass
+
+    def get_direction(self, target):
+        dx = target.rect.x - self.rect.x
+        dy = target.rect.y - self.rect.y
+        gip = (dx**2 + dy**2) ** 0.5
+        sin = dx / gip
+        cos = dy / gip
+        self.xvel = self.speed * sin
+        self.yvel = self.speed * cos
+
+    def
