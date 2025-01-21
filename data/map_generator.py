@@ -216,8 +216,6 @@ class Platforms(Strategy):
                         m = random.choice([-1, 0])
                     else:
                         m = 0
-                if self.grid_platforms[y][x].ends_wall:
-                    m = 0
                 y += 1
                 if y >= len(self.grid_platforms):
                     break
@@ -230,10 +228,26 @@ class Platforms(Strategy):
                 platform = self.grid_platforms[i][j]
             except Exception:
                 print(i, j)
-            new_len = random.randrange(-self.av, self.av)
-            dir = 0
+            new_len = random.randrange(self.av)
+            dir = random.choice([1, -1])
+            if dir == 1:
+                x = platform.rect.right
+                print(platform.rect.left, platform.rect.top)
+                while platform.rect.right + new_len >= self.room.width - 2:
+                    new_len -= 1
+                for p in platform.cells:
+                    print(p.pos)
+                print('---------')
+            else:
+                x = platform.rect.left
+                print(platform.rect.left, platform.rect.top)
+                while platform.rect.right + new_len >= self.room.width - 2:
+                    new_len -= 1
+                for p in platform.cells:
+                    print(p.pos)
+                print('---------')
             for i in range(new_len):
-                platform.cells.append(Cell((platform.rect.right + dir + i * dir, platform.rect.top), 1))
+                platform.cells.append(Cell((x + i * dir, platform.rect.top), 1))
             platform.update()
             scene.spawns.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
             scene.all_sprites.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
@@ -330,7 +344,6 @@ class Spawn_zone(pygame.sprite.Sprite):
         super().__init__()
         self.name = 'bildabot' + str(pos_x)
         self.rect = pygame.Rect(pos_x * CELL_SIZE, (pos_y - height) * CELL_SIZE, width * CELL_SIZE, height * CELL_SIZE)
-        print(self.name, self.rect.x, self.rect.y)
         self.pos = (pos_x, pos_y + height)
         self.bottom = pos_y
         self.height=  height
@@ -342,7 +355,6 @@ class Spawn_zone(pygame.sprite.Sprite):
     def spawn(self):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
         new_enemy = FlyingEnemy((pos, self.rect.bottom - HEIGHT))
-        print('x')
         return new_enemy
 
 class Level:

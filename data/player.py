@@ -1,6 +1,8 @@
 import pygame
 from data.Block import Block
 from data.config import *
+from data.functions import *
+import networkx as nx
 
 WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
@@ -235,6 +237,10 @@ class FlyingEnemy(Entity):
     def __init__(self, pos):
         super().__init__(pos, ENEMY_SPEED)
         self.hp = 3
+        self.size = (30, 30)
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image = pygame.Surface(self.size)
+        self.image.fill(COLOR)
         self.speed = 8
         self.xvel = 0
         self.yvel = 0
@@ -242,31 +248,55 @@ class FlyingEnemy(Entity):
     def idle(self):
         pass
 
-    def update(self, scene, screen, rects, player):
-        self.get_direction(player)
-        self.rect.x += self.xvel
-        self.col1 = self.collides(rects)
-        if self.col1 and (self.xvel > 0):
-            self.rect.right = self.col1.left
-        elif self.col1 and (self.xvel < 0):
-            self.rect.left = self.col1.right
-        self.rect.y += self.yvel
-        self.col2 = self.collides(rects)
-        if self.col2 and (self.yvel < 0):
-            self.rect.top = self.col2.bottom
-        elif self.col2 and (self.yvel > 0):
-            self.rect.bottom = self.col2.top
+    def update(self, scene, screen, rects, map_graph: nx.Graph, player):
+        if cast_ray(self.rect.center, player.rect.center, rects):
+            print('0000')
+            self.move_to(player.rect.center)
+        else:
+            target = player.rect.center[0] // 30, player.rect.center[1] // 30
+            self_pos = self.rect.center[0] // 30, self.rect.center[1] // 30
+            if map_graph.has_node(target) and map_graph.has_node(self_pos):
+                way = nx.shortest_path(map_graph, self_pos, target, weight=1)
+                dest = (way[0][0] * 30, way[0][1] * 30)
+                counter = 0
+                while cast_ray(self.rect.center, dest, rects):
+                    counter += 1
+                    dest = (way[counter][0] * 30, way[counter][1] * 30)
+            else:
+                print(':[[[[[')
+                dest = (player.rect.center)
+            self.move_to(dest)
 
     def find_way(self, map):
         pass
 
     def get_direction(self, target):
-        dx = target.rect.x - self.rect.x
-        dy = target.rect.y - self.rect.y
+        dx = target[0] - self.rect.x
+        print(dx)
+        dy = target[1] - self.rect.y
+        print(dy)
+        print('------------')
         gip = (dx**2 + dy**2) ** 0.5
-        sin = dx / gip
-        cos = dy / gip
-        self.xvel = self.speed * sin
-        self.yvel = self.speed * cos
+        if gip != 0:
+            sin = dx / gip
+            cos = dy / gip
+            self.xvel = self.speed * sin
+            self.yvel = self.speed * cos
+        else:
+            self.xvel = 0
+            self.yvel = 0
 
-    def
+    def move_to(self, target):
+        self.get_direction(target)
+        self.rect.x += self.xvel
+        # self.col1 = self.collides(rects)
+        # if self.col1 and (self.xvel > 0):
+        #     self.rect.right = self.col1.left
+        # elif self.col1 and (self.xvel < 0):
+        #     self.rect.left = self.col1.right
+        self.rect.y += self.yvel
+        # self.col2 = self.collides(rects)
+        # if self.col2 and (self.yvel < 0):
+        #     self.rect.top = self.col2.bottom
+        # elif self.col2 and (self.yvel > 0):
+        #     self.rect.bottom = self.col2.top

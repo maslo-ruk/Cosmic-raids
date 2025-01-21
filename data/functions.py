@@ -1,7 +1,7 @@
 import pygame
 import random
 from data.config import *
-import importlib
+import networkx as nx
 
 def camera_conf(camera, target):
     pos_x, pos_y = target.center
@@ -44,9 +44,22 @@ def sep(len, amount):
 
 def cast_ray(self_pos, target_pos, rects):
     for i in rects:
-        if i.clipline(self_pos, target_pos):
+        if i.rect.clipline(target_pos, self_pos):
             return False
     return True
 
 def make_graph(map):
-    graph = {}
+    graph = nx.Graph()
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            if map[i][j] == '0':
+                graph.add_node((i, j))
+                if j != len(map[i]) - 1:
+                    if map[i][j+1] == '0':
+                        graph.add_node((i, j+ 1))
+                        graph.add_edge((i, j), (i, j + 1))
+                if i != len(map) - 1:
+                    if map[i+ 1][j] == '0':
+                        graph.add_node((i + 1, j))
+                        graph.add_edge((i, j), (i + 1, j))
+    return graph
