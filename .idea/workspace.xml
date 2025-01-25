@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/images/for_gildia/ne_gotovo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,28 +53,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
-    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Kulpinsky__Helen&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PycharmProjects/Comic_raids/images/for_hub&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Block.executor": "Run",
+    "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.map_generator.executor": "Run",
+    "Python.map_generator_copy.executor": "Run",
+    "Python.platformer.executor": "Run",
+    "Python.player.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Kulpinsky__Helen",
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/for_gildia",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PycharmProjects\Comic_raids\images\for_hub" />
       <recent name="D:\PycharmProjects\Comic_raids\images\for_gildia" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\for_hub" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
       <recent name="C:\Users\user\CosmicRaid\data" />
@@ -265,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737400244478</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Доработка гильдии">
+      <option name="closed" value="true" />
+      <created>1737792121521</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737792121521</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -293,7 +298,8 @@
     <MESSAGE value="Добавлена заготовка хаба" />
     <MESSAGE value="Доработан переход из меню в хаб + добавление текстурок гильдии + начата разроботка самой гильдии и класса Button2 для нее" />
     <MESSAGE value="разработана гильдия с кнопками" />
-    <option name="LAST_COMMIT_MESSAGE" value="разработана гильдия с кнопками" />
+    <MESSAGE value="Доработка гильдии" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработка гильдии" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

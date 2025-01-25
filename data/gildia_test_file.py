@@ -14,6 +14,7 @@ class Gildia:
         fon = pygame.image.load("images/for_gildia/gildia.png").convert_alpha()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         rules = pygame.image.load("images/for_gildia/rules.png")
+        didntt = pygame.image.load("images/for_gildia/ne_gotovo.png")
         self.screen.blit(fon, (0, 0))
         shop_button = Button(0, 0, self.width, self.height, '', "images/for_gildia/shop_button.png",
                               "images/for_gildia/shop_button.png", '',
@@ -51,6 +52,7 @@ class Gildia:
         pygame.display.set_caption("Гильдия")
         running = True
         rule = False
+        didnt = False
 
         while running:
             keys = pygame.key.get_pressed()
@@ -77,6 +79,12 @@ class Gildia:
                     elif name_button.events():
                         rules = pygame.transform.scale(rules, (self.width, self.height))
                         rule = True
+                    elif shop_button.events():
+                        didntt = pygame.transform.scale(didntt, (self.width, self.height))
+                        didnt = True
+                    elif putish_button.events():
+                        didntt = pygame.transform.scale(didntt, (self.width, self.height))
+                        didnt = True
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     zadania_button.check_mishka(x_pos)
@@ -87,8 +95,9 @@ class Gildia:
                     back_button.check_mishka(x_pos)
                     name_button.check_mishka(x_pos)
                     ding_dong.check_mishka(x_pos)
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE] or keys[pygame.K_RETURN]:
                 rule = False
+                didnt = False
                     # выход через esc
             self.screen.blit(fon, (0, 0))
             # Дальше идут важные кнопки для самой игры
@@ -102,5 +111,7 @@ class Gildia:
             ding_dong.draw(self.screen)
             if rule:
                 self.screen.blit(rules, (0, 0))
+            elif didnt:
+                self.screen.blit(didntt, (0, 0))
             pygame.display.flip()
             dt = clock.tick(100) / 1000
