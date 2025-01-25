@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="работа нгад летающим врагом">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +63,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Zhavoronkov__Egor&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Kulpinsky__Helen&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Егор/PycharmProjects/Cosmic-raids/data&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
@@ -183,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737483938054</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="рабочая версия">
+      <option name="closed" value="true" />
+      <created>1737830302183</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737830302183</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +216,8 @@
     <MESSAGE value="Добавлена заготовка хаба" />
     <MESSAGE value="хз" />
     <MESSAGE value="работа нгад летающим врагом" />
-    <option name="LAST_COMMIT_MESSAGE" value="работа нгад летающим врагом" />
+    <MESSAGE value="рабочая версия" />
+    <option name="LAST_COMMIT_MESSAGE" value="рабочая версия" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
