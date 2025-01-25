@@ -138,10 +138,14 @@ class Hub(Scene):
         self.blocks_map = pygame.sprite.Group()
 
     def make_map(self):
+        a = ((self.size[1] // 29 - 1) // 2)
+        print(a)
         self.map_y = []
         for i in range(self.size[1] // 29):
             if i == 0 or i == self.size[1] // 29 - 1:
                 self.map_y.append('#' * (self.size[0] // 29))
+            elif i >= (a - 2) and i <= (a+ 2):
+                self.map_y.append('#' + ('0' * (self.size[0] // 29 - 6 // 2)) + '#' * 6 + ('0' * (self.size[0] // 29 - 6 // 2)) + '#')
             else:
                 self.map_y.append('#' + '0' * (self.size[0] // 29 - 2) + '#')
         self.map = self.map_y[:]

@@ -13,7 +13,7 @@ def main():
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
-    menu_ecr = Menu(width, height, screen)
+    menu_ecr = Gildia(width, height, screen)
     running = True
     while running:
         menu_ecr.run()

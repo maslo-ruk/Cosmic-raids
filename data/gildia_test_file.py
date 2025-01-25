@@ -1,6 +1,6 @@
 # Тест меню
 import pygame
-from data.buttons import Button, Block_for_person
+from data.buttons import *
 from data.platformer import Hub
 class Gildia:
     def __init__(self, width, height, screen):
@@ -8,6 +8,7 @@ class Gildia:
         self.height = height
         self.screen = screen
         self.size = self.width, self.height
+        self.cloks = 0
 
     def run(self):
         fon = pygame.image.load("images/for_gildia/gildia.png").convert_alpha()
@@ -33,7 +34,7 @@ class Gildia:
         person_click = Block_for_person(0, 0, self.width, self.height, '', "images/for_gildia/calm_Tih.png",
                                  "images/for_gildia/angry_Tih.png", "images/for_gildia/love_Tih.png", '', '',
                                  (544 * (self.width / 1536), 1030 * (self.width / 1536)),
-                                 (220 * (self.height / 864), 660 * (self.height / 864)), False)
+                                 (220 * (self.height / 864), 660 * (self.height / 864)), False, self.cloks)
         back_button = Button(0, 0, self.width, self.height, '', "images/for_gildia/back_plz.png",
                                "images/for_gildia/back_plz.png", '',
                                (1217 * (self.width / 1536), 1478 * (self.width / 1536)),
@@ -42,11 +43,14 @@ class Gildia:
                                "images/for_gildia/name_of.png", '',
                                (499 * (self.width / 1536), 1064 * (self.width / 1536)),
                                (33 * (self.height / 864), 97 * (self.height / 864)))
+        ding_dong = Ding_dong(0, 0, self.width, self.height, '', "images/for_gildia/zvonok_knop.png",
+                               "images/for_gildia/zvonok_knop.png", '',
+                               (1026 * (self.width / 1536), 1053 * (self.width / 1536)),
+                               (696 * (self.height / 864), 705 * (self.height / 864)))
         clock = pygame.time.Clock()
-        pygame.display.set_caption("Тестовое меню")
+        pygame.display.set_caption("Гильдия")
         running = True
         rule = False
-
 
         while running:
             keys = pygame.key.get_pressed()
@@ -62,6 +66,8 @@ class Gildia:
                     person_click.events()
                     person_click.clicking()
                     back_button.events()
+                    ding_dong.events()
+                    ding_dong.clicking()
                     if back_button.events():
                         current_scene = Hub(self.size, self.screen, clock)
                         runi = True
@@ -80,6 +86,7 @@ class Gildia:
                     person_click.check_mishka(x_pos)
                     back_button.check_mishka(x_pos)
                     name_button.check_mishka(x_pos)
+                    ding_dong.check_mishka(x_pos)
             if keys[pygame.K_SPACE]:
                 rule = False
                     # выход через esc
@@ -92,6 +99,7 @@ class Gildia:
             person_click.draw(self.screen)
             back_button.draw(self.screen)
             name_button.draw(self.screen)
+            ding_dong.draw(self.screen)
             if rule:
                 self.screen.blit(rules, (0, 0))
             pygame.display.flip()
