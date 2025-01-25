@@ -8,7 +8,7 @@ WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
-HUB_SPEED = 4
+HUB_SPEED = 10
 JUMPSPEED = 14
 GRAVI = 0.8
 COLOR = 'red'
@@ -85,6 +85,10 @@ class Entity(pygame.sprite.Sprite):
 class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
+        self.size = CELL_SIZE * 6, CELL_SIZE * 9
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image = pygame.Surface(self.size)
+        self.image.fill(COLOR)
 
     def update(self, scene, screen, hor, vert, rects):
         super().update(scene)

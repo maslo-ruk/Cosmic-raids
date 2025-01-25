@@ -153,11 +153,11 @@ class Hub(Scene):
 
     def make_map(self):
         self.map_y = []
-        for i in range(self.size[1] // 29):
-            if i == 0 or i == self.size[1] // 29 - 1:
-                self.map_y.append('#' * (self.size[0] // 29))
+        for i in range(self.size[1] // 30):
+            if i == 0 or i == self.size[1] // 30 - 1:
+                self.map_y.append('#' * (self.size[0] // 30))
             else:
-                self.map_y.append('#' + '0' * (self.size[0] // 29 - 2) + '#')
+                self.map_y.append('#' + '0' * (self.size[0] // 30 - 2) + '#')
         self.map = self.map_y[:]
         for i in range(len(self.map)):
             string = self.map[i]
@@ -224,7 +224,7 @@ class Hub(Scene):
             #Егор, разработай ограничения передвижения в хабе
             if keys[pygame.K_h]:
                 pass
-            self.player.update(self.screen, hor,vert, self.blocks_map)
+            self.player.update(self, self.screen, hor,vert, self.blocks_map)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
             hor = 0
