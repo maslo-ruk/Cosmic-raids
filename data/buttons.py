@@ -191,4 +191,43 @@ class Ding_dong:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
             return True
 
+class Dostig_dutton:
+    def __init__(self, x_cord, y_cord, width, height, image_before, image_after=None, diapazone_x=None, diapazone_y=None, nazv=None):
+        self.x_cord = x_cord
+        self.y_cord = y_cord
+        self.w = width
+        self.h = height
+        self.name = nazv
+        self.diapaz_x = diapazone_x
+        self.diapaz_y = diapazone_y
+
+        # self.flag = flag
+
+        self.image_before = pygame.image.load(image_before).convert_alpha()
+        self.image_before = pygame.transform.scale(self.image_before, (width, height))
+        self.image_after = self.image_before
+
+        if image_after:
+            self.image_after = pygame.image.load(image_after).convert_alpha().convert_alpha()
+            self.image_after = pygame.transform.scale(self.image_after, (width, height))
+        self.rect = self.image_before.get_rect(topleft=(x_cord,y_cord))
+        self.sound = None
+
+    def draw(self, screen):
+        if self.mishka_on:
+            current_img = self.image_after
+        else:
+            current_img = self.image_before
+        screen.blit(current_img, self.rect.topleft)
+
+        font = pygame.font.Font(None, 36)
+        text_sur = font.render(self.text, True, ("white"))
+        text_rect = text_sur.get_rect(center=self.rect.center)
+        screen.blit(text_sur, text_rect)
+
+    def check_mishka(self, mouse_pos):
+        pass
+
+    def events(self):
+        pass
 

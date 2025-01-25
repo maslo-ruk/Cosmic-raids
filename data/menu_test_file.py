@@ -1,7 +1,6 @@
 # Тест меню
 import pygame
 from data.buttons import Button
-from data.sound_function import sound
 from data.platformer import *
 from data.map_generator import *
 class Menu(Scene):

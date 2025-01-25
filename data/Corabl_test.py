@@ -1,7 +1,6 @@
 # Тест меню
 import pygame
 from data.buttons import Button
-from data.sound_function import sound
 class Hub:
     def __init__(self, width, height, screen):
         self.width = width

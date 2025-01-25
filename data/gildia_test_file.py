@@ -1,7 +1,8 @@
 # Тест меню
 import pygame
 from data.buttons import *
-from data.platformer import Hub
+from data.platformer import *
+from data.dostich_test_file import *
 class Gildia:
     def __init__(self, width, height, screen):
         self.width = width
@@ -85,6 +86,16 @@ class Gildia:
                     elif putish_button.events():
                         didntt = pygame.transform.scale(didntt, (self.width, self.height))
                         didnt = True
+                    elif zadania_button.events():
+                        menu_ecr = Platformer((self.width, self.height), self.screen, clock)
+                        running = True
+                        while running:
+                            menu_ecr.run()
+                    elif dostig_button.events():
+                        menu_ecr = Dostich(self.width, self.height, self.screen)
+                        running = True
+                        while running:
+                            menu_ecr.run()
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     zadania_button.check_mishka(x_pos)
