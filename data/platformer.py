@@ -102,16 +102,16 @@ class Platformer(Scene):
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.throw(10, dest_x, dest_y)
-                # if event.type == self.SHOOTEVENT and self.player.is_alive:
-                #     for i in self.Enemies:
-                #         if i.see_player:
-                #             i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
-                # if event.type == self.MOVEEVENT:
-                #     for i in self.Enemies:
-                #         if not i.unseed:
-                #             i.random_move()
-                # if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
-                #     self.player.count += 1
+                if event.type == self.SHOOTEVENT and self.player.is_alive:
+                    for i in self.Enemies:
+                        if i.see_player:
+                            i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                if event.type == self.MOVEEVENT:
+                    for i in self.Enemies:
+                        if not i.unseed:
+                            i.random_move()
+                if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
+                    self.player.count += 1
                 if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
                     sppoint = random.choice(list(self.spawns))
                     enemy = sppoint.spawn()
@@ -133,7 +133,7 @@ class Platformer(Scene):
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
             for i in self.Enemies:
-                i.update(self, self.screen, self.blocks, self.graph, self.player)
+                i.update(self, self.screen, self.blocks, self.player)
             self.camera.update(self.player)
             for i in self.all_sprites:
                 if i.image:

@@ -344,7 +344,7 @@ class Spawn_zone(pygame.sprite.Sprite):
 
     def spawn(self):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
-        new_enemy = FlyingEnemy((pos, self.rect.bottom - HEIGHT))
+        new_enemy = Common_Enemy((pos, self.rect.bottom - HEIGHT))
         return new_enemy
 
 class Level:
