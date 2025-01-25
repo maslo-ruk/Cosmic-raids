@@ -232,20 +232,12 @@ class Platforms(Strategy):
             dir = random.choice([1, -1])
             if dir == 1:
                 x = platform.rect.right
-                print(platform.rect.left, platform.rect.top)
                 while platform.rect.right + new_len >= self.room.width - 2:
                     new_len -= 1
-                for p in platform.cells:
-                    print(p.pos)
-                print('---------')
             else:
                 x = platform.rect.left
-                print(platform.rect.left, platform.rect.top)
                 while platform.rect.right + new_len >= self.room.width - 2:
                     new_len -= 1
-                for p in platform.cells:
-                    print(p.pos)
-                print('---------')
             for i in range(new_len):
                 platform.cells.append(Cell((x + i * dir, platform.rect.top), 1))
             platform.update()
@@ -279,7 +271,6 @@ class Stairs(Strategy):
         self.height = self.room.height
         self.entry = self.room.entry
         self.end = self.room.end
-        print(self.end)
         self.cells = []
         self.door_cells = []
         for i in (self.entry, self.end):
@@ -296,7 +287,6 @@ class Stairs(Strategy):
         step = 1
         amount = abs(end - v_pos + 2 * check) // step
         lengths = sep(self.width, amount)
-        print('we', amount, len(lengths))
         for i in range(len(lengths)):
             for j in range(v_pos, self.height):
                 for k in range(h_pos, h_pos + lengths[i]):

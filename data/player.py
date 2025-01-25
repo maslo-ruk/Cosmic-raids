@@ -253,15 +253,17 @@ class FlyingEnemy(Entity):
             print('0000')
             self.move_to(player.rect.center)
         else:
-            target = player.rect.center[0] // 30, player.rect.center[1] // 30
-            self_pos = self.rect.center[0] // 30, self.rect.center[1] // 30
+            target = player.rect.center[1] // 30, player.rect.center[0] // 30
+            print(target)
+            self_pos = self.rect.center[1] // 30, self.rect.center[0] // 30
+            print(self_pos)
             if map_graph.has_node(target) and map_graph.has_node(self_pos):
                 way = nx.shortest_path(map_graph, self_pos, target, weight=1)
-                dest = (way[0][0] * 30, way[0][1] * 30)
+                dest = (way[0][1] * 30, way[0][0] * 30)
                 counter = 0
-                while cast_ray(self.rect.center, dest, rects):
-                    counter += 1
-                    dest = (way[counter][0] * 30, way[counter][1] * 30)
+                # while cast_ray(self.rect.center, dest, rects):
+                #     counter += 1
+                #     dest = (way[counter][1] * 30, [counter][0] * 30)
             else:
                 print(':[[[[[')
                 dest = (player.rect.center)

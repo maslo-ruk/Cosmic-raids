@@ -51,6 +51,7 @@ def cast_ray(self_pos, target_pos, rects):
 def make_graph(map):
     graph = nx.Graph()
     for i in range(len(map)):
+        print(map[i])
         for j in range(len(map[i])):
             if map[i][j] == '0':
                 graph.add_node((i, j))
@@ -62,4 +63,5 @@ def make_graph(map):
                     if map[i+ 1][j] == '0':
                         graph.add_node((i + 1, j))
                         graph.add_edge((i, j), (i + 1, j))
+    print(graph.nodes)
     return graph
