@@ -1,8 +1,6 @@
-import random
-a = [1, 2, 3]
+import networkx
 
-def add_1(x):
-    x.append(1)
-
-add_1(a)
-print(a)
+g = networkx.Graph()
+g.add_nodes_from([1,2,3,4])
+g.add_nodes_from([4,3,5,6])
+print(g.nodes)

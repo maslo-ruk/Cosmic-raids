@@ -31,8 +31,8 @@ class Bullets(pygame.sprite.Sprite):
 
     def update(self, rects, t):
         # Двигаем линию в зависимости от угла
-        self.rect.x += 10 * self.angle[0]
-        self.rect.y += 10 * self.angle[1]
+        self.rect.x += 12 * self.angle[0]
+        self.rect.y += 12 * self.angle[1]
 
         a = self.collides(rects, t)
         # Удаляем линию, если она выходит за границы экрана
@@ -76,9 +76,7 @@ class Grenade(pygame.sprite.Sprite):
             self.col2 = self.collides(rects, player_rect)
             if self.col2 and (self.velocity_y < 0):
                 self.rect.top = self.col2.bottom
-                print(self.velocity_y)
                 self.velocity_y = -self.velocity_y * 0.7
-                print(self.velocity_y)
             elif self.col2 and (self.velocity_y > 0):
                 self.rect.bottom = self.col2.top
                 self.velocity_y = -self.velocity_y * 0.7

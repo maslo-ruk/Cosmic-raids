@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлена заготовка хаба">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="работа нгад летающим врагом">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Zhavoronkov_Egor" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/maslo-ruk/Cosmic-raids&quot;,
-    &quot;accountId&quot;: &quot;c722e578-a338-45c4-b09e-1187715b4c52&quot;
+    &quot;accountId&quot;: &quot;f9f66426-9466-40c0-a040-9f92052237af&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -53,27 +54,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Block.executor": "Run",
-    "Python.graphs_experiments.executor": "Run",
-    "Python.hub.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.map_generator.executor": "Run",
-    "Python.map_generator_copy.executor": "Run",
-    "Python.platformer.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Zhavoronkov__Egor",
-    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
+    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Zhavoronkov__Egor&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Егор/PycharmProjects/Cosmic-raids/data&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
+      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\user\CosmicRaid\data" />
     </key>
   </component>
@@ -174,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736531928743</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="работа нгад летающим врагом">
+      <option name="closed" value="true" />
+      <created>1737483938054</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737483938054</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,16 +209,13 @@
     <MESSAGE value="Начата работа над генерацией карты" />
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена заготовка хаба" />
+    <MESSAGE value="хз" />
+    <MESSAGE value="работа нгад летающим врагом" />
+    <option name="LAST_COMMIT_MESSAGE" value="работа нгад летающим врагом" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/map_generator.py</url>
-          <line>135</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/map_generator_copy.py</url>
           <line>170</line>

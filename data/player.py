@@ -1,8 +1,11 @@
 import pygame
 from data.Block import Block
+from data.config import *
+from data.functions import *
+import networkx as nx
 
-WIDTH = 30
-HEIGHT = 30
+WIDTH = CELL_SIZE
+HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
 HUB_SPEED = 4
@@ -36,8 +39,12 @@ class Entity(pygame.sprite.Sprite):
     def update(self, *args, **kwargs):
         if self.hp <= 0:
             self.die()
+        a = args[0]
+        if not a.rect.contains(self.rect):
+            self.die()
 
-    def shoot(self, dest_x, dest_y):
+
+    def shoot(self, dest_x, dest_y, all_b, all_sp):
         from data.projectiles import Bullets
         dx = dest_x - self.rect.x
         dy = dest_y - self.rect.y
@@ -47,7 +54,7 @@ class Entity(pygame.sprite.Sprite):
             direction = (dx / norm, dy / norm)
             line = Bullets(self.rect.center, direction)
             self.all_b.add(line)
-            self.lines.add(line)
+            all_sp.add(line)
 
     def die(self):
         self.is_alive = False
@@ -79,7 +86,8 @@ class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
 
-    def update(self, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects):
+        super().update(scene)
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
         if self.col1 and (hor > 0):
@@ -103,8 +111,8 @@ class Player(Entity):
         self.image.fill('green')
 
 
-    def update(self, screen, a, b, c, rects):
-        super().update()
+    def update(self, scene, screen, a, b, c, rects):
+        super().update(scene)
         if self.is_alive == False:
             print(self.score)
         if a:
@@ -137,14 +145,18 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
-        self.lines.update(rects, self.rect)
-        self.all_b.draw(screen)
+        self.all_b.update(rects, self.rect)
         self.grenades.update(screen, rects, self.rect)
         self.grenades.draw(screen)
 
 ENEMY_SPEED = 3.5
 
+
 class Enemy(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, ENEMY_SPEED)
+
+class Common_Enemy(Entity):
         def __init__(self, pos):
             super().__init__(pos, ENEMY_SPEED)
             self.x_speed = ENEMY_SPEED
@@ -158,9 +170,9 @@ class Enemy(Entity):
             self.see_player = False
             self.inair = True
 
-        def update(self, screen, rects, player):
-            super().update()
-            if self.is_alive == False:
+        def update(self, scene, screen, rects, player):
+            super().update(scene)
+            if not self.is_alive:
                 player.score += 1
             player_pos = player.rect
             if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
@@ -186,8 +198,7 @@ class Enemy(Entity):
 
             self.move_to_player(self.xvel, rects)
             self.fall(rects)
-            self.lines.update(rects, self.rect)
-            self.all_b.draw(screen)
+            self.all_b.update(rects, self.rect)
 
         def move_to_player(self, vel, rects):
             self.rect.x += self.x_speed * self.xvel
@@ -220,3 +231,74 @@ class Enemy(Entity):
                 self.xvel = random.choice([0.4, -0.4])
             else:
                 self.xvel = 0
+
+
+class FlyingEnemy(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, ENEMY_SPEED)
+        self.hp = 3
+        self.size = (30, 30)
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image = pygame.Surface(self.size)
+        self.image.fill(COLOR)
+        self.speed = 8
+        self.xvel = 0
+        self.yvel = 0
+
+    def idle(self):
+        pass
+
+    def update(self, scene, screen, rects, map_graph: nx.Graph, player):
+        if cast_ray(self.rect.center, player.rect.center, rects):
+            print('0000')
+            self.move_to(player.rect.center)
+        else:
+            target = player.rect.center[1] // 30, player.rect.center[0] // 30
+            print(target)
+            self_pos = self.rect.center[1] // 30, self.rect.center[0] // 30
+            print(self_pos)
+            if map_graph.has_node(target) and map_graph.has_node(self_pos):
+                way = nx.shortest_path(map_graph, self_pos, target, weight=1)
+                dest = (way[0][1] * 30, way[0][0] * 30)
+                counter = 0
+                # while cast_ray(self.rect.center, dest, rects):
+                #     counter += 1
+                #     dest = (way[counter][1] * 30, [counter][0] * 30)
+            else:
+                print(':[[[[[')
+                dest = (player.rect.center)
+            self.move_to(dest)
+
+    def find_way(self, map):
+        pass
+
+    def get_direction(self, target):
+        dx = target[0] - self.rect.x
+        print(dx)
+        dy = target[1] - self.rect.y
+        print(dy)
+        print('------------')
+        gip = (dx**2 + dy**2) ** 0.5
+        if gip != 0:
+            sin = dx / gip
+            cos = dy / gip
+            self.xvel = self.speed * sin
+            self.yvel = self.speed * cos
+        else:
+            self.xvel = 0
+            self.yvel = 0
+
+    def move_to(self, target):
+        self.get_direction(target)
+        self.rect.x += self.xvel
+        # self.col1 = self.collides(rects)
+        # if self.col1 and (self.xvel > 0):
+        #     self.rect.right = self.col1.left
+        # elif self.col1 and (self.xvel < 0):
+        #     self.rect.left = self.col1.right
+        self.rect.y += self.yvel
+        # self.col2 = self.collides(rects)
+        # if self.col2 and (self.yvel < 0):
+        #     self.rect.top = self.col2.bottom
+        # elif self.col2 and (self.yvel > 0):
+        #     self.rect.bottom = self.col2.top
