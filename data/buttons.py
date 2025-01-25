@@ -56,7 +56,7 @@ class Button:
 
 class Block_for_person:
         def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after1=None, image_after2=None, sound=None, sound2=None,
-                     diapazone_x=None, diapazone_y=None, person=None):
+                     diapazone_x=None, diapazone_y=None, person=None, clocks=None):
             self.x_cord = x_cord
             self.y_cord = y_cord
             self.w = width
@@ -64,6 +64,7 @@ class Block_for_person:
             self.text = text
             self.diapaz_x = diapazone_x
             self.diapaz_y = diapazone_y
+            self.clocks = clocks
 
             self.image_before = pygame.image.load(image_before)
             self.image_before = pygame.transform.scale(self.image_before, (width, height))
@@ -90,6 +91,8 @@ class Block_for_person:
                 current_img = self.image_before
                 if self.clicked > 5:
                     current_img = self.image_after1
+                    self.clocks += 1
+
             else:
                 current_img = self.image_after2
                 if self.sound2:
@@ -101,6 +104,9 @@ class Block_for_person:
             text_sur = font.render(self.text, True, ("white"))
             text_rect = text_sur.get_rect(center=self.rect.center)
             screen.blit(text_sur, text_rect)
+            if self.clocks > 150:
+                self.update()
+                self.clocks = 0
 
         def check_mishka(self, mouse_pos):
             # print(mouse_pos)
@@ -116,7 +122,7 @@ class Block_for_person:
             # print(self.mishka_on)
             if self.mishka_on:
                 self.clicked += 1
-                print("Да")
+                # print("Да")
 
         def events(self):
             if self.mishka_on:
@@ -124,4 +130,65 @@ class Block_for_person:
                     self.sound.play()
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
                 return True
+
+        def update(self):
+            self.clicked = 0
+
+
+class Ding_dong:
+    def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after1=None,
+                 sound=None,
+                 diapazone_x=None, diapazone_y=None):
+        self.x_cord = x_cord
+        self.y_cord = y_cord
+        self.w = width
+        self.h = height
+        self.text = text
+        self.diapaz_x = diapazone_x
+        self.diapaz_y = diapazone_y
+
+        self.image_before = pygame.image.load(image_before)
+        self.image_before = pygame.transform.scale(self.image_before, (width, height))
+        self.image_after = self.image_before
+        self.mishka_on = True
+
+        if image_after1:
+            self.image_after1 = pygame.image.load(image_after1).convert_alpha()
+            self.image_after1 = pygame.transform.scale(self.image_after1, (width, height))
+        self.rect = self.image_before.get_rect(topleft=(x_cord, y_cord))
+        self.sound = sound
+
+    def draw(self, screen):
+        current_img = self.image_after1
+        screen.blit(current_img, self.rect.topleft)
+
+        font = pygame.font.Font(None, 36)
+        text_sur = font.render(self.text, True, ("white"))
+        text_rect = text_sur.get_rect(center=self.rect.center)
+        screen.blit(text_sur, text_rect)
+
+    def check_mishka(self, mouse_pos):
+        # print(mouse_pos)
+        if self.diapaz_x and self.diapaz_y:
+            if int(mouse_pos[0]) > int(self.diapaz_x[0]) and int(mouse_pos[0]) < int(self.diapaz_x[1]) and int(
+                    mouse_pos[1]) > int(self.diapaz_y[0]) and int(mouse_pos[1]) < int(self.diapaz_y[1]):
+                self.mishka_on = True
+            else:
+                self.mishka_on = False
+        else:
+            self.mishka_on = self.rect.collidepoint(mouse_pos)
+
+    def clicking(self):
+        # print(self.mishka_on)
+        if self.mishka_on:
+            # if self.sound:
+            #     self.sound = pygame.mixer.Sound(self.sound)
+            print("динь дон")
+    def events(self):
+        if self.mishka_on:
+            if self.sound:
+                self.sound.play()
+            pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
+            return True
+
 

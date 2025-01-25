@@ -71,6 +71,8 @@ class Platformer(Scene):
 
     def run(self):
         self.make_map()
+        enemy = Enemy((600, 510))
+        self.Enemies.add(enemy)
         self.blocks.add(self.player)
         for i in self.Enemies:
             self.blocks.add(i)

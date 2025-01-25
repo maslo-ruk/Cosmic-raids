@@ -11,6 +11,7 @@ class Menu(Scene):
         self.screen = screen
         self.size = self.width, self.height
 
+
     def run(self):
         fon = pygame.image.load("images/for_menu/Space_sky.png").convert()
         fon = pygame.transform.scale(fon, (self.width, self.height))
