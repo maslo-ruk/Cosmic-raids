@@ -1,6 +1,7 @@
 import pygame
 import random
-from data.player import JUMPSPEED, SPEED, GRAVI, Enemy, HEIGHT
+from data.player import JUMPSPEED, SPEED, GRAVI, Common_Enemy, FlyingEnemy, HEIGHT
+from data.functions import sep
 import math
 
 vx = SPEED
@@ -21,12 +22,16 @@ class Cell:
         self.rect = pygame.Rect(self.pos[0], self.pos[1], self.cell_size, self.cell_size)
         if self.type == 1:
             self.sym = '#'
+        elif self.type == 2:
+            self.sym = 'd'
         else:
             self.sym = '0'
 
     def update_sym(self):
         if self.type == 1:
             self.sym = '#'
+        elif self.type == 2:
+            self.sym = 'd'
         else:
             self.sym = '0'
 
@@ -36,9 +41,10 @@ class Cell:
 
 
 class Platform:
-    def __init__(self, cells : list[Cell]):
+    def __init__(self, cells : list[Cell], wall=False):
         self.cells = cells
         self.rect = pygame.Rect(self.cells[0].pos[0], self.cells[0].pos[1], len(self.cells),  1)
+        self.ends_wall = wall
 
     def update(self):
         self.rect = pygame.Rect(self.cells[0].pos[0], self.cells[0].pos[1], len(self.cells), 1)
@@ -78,8 +84,6 @@ def check_pos_in_platform(plats, pos):
     y = pos[1]
     for i in plats:
         n = i.rect.top
-        print(i.rect.left)
-        print(i.rect.right)
         if y == n and (i.rect.left <= x < i.rect.right):
             return True
 
@@ -93,66 +97,101 @@ class Room:
         self.end = ending_point
         self.map = []
 
-
-
 class Strategy:
     def __init__(self, room: Room):
         self.room = room
-        self.map = self.room.map
-
-    def generate(self):
-        pass
-
-class Platforms(Strategy):
-    def __init__(self, room, plats_average):
-        super().__init__(room)
-        self.av = plats_average
-        self.begins = 0
-        self.grid_platforms: list[list[Platform]] = []
-        print(self.grid_platforms)
-        self.platforms = [] * self.room.height
-        self.random_gen = []
         self.map = []
         for i in range(self.room.height):
             self.map.append([])
 
+    def generate(self):
+        pass
+
+
+#Класс, описывающий генерацию уровня с платформами
+class Platforms(Strategy):
+    def __init__(self, room, plats_average):
+        super().__init__(room)
+        self.av = plats_average
+        self.begins = 0 # переменная определяющая как будет начинаться сетка платформ
+        self.grid_platforms: list[list[Platform]] = [] #в эту перменную записывается сетка платформ
+        self.platforms = [] * self.room.height
+        self.ending_plat = None
+        self.random_gen = []
+
+
+    #функция которая вызывается, когда комната создается на сцене
     def all(self, scene):
         self.generate()
         self.choose_and_build(scene)
         a = self.build_map()
         return a
 
+    # Функция, генерирующая платформенную сетку
     def generate(self):
         length = self.room.width
         height = self.room.height
+        print(length)
         v_step = 4
         h_step = self.av + 4
         v_pos = 0
-        h_pos = 0
+        h_pos = 1
         cur_grid = random.choice([True, False])
         self.begins = cur_grid
         while v_pos < height:
             v_pos += v_step
+            if v_pos >= height:
+                break
             self.grid_platforms.append([])
             h_pos += int(cur_grid) * (self.av + 2)
             cur_grid = not cur_grid
             while h_pos < length:
                 cells = []
-                if h_pos + self.av >= length:
+                av = self.av
+                wall = False
+                while h_pos + av >= length and av != 0:
+                    av -= 1
+                    wall = True
+                if av == 0:
                     break
-                for i in range(self.av):
+                for i in range(av):
                     cells.append(Cell(((h_pos + i), v_pos), 1))
-                self.grid_platforms[-1].append(Platform(cells))
-                h_pos += self.av + h_step
-            h_pos = 0
+                self.grid_platforms[-1].append(Platform(cells, wall))
+                h_pos += av + h_step
+            h_pos = 1
+
+    #создает выход из комнаты по имещимся платфомрмам так, чтобы выйти можно было всегда
+    def find_ending(self):
+        check = True
+        points = list(range(len(self.grid_platforms)))
+        self.ending_point = random.choice(points)
+        points.remove(self.ending_point)
+        while (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and points:
+            self.ending_point = random.choice(points)
+            points.remove(self.ending_point)
+            print(self.ending_point, points)
+        if (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and not points:
+            self.ending_point = self.room.height - 2
+            check = False
+            print('wtf')
+        vert_pos = self.grid_platforms[self.ending_point][-1].rect.y - 1 if check else self.ending_point
+        self.ending_poses = []
+        for i in range(3):
+            self.ending_poses.append((self.room.width - 1, vert_pos - i))
+        print(check, points)
+        return check
 
 
     def choose_and_build(self, scene):
         plats_count = 3
         poses = []
         final_poses = set()
-        popi = random.randrange(1, len(self.grid_platforms[0]))
-        poses.append((0, popi))
+        if self.find_ending():
+            popi = len(self.grid_platforms[self.ending_point]) - 1
+            poses.append((self.ending_point, popi))
+            self.ending_plat = self.grid_platforms[self.ending_point][popi]
+        else:
+            plats_count += 1
         a = list(range(0, len(self.grid_platforms)))
         for i in range(plats_count):
             choice = a.pop(random.randrange(0, len(a)))
@@ -189,23 +228,90 @@ class Platforms(Strategy):
                 platform = self.grid_platforms[i][j]
             except Exception:
                 print(i, j)
-            new_len = random.randrange(-self.av, self.av)
-            dir = random.choice([-1, 1])
+            new_len = random.randrange(self.av)
+            dir = random.choice([1, -1])
+            if dir == 1:
+                x = platform.rect.right
+                while platform.rect.right + new_len >= self.room.width - 2:
+                    new_len -= 1
+            else:
+                x = platform.rect.left
+                while platform.rect.right + new_len >= self.room.width - 2:
+                    new_len -= 1
             for i in range(new_len):
-                platform.cells.append(Cell((platform.rect.right + dir + i * dir, platform.rect.top), 1))
+                platform.cells.append(Cell((x + i * dir, platform.rect.top), 1))
             platform.update()
-            scene.spawns.append(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
+            scene.spawns.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
+            scene.all_sprites.add(Spawn_zone(platform.rect.left, platform.rect.top, 3, len(platform.cells)))
             self.platforms.append(platform)
-        # for i in self.grid_platforms:
-        #     for j in i:
-        #         self.platforms.append(j)
-
 
     def build_map(self):
         print(self.platforms)
         for i in range(self.room.height):
             for j in range(self.room.width):
-                if check_pos_in_platform(self.platforms, (j, i)):
+                if (j, i) in self.ending_poses:
+                    self.map[i].append(Cell((j, i), 2))
+                elif check_pos_in_platform(self.platforms, (j, i)):
+                    self.map[i].append(Cell((j, i), 1))
+                else:
+                    self.map[i].append(Cell((j, i), 0))
+        res = []
+        for i in self.map:
+            res.append('')
+            for j in i:
+                res[-1] += str(j)
+        return res
+
+
+class Stairs(Strategy):
+    def __init__(self, room, stairs_average):
+        super().__init__(room)
+        self.av = stairs_average
+        self.width = self.room.width
+        self.height = self.room.height
+        self.entry = self.room.entry
+        self.end = self.room.end
+        self.cells = []
+        self.door_cells = []
+        for i in (self.entry, self.end):
+            for j in range(3):
+                b = i[0], i[1] - j
+                self.door_cells.append((i[0], i[1] - j))
+
+    def generate(self):
+        h_pos = 0
+        v_pos = self.entry[1] + 1
+        end = self.end[1]
+        dir = (end - v_pos) // abs(end - v_pos)
+        check = dir > 0
+        step = 1
+        amount = abs(end - v_pos + 2 * check) // step
+        lengths = sep(self.width, amount)
+        for i in range(len(lengths)):
+            for j in range(v_pos, self.height):
+                for k in range(h_pos, h_pos + lengths[i]):
+                    self.cells.append((k, j))
+            v_pos += step * dir
+            h_pos += lengths[i]
+
+        # while True:
+        #     length = random.randrange(self.av//2, int(round(self.av * 1.5, 0)))
+        #     if h_pos + length >= self.width:
+        #         length = self.width - h_pos
+        #     for i in range(v_pos, self.height):
+        #         for j in range(h_pos, h_pos + length):
+        #             self.cells.append((j,i))
+        #     h_pos += length
+        #     v_pos += step
+        #     if v_pos * dir >= end * dir:
+        #         break
+
+    def build_map(self):
+        for i in range(self.room.height):
+            for j in range(self.room.width):
+                if (j, i) in self.door_cells:
+                    self.map[i].append(Cell((j, i), 2))
+                elif (j, i) in self.cells:
                     self.map[i].append(Cell((j, i), 1))
                 else:
                     self.map[i].append(Cell((j, i), 0))
@@ -218,15 +324,43 @@ class Platforms(Strategy):
             print(i)
         return res
 
+    def all(self):
+        self.generate()
+        return self.build_map()
 
-class Spawn_zone:
+
+class Spawn_zone(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y, height, width):
+        super().__init__()
+        self.name = 'bildabot' + str(pos_x)
+        self.rect = pygame.Rect(pos_x * CELL_SIZE, (pos_y - height) * CELL_SIZE, width * CELL_SIZE, height * CELL_SIZE)
         self.pos = (pos_x, pos_y + height)
         self.bottom = pos_y
         self.height=  height
         self.width = width
+        self.image = False
+        # self.image = pygame.Surface((self.rect.size[0], self.rect.size[1]))
+        # self.image.fill('white')
 
     def spawn(self):
-        pos = random.randrange(self.pos[0], self.pos[0] + self.width) * CELL_SIZE
-        new_enemy = Enemy((pos, (self.bottom) * 30 - HEIGHT))
+        pos = random.randrange(self.rect.x, self.rect.x + self.width)
+        new_enemy = Common_Enemy((pos, self.rect.bottom - HEIGHT))
         return new_enemy
+
+class Level:
+    def __init__(self, length, av_room_size):
+        self.length = length
+        self.map = []
+        self.rooms_size_x = 100
+        self.rooms_size_y = av_room_size[1]
+        self.rooms = []
+
+    def make_rooms(self):
+        for i in range(self.length):
+            d = random.randrange(-self.rooms_size_x, self.rooms_size_x)
+            room_x = self.rooms_size_x + d
+            d = random.randrange(-self.rooms_size_y, self.rooms_size_y)
+            room_y = self.rooms_size_y + d
+
+    def add_room(self, x, y, prev_room):
+        new_map = self.map
