@@ -68,6 +68,7 @@ class Player(Entity):
         super().__init__(POS1)
         self.x_speed = SPEED
         self.kolvo = 5
+        self.granat = 3
         self.count = self.kolvo
         self.image.fill('green')
 
@@ -121,6 +122,21 @@ class Player(Entity):
             if self.rect.colliderect(i.rect) and i.rect != self.rect:
                 return i.rect
         return False
+
+    def throw(self, velocity, dest_x, dest_y):
+        from data.projectiles import Grenade
+        dx = dest_x - self.rect.centerx
+        dy = dest_y - self.rect.centery
+        norm = (dx ** 2 + dy ** 2) ** 0.5
+
+        if norm != 0:  # Проверка для избежания деления на ноль
+            direction = (dx / norm, dy / norm)
+            grenade = Grenade(self.rect.center, direction)
+            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            grenade.is_launched = True
+            grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(grenade)
 
 
 class Enemy(Entity):
