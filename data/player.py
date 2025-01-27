@@ -56,12 +56,12 @@ class Entity(pygame.sprite.Sprite):
 
         if norm != 0:  # Проверка для избежания деления на ноль
             direction = (dx / norm, dy / norm)
-            grenade = Grenade(self.rect.center, direction)
-            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
-            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
-            grenade.is_launched = True
-            grenade.time = 0  # сброс времени для нового броска
-            self.grenades.add(grenade)
+            self.grenade = Grenade(self.rect.center, direction)
+            self.grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            self.grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            self.grenade.is_launched = True
+            self.grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(self.grenade)
 
 class Player(Entity):
     def __init__(self, POS1):
@@ -73,8 +73,7 @@ class Player(Entity):
         self.image.fill('green')
 
 
-
-    def update(self, screen, a, b, c, rects):
+    def update(self, screen, a, b, c, rects, vzriv):
         super().update()
         if a:
             self.xvel = self.x_speed
@@ -106,6 +105,8 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
+
+
         if self.hp <= 0:
             self.kill()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
@@ -114,7 +115,7 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
-        self.grenades.update(screen, rects, self.rect)
+        self.grenades.update(screen, rects, self.rect, vzriv)
         self.grenades.draw(screen)
 
     def collides(self, rects: list[Block]):
@@ -123,20 +124,6 @@ class Player(Entity):
                 return i.rect
         return False
 
-    def throw(self, velocity, dest_x, dest_y):
-        from data.projectiles import Grenade
-        dx = dest_x - self.rect.centerx
-        dy = dest_y - self.rect.centery
-        norm = (dx ** 2 + dy ** 2) ** 0.5
-
-        if norm != 0:  # Проверка для избежания деления на ноль
-            direction = (dx / norm, dy / norm)
-            grenade = Grenade(self.rect.center, direction)
-            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
-            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
-            grenade.is_launched = True
-            grenade.time = 0  # сброс времени для нового броска
-            self.grenades.add(grenade)
 
 
 class Enemy(Entity):

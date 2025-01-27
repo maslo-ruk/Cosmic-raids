@@ -60,7 +60,7 @@ class Grenade(pygame.sprite.Sprite):
         self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
         self.time = 0  # время
 
-    def update(self, screen, rects, player_rect):
+    def update(self, screen, rects, player_rect, vzriv):
         if self.is_launched:
             self.time += 1  # обновление времени
             # Обновление положения квадрата
@@ -84,6 +84,10 @@ class Grenade(pygame.sprite.Sprite):
                 self.velocity_y = -self.velocity_y * 0.7
             self.velocity_y += 0.5
 
+            if vzriv:
+                pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
+                self.babax(rects)
+
 
             # Если квадрат упал достаточно низко, сбрасываем флаг
             if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
@@ -94,7 +98,13 @@ class Grenade(pygame.sprite.Sprite):
         for i in rects:
             if self.rect.colliderect(i.rect) and i.rect != player_rect:
                 return i.rect
-            # if self.rect.colliderect(i.rect) and i.rect != own_rect:
-            #     if isinstance(i, Entity):
-            #         i.hp -= 20
-        return  False
+        return False
+
+    def babax(self, rects):
+        from data.player import Entity
+        n = pygame.Rect(self.rect.center[0] - 50, self.rect.center[1] - 50, 100, 100)
+        for i in rects:
+            if n.colliderect(i.rect) and i.rect != n:
+                if isinstance(i, Entity):
+                    i.hp -= 15
+        self.kill()

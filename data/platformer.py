@@ -19,6 +19,7 @@ class Platformer(Scene):
         self.player = Player((300, 200))
         self.Enemies = pygame.sprite.Group()
         self.map = []
+
         self.all_collides = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
@@ -78,6 +79,7 @@ class Platformer(Scene):
         pygame.mixer.Sound(sound).play(-1)
         pygame.mixer.Sound(sound).set_volume(0.3)
         while running:
+            self.vzriv = False
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             self.blocks_map.draw(self.screen)
@@ -98,8 +100,9 @@ class Platformer(Scene):
                         self.player.count -= 1
                     elif event.button == 3 and self.player.granat > 0:
                         self.player.granat -= 1
+                        self.vzriv = False
                         dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.throw(10, dest_x, dest_y)
+                        self.player.throw(5, dest_x, dest_y)
                         pygame.time.set_timer(self.BABAX, 3000)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
@@ -109,7 +112,7 @@ class Platformer(Scene):
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
                 if event.type == self.BABAX:
-                    print(self.player.rect.y)
+                    self.vzriv = True
                     pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                     pygame.time.set_timer(self.BABAX, 0)
 
@@ -127,7 +130,7 @@ class Platformer(Scene):
                 up = False
 
             if self.player.is_alive:
-                self.player.update(self.screen, right, left, up, self.blocks)
+                self.player.update(self.screen, right, left, up, self.blocks, self.vzriv)
                 self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             for i in self.Enemies:
                 i.update(self.screen, self.blocks)
