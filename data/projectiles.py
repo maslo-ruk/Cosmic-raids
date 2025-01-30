@@ -60,7 +60,7 @@ class Grenade(pygame.sprite.Sprite):
         self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
         self.time = 0  # время
 
-    def update(self, screen, rects, player_rect, vzriv):
+    def update(self, screen, rects, player_rect):
         if self.is_launched:
             self.time += 1  # обновление времени
             # Обновление положения квадрата
@@ -72,8 +72,10 @@ class Grenade(pygame.sprite.Sprite):
             elif self.col1 and (self.velocity_x < 0):
                 self.rect.left = self.col1.right
                 self.velocity_x = -self.velocity_x * 0.7
-            self.rect.y += self.velocity_y #* 0.1 + 0.5 * 0.8 * self.time  2 / 0.8 - GRAVI
+            self.rect.y += self.velocity_y
             self.col2 = self.collides(rects, player_rect)
+            if not self.col2:
+                self.velocity_y += 0.5
             if self.col2 and (self.velocity_y < 0):
                 self.rect.top = self.col2.bottom
                 print(self.velocity_y)
@@ -82,12 +84,12 @@ class Grenade(pygame.sprite.Sprite):
             elif self.col2 and (self.velocity_y > 0):
                 self.rect.bottom = self.col2.top
                 self.velocity_y = -self.velocity_y * 0.7
-            self.velocity_y += 0.5
+            if abs(self.velocity_x) <= 0.7:
+                self.velocity_x = 0
 
-            if vzriv:
+            if self.time == 60 * 3: #отслеживаем время взрыва по кадрам, где 60 - fps
                 pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                 self.babax(rects)
-
 
             # Если квадрат упал достаточно низко, сбрасываем флаг
             if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
@@ -108,3 +110,4 @@ class Grenade(pygame.sprite.Sprite):
                 if isinstance(i, Entity):
                     i.hp -= 15
         self.kill()
+        self.vzriv = False

@@ -19,7 +19,6 @@ class Platformer(Scene):
         self.player = Player((300, 200))
         self.Enemies = pygame.sprite.Group()
         self.map = []
-
         self.all_collides = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
@@ -72,12 +71,12 @@ class Platformer(Scene):
         left = False
         up = False
         count = 0
-        sound = 'sounds/DORA_bg.mp3'
+        sound = 'sounds/cosmic_battle.mp3'
         pygame.time.set_timer(self.RELOADEVENT, 2000)
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
-        pygame.time.set_timer(self.MUSICBGEVENT, 91000)
+        pygame.time.set_timer(self.MUSICBGEVENT, 107000)
         pygame.mixer.Sound(sound).play(-1)
-        pygame.mixer.Sound(sound).set_volume(0.3)
+        pygame.mixer.Sound(sound).set_volume(1.0)
         while running:
             self.vzriv = False
             tick = self.clock.tick(60)
@@ -95,20 +94,21 @@ class Platformer(Scene):
                     if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.shoot(dest_x, dest_y)
-                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').play()
-                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').set_volume(0.5)
+                        shot = 'sounds/laser-blast-descend_gy7c5deo.mp3'
+                        pygame.mixer.Sound(shot).play()
+                        pygame.mixer.Sound(shot).set_volume(0.1)
                         self.player.count -= 1
                     elif event.button == 3 and self.player.granat > 0:
                         self.player.granat -= 1
-                        self.vzriv = False
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.throw(5, dest_x, dest_y)
                         pygame.time.set_timer(self.BABAX, 3000)
                 if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         i.shoot(self.player.rect.x, self.player.rect.y)
-                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').play()
-                        pygame.mixer.Sound('sounds/laser-blast-descend_gy7c5deo.mp3').set_volume(0.5)
+                        shotv = 'sounds/laser-blast-descend_gy7c5deo.mp3'
+                        pygame.mixer.Sound(shotv).play()
+                        pygame.mixer.Sound(shotv).set_volume(0.1)
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
                 if event.type == self.BABAX:
@@ -130,7 +130,7 @@ class Platformer(Scene):
                 up = False
 
             if self.player.is_alive:
-                self.player.update(self.screen, right, left, up, self.blocks, self.vzriv)
+                self.player.update(self.screen, right, left, up, self.blocks)
                 self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             for i in self.Enemies:
                 i.update(self.screen, self.blocks)

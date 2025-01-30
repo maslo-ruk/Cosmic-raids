@@ -73,7 +73,7 @@ class Player(Entity):
         self.image.fill('green')
 
 
-    def update(self, screen, a, b, c, rects, vzriv):
+    def update(self, screen, a, b, c, rects):
         super().update()
         if a:
             self.xvel = self.x_speed
@@ -105,8 +105,6 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
-
-
         if self.hp <= 0:
             self.kill()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
@@ -115,7 +113,7 @@ class Player(Entity):
 
         self.lines.update(rects, self.rect)
         self.all_b.draw(screen)
-        self.grenades.update(screen, rects, self.rect, vzriv)
+        self.grenades.update(screen, rects, self.rect)
         self.grenades.draw(screen)
 
     def collides(self, rects: list[Block]):
