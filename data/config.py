@@ -14,3 +14,6 @@ WINDOW_SIZE = 1500, 900
 DOOR_SIZE = CELL_SIZE * 3
 
 ROOM_SIZE = 3000, 1200
+def change_room_size(new_size):
+    global ROOM_SIZE
+    ROOM_SIZE = new_size

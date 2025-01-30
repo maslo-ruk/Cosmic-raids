@@ -302,3 +302,80 @@ class FlyingEnemy(Entity):
         #     self.rect.top = self.col2.bottom
         # elif self.col2 and (self.yvel > 0):
         #     self.rect.bottom = self.col2.top
+
+
+class Close_Enemy(Entity):
+    def __init__(self, pos):
+        super().__init__(pos, ENEMY_SPEED)
+        self.x_speed = ENEMY_SPEED
+        self.attack_rect = pygame.Rect(1, 2, self.rect.width, self.rect.height * 1.5)
+        self.hp = 5
+        self.x_vision = 12
+        self.y_vision = 4
+        self.x_shooting = 6
+        self.randdir = 0
+        self.unseed = True
+        self.rand_stat = False
+        self.see_player = False
+        self.inair = True
+
+    def update(self, scene, screen, rects, player):
+        super().update(scene)
+        if not self.is_alive:
+            player.score += 1
+        player_pos = player.rect
+        if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
+                self.rect.y - player_pos.y) <= self.y_vision * 30:
+            self.unseed = True
+            if abs(self.rect.x - player_pos.x) > self.x_shooting * 30:
+                self.see_player = False
+                if self.rect.x < player_pos.x:
+                    self.xvel = 1
+                elif self.rect.x > player_pos.x:
+                    self.xvel = -1
+                else:
+                    self.xvel = 0
+            else:
+                self.see_player = True
+                self.xvel = 0
+        else:
+            self.see_player = False
+            if self.unseed:
+                self.unseed = False
+                self.xvel = 0
+            self.move_to_player(self.randdir, rects)
+
+        self.move_to_player(self.xvel, rects)
+        self.fall(rects)
+        self.all_b.update(rects, self.rect)
+
+    def move_to_player(self, vel, rects):
+        self.rect.x += self.x_speed * self.xvel
+        self.col1 = self.collides(rects)
+        if self.col1 and (self.xvel > 0):
+            self.rect.right = self.col1.left
+        if self.col1 and (self.xvel < 0):
+            self.rect.left = self.col1.right
+
+    def fall(self, rects):
+        if self.inair:
+            self.y_speed += GRAVI
+        self.rect.y += self.y_speed
+        self.col2 = self.collides(rects)
+        if self.col2 and (self.y_speed < 0):
+            self.rect.top = self.col2.bottom
+            self.y_speed = 0
+        if self.col2 and (self.y_speed > 0):
+            self.rect.bottom = self.col2.top
+            self.y_speed = 0
+            self.inair = False
+        if not self.col2:
+            self.inair = True
+
+    def random_move(self):
+        import random
+        self.rand_stat = not self.rand_stat
+        if self.rand_stat:
+            self.xvel = random.choice([0.4, -0.4])
+        else:
+            self.xvel = 0
