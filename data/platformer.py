@@ -34,12 +34,13 @@ class Platformer(Scene):
         self.MOVEEVENT = pygame.USEREVENT + 2
         self.RELOADEVENT = pygame.USEREVENT + 3
         self.SPAWNEVENT = pygame.USEREVENT + 4
+        self.PUNCHEVENT = pygame.USEREVENT + 5
 
     def make_map(self):
         # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
         # strategy = Platforms(room, 10)
         # self.map_x = strategy.all(self)
-        level = Level(2, (20, 40), self)
+        level = Level(2, (50, 40), self)
         self.map_x = level.all()
         self.size = (CELL_SIZE * level.total_length, level.rooms_size_y * CELL_SIZE)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
@@ -87,7 +88,8 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MOVEEVENT, 2000)
         pygame.time.set_timer(self.RELOADEVENT, 1000)
-        pygame.time.set_timer(self.SPAWNEVENT, 5000)
+        pygame.time.set_timer(self.SPAWNEVENT, 3000)
+        pygame.time.set_timer(self.PUNCHEVENT, 1500)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -105,10 +107,14 @@ class Platformer(Scene):
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.throw(10, dest_x, dest_y)
-                if event.type == self.SHOOTEVENT and self.player.is_alive:
+                # if event.type == self.SHOOTEVENT and self.player.is_alive:
+                #     for i in self.Enemies:
+                #         if i.see_player:
+                #             i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                if event.type == self.PUNCHEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
-                            i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                            i.punch(self.player)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
                         if not i.unseed:
@@ -117,7 +123,7 @@ class Platformer(Scene):
                     self.player.count += 1
                 if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
                     sppoint = random.choice(list(self.spawns))
-                    enemy = sppoint.spawn()
+                    enemy = sppoint.spawn(Close_Enemy)
                     self.blocks.add(enemy)
                     self.Enemies.add(enemy)
                     self.all_sprites.add(enemy)

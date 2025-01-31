@@ -160,7 +160,7 @@ class Common_Enemy(Entity):
         def __init__(self, pos):
             super().__init__(pos, ENEMY_SPEED)
             self.x_speed = ENEMY_SPEED
-            self.hp = 5
+            self.hp = 1
             self.x_vision = 12
             self.y_vision = 4
             self.x_shooting = 6
@@ -194,7 +194,7 @@ class Common_Enemy(Entity):
                 if self.unseed:
                     self.unseed = False
                     self.xvel = 0
-                self.move_to_player(self.randdir, rects)
+                # self.move_to_player(self.randdir, rects)
 
             self.move_to_player(self.xvel, rects)
             self.fall(rects)
@@ -308,11 +308,11 @@ class Close_Enemy(Entity):
     def __init__(self, pos):
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.attack_rect = pygame.Rect(1, 2, self.rect.width, self.rect.height * 1.5)
+        self.atk = 2
         self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
-        self.x_shooting = 6
+        self.x_range = 2
         self.randdir = 0
         self.unseed = True
         self.rand_stat = False
@@ -327,7 +327,7 @@ class Close_Enemy(Entity):
         if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                 self.rect.y - player_pos.y) <= self.y_vision * 30:
             self.unseed = True
-            if abs(self.rect.x - player_pos.x) > self.x_shooting * 30:
+            if abs(self.rect.x - player_pos.x) > self.x_range * 30:
                 self.see_player = False
                 if self.rect.x < player_pos.x:
                     self.xvel = 1
@@ -343,11 +343,15 @@ class Close_Enemy(Entity):
             if self.unseed:
                 self.unseed = False
                 self.xvel = 0
-            self.move_to_player(self.randdir, rects)
-
         self.move_to_player(self.xvel, rects)
         self.fall(rects)
         self.all_b.update(rects, self.rect)
+
+    def punch(self, player):
+        player_pos = player.rect
+        if abs(self.rect.x - player_pos.x) <= self.x_range * 30 and player_pos.bottom >= self.rect.top:
+            player.hp -= self.atk
+        print(player.hp)
 
     def move_to_player(self, vel, rects):
         self.rect.x += self.x_speed * self.xvel

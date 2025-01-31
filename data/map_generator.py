@@ -1,6 +1,6 @@
 import pygame
 import random
-from data.player import JUMPSPEED, SPEED, GRAVI, Common_Enemy, FlyingEnemy, HEIGHT
+from data.player import JUMPSPEED, SPEED, GRAVI, Common_Enemy, FlyingEnemy, HEIGHT, Close_Enemy
 from data.functions import sep
 import math
 
@@ -181,6 +181,7 @@ class Platforms(Strategy):
             check = False
             print('wtf')
         vert_pos = self.grid_platforms[self.ending_point][-1].rect.y - 1 if check else self.ending_point
+        self.room.end = (self.room.width - 1, vert_pos)
         for i in range(3):
             self.ending_poses.append((self.room.width - 1, vert_pos - i))
         print(check, points)
@@ -306,6 +307,8 @@ class Stairs(Strategy):
     def find_ending(self):
         self.end = self.room.width - 1, random.randrange(4, self.room.height, 8)
         self.room.end = self.end
+        while self.end[1] == self.entry[1] + 1:
+            self.find_ending()
         for j in range(3):
             b = self.end[0], self.end[1] - j
             self.door_cells.append((self.end[0], self.end[1] - j))
@@ -318,6 +321,8 @@ class Stairs(Strategy):
         check = dir > 0
         step = 1
         amount = abs(end - v_pos + 2 * check) // step
+        print(amount, 'a')
+        print(self.width, 'w')
         lengths = sep(self.width, amount)
         for i in range(len(lengths)):
             for j in range(v_pos, self.height):
@@ -366,9 +371,9 @@ class Spawn_zone(pygame.sprite.Sprite):
         # self.image = pygame.Surface((self.rect.size[0], self.rect.size[1]))
         # self.image.fill('white')
 
-    def spawn(self):
+    def spawn(self, enemy_type):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
-        new_enemy = Common_Enemy((pos, self.rect.bottom - HEIGHT))
+        new_enemy = enemy_type((pos, self.rect.bottom - HEIGHT))
         return new_enemy
 
 class Level:
@@ -377,7 +382,7 @@ class Level:
         self.map = []
         for i in range(av_room_size[1]):
             self.map.append('')
-        self.rooms_size_x = 100
+        self.rooms_size_x = av_room_size[0]
         self.rooms_size_y = av_room_size[1]
         self.total_length = 0
         self.rooms: list[Room] = []
@@ -389,6 +394,7 @@ class Level:
         beg = False
         s_p, e_p = 0, 0
         for i in range(len(self.map)):
+            beg = False
             for j in range(len(self.map[i])):
                 if not beg and self.map[i][j] == '#' and self.map[i - 1][j] == '0':
                     beg = True
@@ -396,15 +402,22 @@ class Level:
                     continue
                 if beg and self.map[i][j] != '#':
                     e_p = i, j
-                    print(e_p, s_p, s_p[1], i, 3, e_p[1] - s_p[1])
+                    print(e_p, s_p)
                     spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
                     self.scene.spawns.add(spawn)
                     self.scene.all_sprites.add(spawn)
                     beg =False
+                if j == len(self.map[i]) - 1 and beg:
+                    e_p = i, j
+                    print(e_p, s_p)
+                    spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
+                    self.scene.spawns.add(spawn)
+                    self.scene.all_sprites.add(spawn)
+                    beg = False
         return self.map
 
     def make_rooms(self):
-        type = False
+        type = True # random.choice([True, False])
         for i in range(self.length):
             d = random.randrange(-self.rooms_size_x//2, self.rooms_size_x//2)
             room_x = self.rooms_size_x + d

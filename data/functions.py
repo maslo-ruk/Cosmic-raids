@@ -29,7 +29,12 @@ def sep(length, amount):
             res[ind] += 1
     disp_amount = amount // 2
     for i in range(disp_amount):
-        delta = random.randrange(av // 2)
+        print(av, 'av')
+        try:
+            delta = random.randrange(av // 2)
+        except Exception:
+            print('wavserrtvfesafvad')
+            delta = 1
         ind = random.randrange(0, amount)
         if ind == amount - 1:
             dir = -1
