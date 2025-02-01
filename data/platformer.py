@@ -41,7 +41,7 @@ class Platformer(Scene):
         # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
         # strategy = Platforms(room, 10)
         # self.map_x = strategy.all(self)
-        level = Level(2, (50, 40), self)
+        level = Level(4, (25, 40), self)
         self.map_x = level.all()
         self.size = (CELL_SIZE * level.total_length, level.rooms_size_y * CELL_SIZE)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])

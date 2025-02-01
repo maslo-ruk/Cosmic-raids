@@ -124,6 +124,8 @@ class Platforms(Strategy):
         self.platforms = [] * self.room.height
         self.ending_plat = None
         self.random_gen = []
+        while self.room.width <= self.av + 4:
+            self.room.width += 1
 
 
     #функция которая вызывается, когда комната создается на сцене
@@ -186,7 +188,10 @@ class Platforms(Strategy):
         return check
 
     def find_entry(self):
+        print(len(self.grid_platforms), 'len')
         for i in range(len(self.grid_platforms)):
+            print(i, 'íiiii')
+            print(self.grid_platforms[i])
             if self.grid_platforms[i][0].rect.top >= self.room.entry[1]:
                 vert_pos = self.grid_platforms[i][0].rect.top - 1
                 for j in range(3):
@@ -298,7 +303,13 @@ class Stairs(Strategy):
             self.door_cells.append((self.entry[0], self.entry[1] - j))
 
     def find_ending(self):
-        self.end = self.room.width - 1, random.randrange(4, self.room.height, 8)
+        self.end = self.room.width - 1, self.poses.pop(random.randrange(len(self.poses)))
+        while self.end[1] > self.entry[1] + self.width//2 or self.end[1] < self.entry[1] - self.width//2:
+            try:
+                self.end = self.room.width - 1, self.poses.pop(random.randrange(len(self.poses)))
+            except Exception:
+                self.width += 1
+                self.room.width = self.width
         self.room.end = self.end
         while self.end[1] == self.entry[1] + 1:
             self.find_ending()

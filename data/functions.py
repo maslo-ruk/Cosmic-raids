@@ -33,8 +33,7 @@ def sep(length, amount):
         try:
             delta = random.randrange(av // 2)
         except Exception:
-            print('wavserrtvfesafvad')
-            delta = 1
+            break
         ind = random.randrange(0, amount)
         if ind == amount - 1:
             dir = -1

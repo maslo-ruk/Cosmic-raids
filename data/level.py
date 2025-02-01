@@ -49,7 +49,6 @@ class Level:
         for i in range(self.length):
             d = random.randrange(-self.rooms_size_x//2, self.rooms_size_x//2)
             room_x = self.rooms_size_x + d
-            self.total_length += room_x
             if i == 0:
                 entry = (0, 20)
             else:
@@ -64,6 +63,7 @@ class Level:
                 strategy = Stairs(room, 10, self.scene)
                 room.map = strategy.all()
                 self.rooms.append(room)
+            self.total_length += room.width
             type = not type
     def make_map(self):
         for i in self.rooms:
