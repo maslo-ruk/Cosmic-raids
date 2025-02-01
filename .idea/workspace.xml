@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="работа нгад летающим врагом">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="окончательно доделаны уровни + ближний враг">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/graphs_experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/graphs_experiments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737483938054</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="окончательно доделаны уровни + ближний враг">
+      <option name="closed" value="true" />
+      <created>1738328210801</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1738328210801</updated>
+    </task>
+    <task id="LOCAL-00010" summary="окончательно доделаны уровни + ближний враг">
+      <option name="closed" value="true" />
+      <created>1738434142722</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1738434142722</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -213,7 +228,8 @@
     <MESSAGE value="Добавлена заготовка хаба" />
     <MESSAGE value="хз" />
     <MESSAGE value="работа нгад летающим врагом" />
-    <option name="LAST_COMMIT_MESSAGE" value="работа нгад летающим врагом" />
+    <MESSAGE value="окончательно доделаны уровни + ближний враг" />
+    <option name="LAST_COMMIT_MESSAGE" value="окончательно доделаны уровни + ближний враг" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -222,11 +238,6 @@
           <url>file://$PROJECT_DIR$/data/map_generator_copy.py</url>
           <line>170</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/map_generator.py</url>
-          <line>419</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
