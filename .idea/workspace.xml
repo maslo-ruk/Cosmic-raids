@@ -4,21 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Доработка гильдии">
-      <change afterPath="$PROJECT_DIR$/bd/dostigenia.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/dostich_test_file.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst1_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst1_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/fon.png" afterDir="false" />
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="окончательно доделаны уровни + ближний враг">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Corabl_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/Corabl_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/pyvidplayer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Zhavoronkov_Egor" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,7 +36,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/maslo-ruk/Cosmic-raids&quot;,
-    &quot;accountId&quot;: &quot;c722e578-a338-45c4-b09e-1187715b4c52&quot;
+    &quot;accountId&quot;: &quot;f9f66426-9466-40c0-a040-9f92052237af&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -73,27 +60,19 @@
     "Python.map_generator.executor": "Run",
     "Python.map_generator_copy.executor": "Run",
     "Python.platformer.executor": "Run",
-    "Python.player.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Kulpinsky__Helen",
-    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/for_dostiz",
+    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids/data",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PycharmProjects\Comic_raids\images\for_dostiz" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\for_gildia" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\for_hub" />
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PycharmProjects\Comic_raids\data" />
-      <recent name="D:\PycharmProjects\Comic_raids\bd" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\Gildia" />
+      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
+      <recent name="C:\Users\user\CosmicRaid\data" />
     </key>
   </component>
   <component name="RunManager" selected="Python.hub">
@@ -128,7 +107,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -174,7 +152,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
+        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
       </set>
     </attachedChunks>
   </component>
@@ -243,47 +221,31 @@
       <option name="project" value="LOCAL" />
       <updated>1736531928743</updated>
     </task>
-    <task id="LOCAL-00008" summary="Доработан переход из меню в хаб + добавление текстурок гильдии + начата разроботка самой гильдии и класса Button2 для нее">
+    <task id="LOCAL-00008" summary="работа нгад летающим врагом">
       <option name="closed" value="true" />
-      <created>1737141891885</created>
+      <created>1737483938054</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1737141891886</updated>
+      <updated>1737483938054</updated>
     </task>
-    <task id="LOCAL-00009" summary="разработана гильдия с кнопками">
+    <task id="LOCAL-00009" summary="окончательно доделаны уровни + ближний враг">
       <option name="closed" value="true" />
-      <created>1737208978011</created>
+      <created>1738328210801</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1737208978011</updated>
+      <updated>1738328210801</updated>
     </task>
-    <task id="LOCAL-00010" summary="разработана гильдия с кнопками">
+    <task id="LOCAL-00010" summary="окончательно доделаны уровни + ближний враг">
       <option name="closed" value="true" />
-      <created>1737216607809</created>
+      <created>1738434142722</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1737216607809</updated>
+      <updated>1738434142722</updated>
     </task>
-    <task id="LOCAL-00011" summary="разработана гильдия с кнопками">
-      <option name="closed" value="true" />
-      <created>1737400244478</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1737400244478</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Доработка гильдии">
-      <option name="closed" value="true" />
-      <created>1737792121521</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1737792121521</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -309,10 +271,10 @@
     <MESSAGE value="Начата работа над генерацией карты" />
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
-    <MESSAGE value="Доработан переход из меню в хаб + добавление текстурок гильдии + начата разроботка самой гильдии и класса Button2 для нее" />
-    <MESSAGE value="разработана гильдия с кнопками" />
-    <MESSAGE value="Доработка гильдии" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработка гильдии" />
+    <MESSAGE value="хз" />
+    <MESSAGE value="работа нгад летающим врагом" />
+    <MESSAGE value="окончательно доделаны уровни + ближний враг" />
+    <option name="LAST_COMMIT_MESSAGE" value="окончательно доделаны уровни + ближний враг" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
