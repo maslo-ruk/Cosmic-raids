@@ -68,12 +68,12 @@ class Entity(pygame.sprite.Sprite):
 
         if norm != 0:  # Проверка для избежания деления на ноль
             direction = (dx / norm, dy / norm)
-            grenade = Grenade(self.rect.center, direction)
-            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
-            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
-            grenade.is_launched = True
-            grenade.time = 0  # сброс времени для нового броска
-            self.grenades.add(grenade)
+            self.grenade = Grenade(self.rect.center, direction)
+            self.grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            self.grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            self.grenade.is_launched = True
+            self.grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(self.grenade)
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -110,6 +110,7 @@ class Player(Entity):
         super().__init__(POS1, SPEED)
         self.x_speed = SPEED
         self.kolvo = 5
+        self.granat = 3
         self.count = self.kolvo
         self.score = 0
         self.image.fill('green')
@@ -161,8 +162,14 @@ class Player(Entity):
         self.all_b.update(rects, self.rect)
         self.grenades.update(screen, rects, self.rect)
         self.grenades.draw(screen)
+        if self.hp <= 0:
+            self.kill()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
+            self.is_alive = False
 
 ENEMY_SPEED = 3.5
+
 
 
 class Enemy(Entity):
@@ -187,6 +194,10 @@ class Land_enemy(Entity):
 
     def update(self, scene, screen, rects, player):
         super().update(scene)
+        if self.hp <= 0:
+            self.kill()
+            pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
+            self.is_alive = False
         if not self.is_alive:
             player.score += 1
         player_pos = player.rect
