@@ -83,11 +83,7 @@ class Grenade(pygame.sprite.Sprite):
             self.velocity_y += 0.5
 
     def collides(self, rects, player_rect):
-        from data.player import Entity
         for i in rects:
             if self.rect.colliderect(i.rect) and i.rect != player_rect:
                 return i.rect
-            # if self.rect.colliderect(i.rect) and i.rect != own_rect:
-            #     if isinstance(i, Entity):
-            #         i.hp -= 20
         return  False

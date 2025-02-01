@@ -1,8 +1,9 @@
 import pygame
 from data.functions import *
-from data.player import Player, Common_Enemy, Hub_Player
+from data.player import Player, CommonEnemy, Hub_Player
 from data.Block import Block
 from data.camera import Camera
+from data.level import *
 from data.map_generator import *
 
 pygame.init()
@@ -15,7 +16,7 @@ class Scene:
         self.clock = clock
         self.score = 0
         self.player = Player((300, 200))
-        self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1])
+        self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1], self)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.all_sprites = pygame.sprite.Group()
 
@@ -34,18 +35,23 @@ class Platformer(Scene):
         self.MOVEEVENT = pygame.USEREVENT + 2
         self.RELOADEVENT = pygame.USEREVENT + 3
         self.SPAWNEVENT = pygame.USEREVENT + 4
+        self.PUNCHEVENT = pygame.USEREVENT + 5
 
     def make_map(self):
-        self.map_y = []
-        for i in range(self.size[1] // 30):
-            if i == 0 or i == self.size[1] // 30 - 1:
-                self.map_y.append('#' * (self.size[0] // 30))
-            else:
-                self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
-        room = Room(self.size[0] // 30, self.size[1] // 30, (0, 20), (self.size[0]//30 - 1, 30))
-        strategy = Platforms(room, 10)
-        self.map_x = strategy.all(self)
+        # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
+        # strategy = Platforms(room, 10)
+        # self.map_x = strategy.all(self)
+        level = Level(4, (25, 40), self)
+        self.map_x = level.all()
+        self.size = (CELL_SIZE * level.total_length, level.rooms_size_y * CELL_SIZE)
+        self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.map = []
+        self.map_y = []
+        for i in range(level.rooms_size_y):
+            if i == 0 or i == level.rooms_size_y - 1:
+                self.map_y.append('#' * (level.total_length))
+            else:
+                self.map_y.append('#' + '0'* (level.total_length - 2) + '#')
         for i in range(len(self.map_x)):
             new_str = ''
             for j in range(len(self.map_x[i])):
@@ -66,7 +72,6 @@ class Platformer(Scene):
                     self.blocks.add(block)
                     self.blocks_map.add(block)
                     self.all_sprites.add(block)
-
     # def make_camera(self):
 
     def run(self):
@@ -86,7 +91,8 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SHOOTEVENT, 1000)
         pygame.time.set_timer(self.MOVEEVENT, 2000)
         pygame.time.set_timer(self.RELOADEVENT, 1000)
-        pygame.time.set_timer(self.SPAWNEVENT, 500)
+        pygame.time.set_timer(self.SPAWNEVENT, 3000)
+        pygame.time.set_timer(self.PUNCHEVENT, 1500)
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -104,10 +110,14 @@ class Platformer(Scene):
                     elif event.button == 3:
                         dest_x, dest_y = pygame.mouse.get_pos()
                         self.player.throw(10, dest_x, dest_y)
-                if event.type == self.SHOOTEVENT and self.player.is_alive:
+                # if event.type == self.SHOOTEVENT and self.player.is_alive:
+                #     for i in self.Enemies:
+                #         if i.see_player:
+                #             i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                if event.type == self.PUNCHEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
-                            i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                            i.punch(self.player)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
                         if not i.unseed:
@@ -116,7 +126,7 @@ class Platformer(Scene):
                     self.player.count += 1
                 if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
                     sppoint = random.choice(list(self.spawns))
-                    enemy = sppoint.spawn()
+                    enemy = sppoint.spawn(Close_Enemy)
                     self.blocks.add(enemy)
                     self.Enemies.add(enemy)
                     self.all_sprites.add(enemy)
