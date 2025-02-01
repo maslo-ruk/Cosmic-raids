@@ -1,8 +1,9 @@
 import pygame
 from data.functions import *
-from data.player import Player, Common_Enemy, Hub_Player
+from data.player import Player, CommonEnemy, Hub_Player
 from data.Block import Block
 from data.camera import Camera
+from data.level import *
 from data.map_generator import *
 
 pygame.init()

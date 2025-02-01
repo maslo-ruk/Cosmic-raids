@@ -1,6 +1,6 @@
 import pygame
 import random
-from data.player import JUMPSPEED, SPEED, GRAVI, Common_Enemy, FlyingEnemy, HEIGHT, Close_Enemy
+from data.player import JUMPSPEED, SPEED, GRAVI, CommonEnemy, FlyingEnemy, HEIGHT, Close_Enemy
 from data.functions import sep
 import math
 
@@ -155,7 +155,7 @@ class Platforms(Strategy):
                 cells = []
                 av = self.av
                 wall = False
-                while h_pos + av >= length and av != 0:
+                while h_pos + av >= length +1 and av != 0:
                     av -= 1
                     wall = True
                 if av == 0:
@@ -179,23 +179,18 @@ class Platforms(Strategy):
         if (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and not points:
             self.ending_point = self.room.height - 2
             check = False
-            print('wtf')
         vert_pos = self.grid_platforms[self.ending_point][-1].rect.y - 1 if check else self.ending_point
         self.room.end = (self.room.width - 1, vert_pos)
         for i in range(3):
             self.ending_poses.append((self.room.width - 1, vert_pos - i))
-        print(check, points)
         return check
 
     def find_entry(self):
         for i in range(len(self.grid_platforms)):
             if self.grid_platforms[i][0].rect.top >= self.room.entry[1]:
                 vert_pos = self.grid_platforms[i][0].rect.top - 1
-                print('dfdsaf', vert_pos + 1, self.room.entry[1])
                 for j in range(3):
                     self.ending_poses.append((0, vert_pos - j))
-                print(i)
-                print(self.grid_platforms[i][0].rect.top)
                 return i
 
     def choose_and_build(self, scene):
@@ -270,7 +265,6 @@ class Platforms(Strategy):
         #         self.platforms.append(j)
 
     def build_map(self):
-        print(self.platforms)
         for i in range(self.room.height):
             for j in range(self.room.width):
                 if (j, i) in self.ending_poses:
@@ -284,8 +278,6 @@ class Platforms(Strategy):
             res.append('')
             for j in i:
                 res[-1] += str(j)
-        for i in res:
-            print(i)
         return res
 
 
@@ -300,6 +292,7 @@ class Stairs(Strategy):
         self.end = self.room.end
         self.cells = []
         self.door_cells = []
+        self.poses = list(range(4, self.room.height, 8))
         for j in range(3):
             b = self.entry[0], self.entry[1] - j
             self.door_cells.append((self.entry[0], self.entry[1] - j))
@@ -313,6 +306,10 @@ class Stairs(Strategy):
             b = self.end[0], self.end[1] - j
             self.door_cells.append((self.end[0], self.end[1] - j))
 
+    def set_ending(self, ending):
+        self.end = self.room.width - 1, ending
+        self.room.end = self.end
+
     def generate(self):
         h_pos = 0
         v_pos = self.entry[1] + 1
@@ -321,8 +318,19 @@ class Stairs(Strategy):
         check = dir > 0
         step = 1
         amount = abs(end - v_pos + 2 * check) // step
-        print(amount, 'a')
-        print(self.width, 'w')
+        # while amount >= self.width // 2:
+        #     # if step >= 4:
+        #     #     break
+        #     step += 1
+        #     amount = abs(end - v_pos + 2 * check) // step
+        # if step >= 4:
+        #     while amount > self.width:
+        #         self.set_ending(self.end[1] - 1)
+        #         end = self.end[1]
+        #         dir = (end - v_pos) // abs(end - v_pos)
+        #         check = dir > 0
+        #         amount = abs(end - v_pos + 2 * check) // step
+
         lengths = sep(self.width, amount)
         for i in range(len(lengths)):
             for j in range(v_pos, self.height):
@@ -373,71 +381,5 @@ class Spawn_zone(pygame.sprite.Sprite):
 
     def spawn(self, enemy_type):
         pos = random.randrange(self.rect.x, self.rect.x + self.width)
-        new_enemy = enemy_type((pos, self.rect.bottom - HEIGHT))
+        new_enemy = enemy_type((pos, self.rect.bottom - HEIGHT), self.rect)
         return new_enemy
-
-class Level:
-    def __init__(self, length, av_room_size, scene):
-        self.length = length
-        self.map = []
-        for i in range(av_room_size[1]):
-            self.map.append('')
-        self.rooms_size_x = av_room_size[0]
-        self.rooms_size_y = av_room_size[1]
-        self.total_length = 0
-        self.rooms: list[Room] = []
-        self.scene = scene
-
-    def all(self):
-        self.make_rooms()
-        self.make_map()
-        beg = False
-        s_p, e_p = 0, 0
-        for i in range(len(self.map)):
-            beg = False
-            for j in range(len(self.map[i])):
-                if not beg and self.map[i][j] == '#' and self.map[i - 1][j] == '0':
-                    beg = True
-                    s_p = i, j
-                    continue
-                if beg and self.map[i][j] != '#':
-                    e_p = i, j
-                    print(e_p, s_p)
-                    spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
-                    self.scene.spawns.add(spawn)
-                    self.scene.all_sprites.add(spawn)
-                    beg =False
-                if j == len(self.map[i]) - 1 and beg:
-                    e_p = i, j
-                    print(e_p, s_p)
-                    spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
-                    self.scene.spawns.add(spawn)
-                    self.scene.all_sprites.add(spawn)
-                    beg = False
-        return self.map
-
-    def make_rooms(self):
-        type = True # random.choice([True, False])
-        for i in range(self.length):
-            d = random.randrange(-self.rooms_size_x//2, self.rooms_size_x//2)
-            room_x = self.rooms_size_x + d
-            self.total_length += room_x
-            if i == 0:
-                entry = (0, 20)
-            else:
-                entry = self.rooms[-1].end
-            if type:
-                room = Room(room_x, self.rooms_size_y, entry, None)
-                strategy = Platforms(room, 10)
-                room.map = strategy.all(self.scene)
-                self.rooms.append(room)
-            else:
-                room = Room(room_x, self.rooms_size_y, entry, None)
-                strategy = Stairs(room, 10, self.scene)
-                room.map = strategy.all()
-                self.rooms.append(room)
-            type = not type
-    def make_map(self):
-        for i in self.rooms:
-            for j in range(len(i.map)):
-                self.map[j] += i.map[j]
