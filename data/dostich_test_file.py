@@ -15,9 +15,6 @@ class Dostich:
         self.screen.blit(fon, (0, 0))
         clock = pygame.time.Clock()
         pygame.display.set_caption("Достижения")
-        running = True
-        rule = False
-        didnt = False
 
         while running:
             keys = pygame.key.get_pressed()
