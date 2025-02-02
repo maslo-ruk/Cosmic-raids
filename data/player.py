@@ -60,7 +60,7 @@ class Entity(pygame.sprite.Sprite):
         self.is_alive = False
         self.kill()
 
-    def throw(self, velocity, dest_x, dest_y):
+    def throw(self, velocity, dest_x, dest_y, all_sp):
         from data.projectiles import Grenade
         dx = dest_x - self.rect.centerx
         dy = dest_y - self.rect.centery
@@ -74,6 +74,7 @@ class Entity(pygame.sprite.Sprite):
             self.grenade.is_launched = True
             self.grenade.time = 0  # сброс времени для нового броска
             self.grenades.add(self.grenade)
+            all_sp.add(self.grenade)
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -159,7 +160,6 @@ class Player(Entity):
 
         self.all_b.update(rects, self.rect)
         self.grenades.update(screen, rects, self.rect)
-        self.grenades.draw(screen)
 
 ENEMY_SPEED = 3.5
 

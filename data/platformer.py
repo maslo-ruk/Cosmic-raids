@@ -121,11 +121,9 @@ class Platformer(Scene):
                         pygame.mixer.Sound(shot).set_volume(0.1)
                     elif event.button == 3 and self.player.granat > 0:
                         self.player.granat -= 1
-                        dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.throw(5, dest_x, dest_y)
+                        dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
+                        self.player.throw(5, dest_x, dest_y, self.all_sprites)
                         pygame.time.set_timer(self.BABAX, 3000)
-                if event.type == self.SHOOTEVENT and self.player.is_alive:
-                        self.player.throw(10, dest_x, dest_y)
                 # if event.type == self.SHOOTEVENT and self.player.is_alive:
                 #     for i in self.Enemies:
                 #         if i.see_player:
