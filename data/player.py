@@ -183,7 +183,7 @@ class Land_enemy(Entity):
         self.borders = borders
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.hp = 5
+        self.hp = 1
         self.x_vision = 12
         self.y_vision = 4
         self.x_shooting = 6
@@ -283,7 +283,7 @@ class CommonEnemy(Land_enemy):
 class FlyingEnemy(Entity):
     def __init__(self, pos):
         super().__init__(pos, ENEMY_SPEED)
-        self.hp = 3
+        self.hp = 1
         self.size = (30, 30)
         self.rect = pygame.Rect(self.pos, self.size)
         self.image = pygame.Surface(self.size)
@@ -355,7 +355,7 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 7
+        self.hp = 1
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2
