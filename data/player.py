@@ -152,11 +152,9 @@ class Player(Entity):
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
         if self.is_alive == False:
-            print(self.level, 'x')
-            print(self.total_score, 'y')
-            self.level += self.total_score // 10
+            self.level += self.total_score / 10
             self.update_level()
-            #саня добавь в бд изменение левела
+            self.total_score = 0
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:

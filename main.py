@@ -54,6 +54,7 @@ def main():
     while runi:
         a = current_scene.run(sound)
         if a == 1:
+            player.is_alive = True
             current_scene = Platformer((width, height), screen, clock, player)
             scenes.append(current_scene)
             # screen = pygame.display.set_mode(size)
@@ -66,7 +67,7 @@ def main():
         elif a == 5:
             current_scene = gildia
         elif a == 6:
-            current_scene = The_end((width, height), screen, player)
+            current_scene = The_end((e_width, e_height), screen, player)
     pygame.quit()
 
 

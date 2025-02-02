@@ -1,6 +1,7 @@
 import pygame
 import random
 from data.config import *
+import networkx as nx
 
 def camera_conf(camera, target, scene):
     r_s = scene.size
@@ -66,7 +67,7 @@ def get_level():
     cur = con.cursor()
     result = cur.execute("""SELECT cur_level FROM player
                     WHERE id = 1""").fetchall()
-    return result
+    return result[0][0]
 
 def make_graph(map):
     graph = nx.Graph()
