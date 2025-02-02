@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="окончательно доделаны уровни + ближний враг">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,23 +51,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
-    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Zhavoronkov__Egor&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Егор/PycharmProjects/Cosmic-raids/data&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Block.executor": "Run",
+    "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.map_generator.executor": "Run",
+    "Python.map_generator_copy.executor": "Run",
+    "Python.platformer.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Kulpinsky__Helen",
+    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids/data",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
@@ -200,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738434142722</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="добавлен фон + некоторые бд">
+      <option name="closed" value="true" />
+      <created>1738528571580</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1738528571580</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,7 +233,8 @@
     <MESSAGE value="хз" />
     <MESSAGE value="работа нгад летающим врагом" />
     <MESSAGE value="окончательно доделаны уровни + ближний враг" />
-    <option name="LAST_COMMIT_MESSAGE" value="окончательно доделаны уровни + ближний враг" />
+    <MESSAGE value="добавлен фон + некоторые бд" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлен фон + некоторые бд" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
