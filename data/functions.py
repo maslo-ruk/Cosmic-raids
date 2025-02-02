@@ -7,6 +7,7 @@ def generate(size):
 def get_character():
     con = sqlite3.connect('db/characters_and_achievements.sqlite')
     cur = con.cursor()
-    result = cur.execute("""SELECT * FROM characterы
+    result = cur.execute("""SELECT * FROM characters
                 WHERE selected = 1""").fetchall()
+    return result
 
