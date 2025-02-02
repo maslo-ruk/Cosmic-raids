@@ -1,7 +1,9 @@
+import random
+
 import pygame
 from data.functions import *
 from data.player import Player, CommonEnemy, Hub_Player
-from data.Block import Block
+from data.Block import *
 from data.camera import Camera
 from data.level import *
 from data.map_generator import *
@@ -10,35 +12,43 @@ pygame.init()
 
 
 class Scene:
-    def __init__(self, size, screen, clock):
+    def __init__(self, size, screen, clock, player):
         self.size = size
         self.screen = screen
         self.clock = clock
         self.score = 0
-        self.player = Player((300, 200))
+        self.player = player
         self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1], self)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.all_sprites = pygame.sprite.Group()
 
 
 class Platformer(Scene):
-    def __init__(self, size, screen, clock):
-        super().__init__(size, screen, clock)
+    def __init__(self, size, screen, clock, player):
+        super().__init__(size, screen, clock, player)
         self.all_sprites.add(self.player)
         self.Enemies = pygame.sprite.Group()
+        self.CloseEnemies = pygame.sprite.Group()
+        self.FlyingEnemies = pygame.sprite.Group()
         self.map = []
         self.spawns = pygame.sprite.Group()
         self.all_collides = pygame.sprite.Group()
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
+        self.doors = pygame.sprite.Group()
         self.SHOOTEVENT = pygame.USEREVENT + 1
         self.MOVEEVENT = pygame.USEREVENT + 2
         self.RELOADEVENT = pygame.USEREVENT + 3
         self.SPAWNEVENT = pygame.USEREVENT + 4
         self.PUNCHEVENT = pygame.USEREVENT + 5
         self.RELOADEVENT = pygame.USEREVENT + 6
-        self.MUSICBGEVENT = pygame.USEREVENT + 8
+        self.MUSICBGEVENT = pygame.USEREVENT + 7
         self.BABAX = pygame.USEREVENT + 8
+        self.score = 0
+        self.new_level = False
+        self.blocks.add(self.player)
+        self.player.set_def()
+        self.pause = False
 
     def make_map(self):
         # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
@@ -60,8 +70,8 @@ class Platformer(Scene):
             for j in range(len(self.map_x[i])):
                 if self.map_x[i][j] == '#':
                     new_str += self.map_x[i][j]
-                elif self.map_x[i][j] == 'd':
-                    new_str += '0'
+                elif self.map_x[i][j] == 'd' and (j == 0 or j == level.total_length - 1):
+                    new_str += 'd'
                 else:
                     new_str += self.map_y[i][j]
             self.map.append(new_str)
@@ -75,14 +85,51 @@ class Platformer(Scene):
                     self.blocks.add(block)
                     self.blocks_map.add(block)
                     self.all_sprites.add(block)
+                elif string[j] == 'd':
+                    block = Door(pos, self.screen)
+                    self.blocks.add(block)
+                    self.blocks_map.add(block)
+                    self.all_sprites.add(block)
+                    if j == level.total_length - 1:
+                        self.doors.add(block)
+        self.level = level
     # def make_camera(self):
 
-    def run(self):
+    def open_doors(self):
+        for i in self.doors:
+            self.blocks.remove(i)
+            self.blocks_map.remove(i)
+            self.all_sprites.remove(i)
+
+    def spawn_enemies(self):
+        types = [CommonEnemy, Close_Enemy]
+        for i in range(self.level.enemies_amount):
+            type = random.choice(types)
+            sppoint = random.choice(list(self.spawns))
+            if type == CommonEnemy:
+                enemy = sppoint.spawn(CommonEnemy)
+                self.blocks.add(enemy)
+                self.Enemies.add(enemy)
+                self.all_sprites.add(enemy)
+            elif type == Close_Enemy:
+                enemy = sppoint.spawn(Close_Enemy)
+                self.blocks.add(enemy)
+                self.CloseEnemies.add(enemy)
+                self.all_sprites.add(enemy)
+            # elif type == FlyingEnemy:
+            #     enemy = sppoint.spawn(FlyingEnemy)
+            #     self.blocks.add(enemy)
+            #     self.FlyingEnemies.add(enemy)
+            #     self.all_sprites.add(enemy)
+            # if type == FlyingEnemy and len(self.FlyingEnemies) >= 5:
+            #     types.remove(FlyingEnemy)
+
+    def run(self, sound):
         self.make_map()
-        self.blocks.add(self.player)
-        for i in self.Enemies:
-            self.blocks.add(i)
-            self.all_sprites.add(i)
+        self.spawn_enemies()
+        print(self.level.spawn_pos, 'sfaas')
+        self.player.rect.x = self.level.spawn_pos[0] * 30
+        self.player.rect.y = self.level.spawn_pos[1] * 30 - self.player.size[1]
         running = True
         all_b = pygame.sprite.Group()
         grenades = pygame.sprite.Group()
@@ -95,20 +142,29 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SPAWNEVENT, 3000)
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
         count = 0
-        sound = 'sounds/cosmic_battle.mp3'
-        pygame.time.set_timer(self.RELOADEVENT, 2000)
-        pygame.time.set_timer(self.MUSICBGEVENT, 107000)
-        pygame.mixer.Sound(sound).play(-1)
-        pygame.mixer.Sound(sound).set_volume(1.0)
         while running:
+            if self.pause:
+                self.screen.fill('blue')
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        break
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.pause = not self.pause
+                continue
             self.vzriv = False
             tick = self.clock.tick(60)
             self.screen.fill('blue')
-            keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        print('ass')
+                        self.pause = not self.pause
+                        print(self.pause)
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
@@ -116,41 +172,43 @@ class Platformer(Scene):
                     if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
+                        self.player.count -= 1
                         shot = 'sounds/laser-blast-descend_gy7c5deo.mp3'
                         pygame.mixer.Sound(shot).play()
                         pygame.mixer.Sound(shot).set_volume(0.1)
-                        self.player.count -= 1
                     elif event.button == 3 and self.player.granat > 0:
                         self.player.granat -= 1
-                        dest_x, dest_y = pygame.mouse.get_pos()
-                        self.player.throw(10, dest_x, dest_y)
-                # if event.type == self.SHOOTEVENT and self.player.is_alive:
-                #     for i in self.Enemies:
-                #         if i.see_player:
-                #             i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
-                #             shotv = 'sounds/laser-blast-descend_gy7c5deo.mp3'
-                #             pygame.mixer.Sound(shotv).play()
-                #             pygame.mixer.Sound(shotv).set_volume(0.1)
-                if event.type == self.PUNCHEVENT and self.player.is_alive:
+                        dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
+                        self.player.throw(5, dest_x, dest_y, self.all_sprites)
+                        pygame.time.set_timer(self.BABAX, 3000)
+                if event.type == self.SHOOTEVENT and self.player.is_alive:
                     for i in self.Enemies:
+                        if i.see_player:
+                            i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                            shotv = 'sounds/laser-blast-descend_gy7c5deo.mp3'
+                            pygame.mixer.Sound(shotv).play()
+                            pygame.mixer.Sound(shotv).set_volume(0.1)
+                if event.type == self.PUNCHEVENT and self.player.is_alive:
+                    for i in self.CloseEnemies:
                         if i.see_player:
                             i.punch(self.player)
                 if event.type == self.MOVEEVENT:
-                        self.player.throw(5, dest_x, dest_y)
-                        pygame.time.set_timer(self.BABAX, 3000)
+                    for i in self.Enemies:
+                        if not i.unseed:
+                            i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
-                if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
-                    sppoint = random.choice(list(self.spawns))
-                    enemy = sppoint.spawn(Close_Enemy)
-                    self.blocks.add(enemy)
-                    self.Enemies.add(enemy)
-                    self.all_sprites.add(enemy)
+                # if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
+                #     sppoint = random.choice(list(self.spawns))
+                #     enemy = sppoint.spawn(Close_Enemy)
+                #     self.blocks.add(enemy)
+                #     self.Enemies.add(enemy)
+                #     self.all_sprites.add(enemy)
                 if event.type == self.BABAX:
                     self.vzriv = True
                     pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                     pygame.time.set_timer(self.BABAX, 0)
-
+            keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
                 right = True
             else:
@@ -168,10 +226,21 @@ class Platformer(Scene):
                 self.player.update(self, self.screen, right, left, up, self.blocks)
             for i in self.Enemies:
                 i.update(self, self.screen, self.blocks, self.player)
+            for i in self.CloseEnemies:
+                i.update(self, self.screen, self.blocks, self.player)
             self.camera.update(self.player)
             for i in self.all_sprites:
                 if i.image:
                     self.screen.blit(i.image, self.camera.apply(i))
+            if self.player.score == self.level.enemies_amount:
+                self.player.total_score += self.player.score
+                self.player.score = 0
+                self.new_level = True
+                self.open_doors()
+            if self.new_level:
+                for i in self.doors:
+                    if self.player.rect.colliderect(i):
+                        return True
             pygame.display.flip()
         pygame.quit()
 
