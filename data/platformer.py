@@ -23,6 +23,21 @@ class Scene:
         self.all_sprites = pygame.sprite.Group()
 
 
+class Pause(Scene):
+    def __init__(self, size, screen, clock, player):
+        super().__init__(size, screen, clock, player)
+
+    def run(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    break
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return 3
+
+
 class Platformer(Scene):
     def __init__(self, size, screen, clock, player):
         super().__init__(size, screen, clock, player)
@@ -48,6 +63,7 @@ class Platformer(Scene):
         self.new_level = False
         self.blocks.add(self.player)
         self.player.set_def()
+        self.pause = False
 
     def make_map(self):
         # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
@@ -142,14 +158,28 @@ class Platformer(Scene):
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
         count = 0
         while running:
+            if self.pause:
+                self.screen.fill('blue')
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        break
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.pause = not self.pause
+                continue
             self.vzriv = False
             tick = self.clock.tick(60)
             self.screen.fill('blue')
-            keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        print('ass')
+                        self.pause = not self.pause
+                        print(self.pause)
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
@@ -194,7 +224,7 @@ class Platformer(Scene):
                     self.vzriv = True
                     pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                     pygame.time.set_timer(self.BABAX, 0)
-
+            keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
                 right = True
             else:

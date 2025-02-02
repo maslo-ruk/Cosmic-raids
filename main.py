@@ -1,5 +1,5 @@
 import pygame
-from data.platformer import Platformer
+from data.platformer import Platformer, Scene
 from data.player import Player
 
 
@@ -11,14 +11,19 @@ def main():
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
     current_scene = Platformer((3000, 1200), screen, clock, player)
+    scenes = []
+    scenes.append(current_scene)
     runi = True
     sound = 'sounds/cosmic_battle.mp3'
     pygame.mixer.Sound(sound).play(-1)
     pygame.mixer.Sound(sound).set_volume(1.0)
     while runi:
         a = current_scene.run(sound)
-        if a:
+        if a == 1:
             current_scene = Platformer((3000, 1200), screen, clock, player)
+            scenes.append(current_scene)
+        elif a == 2:
+            current_scene = Scene((3000, 1200), screen, clock, player)
     pygame.quit()
 
 
