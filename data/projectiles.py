@@ -72,18 +72,39 @@ class Grenade(pygame.sprite.Sprite):
             elif self.col1 and (self.velocity_x < 0):
                 self.rect.left = self.col1.right
                 self.velocity_x = -self.velocity_x * 0.7
-            self.rect.y += self.velocity_y #* 0.1 + 0.5 * 0.8 * self.time  2 / 0.8 - GRAVI
+            self.rect.y += self.velocity_y
             self.col2 = self.collides(rects, player_rect)
+            if not self.col2:
+                self.velocity_y += 0.5
             if self.col2 and (self.velocity_y < 0):
                 self.rect.top = self.col2.bottom
                 self.velocity_y = -self.velocity_y * 0.7
             elif self.col2 and (self.velocity_y > 0):
                 self.rect.bottom = self.col2.top
                 self.velocity_y = -self.velocity_y * 0.7
-            self.velocity_y += 0.5
+            if abs(self.velocity_x) <= 0.7:
+                self.velocity_x = 0
+
+            if self.time == 60 * 3: #отслеживаем время взрыва по кадрам, где 60 - fps
+                pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
+                self.babax(rects)
+
+            # # Если квадрат упал достаточно низко, сбрасываем флаг
+            # if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
+            #     self.is_launched = False
 
     def collides(self, rects, player_rect):
         for i in rects:
             if self.rect.colliderect(i.rect) and i.rect != player_rect:
                 return i.rect
-        return  False
+        return False
+
+    def babax(self, rects):
+        from data.player import Entity
+        n = pygame.Rect(self.rect.center[0] - 50, self.rect.center[1] - 50, 100, 100)
+        for i in rects:
+            if n.colliderect(i.rect) and i.rect != n:
+                if isinstance(i, Entity):
+                    i.hp -= 15
+        self.kill()
+        self.vzriv = False

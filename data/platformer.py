@@ -36,6 +36,9 @@ class Platformer(Scene):
         self.RELOADEVENT = pygame.USEREVENT + 3
         self.SPAWNEVENT = pygame.USEREVENT + 4
         self.PUNCHEVENT = pygame.USEREVENT + 5
+        self.RELOADEVENT = pygame.USEREVENT + 6
+        self.MUSICBGEVENT = pygame.USEREVENT + 7
+        self.BABAX = pygame.USEREVENT + 8
 
     def make_map(self):
         # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
@@ -91,7 +94,12 @@ class Platformer(Scene):
         pygame.time.set_timer(self.RELOADEVENT, 1000)
         pygame.time.set_timer(self.SPAWNEVENT, 3000)
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
+        count = 0
+        sound = 'sounds/cosmic_battle.mp3'
+        pygame.mixer.Sound(sound).play(-1)
+        pygame.mixer.Sound(sound).set_volume(1.0)
         while running:
+            self.vzriv = False
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             keys = pygame.key.get_pressed()
@@ -99,19 +107,32 @@ class Platformer(Scene):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+                if event.type == self.MUSICBGEVENT:
+                    pygame.mixer.Sound(sound).play(-1)
+                    pygame.mixer.Sound(sound).set_volume(0.3)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and self.player.count > 0:
                         print(self.camera.apply_point(pygame.mouse.get_pos()))
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
                         self.player.count -= 1
-                    elif event.button == 3:
+                        shot = 'sounds/laser-blast-descend_gy7c5deo.mp3'
+                        pygame.mixer.Sound(shot).play()
+                        pygame.mixer.Sound(shot).set_volume(0.1)
+                    elif event.button == 3 and self.player.granat > 0:
+                        self.player.granat -= 1
                         dest_x, dest_y = pygame.mouse.get_pos()
+                        self.player.throw(5, dest_x, dest_y)
+                        pygame.time.set_timer(self.BABAX, 3000)
+                if event.type == self.SHOOTEVENT and self.player.is_alive:
                         self.player.throw(10, dest_x, dest_y)
                 # if event.type == self.SHOOTEVENT and self.player.is_alive:
                 #     for i in self.Enemies:
                 #         if i.see_player:
                 #             i.shoot(self.player.rect.x, self.player.rect.y, all_b, self.all_sprites)
+                #             shotv = 'sounds/laser-blast-descend_gy7c5deo.mp3'
+                #             pygame.mixer.Sound(shotv).play()
+                #             pygame.mixer.Sound(shotv).set_volume(0.1)
                 if event.type == self.PUNCHEVENT and self.player.is_alive:
                     for i in self.Enemies:
                         if i.see_player:
@@ -128,6 +149,11 @@ class Platformer(Scene):
                     self.blocks.add(enemy)
                     self.Enemies.add(enemy)
                     self.all_sprites.add(enemy)
+                if event.type == self.BABAX:
+                    self.vzriv = True
+                    pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
+                    pygame.time.set_timer(self.BABAX, 0)
+
             if keys[pygame.K_d]:
                 right = True
             else:
@@ -140,6 +166,7 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
+
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
             for i in self.Enemies:

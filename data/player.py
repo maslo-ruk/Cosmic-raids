@@ -68,12 +68,12 @@ class Entity(pygame.sprite.Sprite):
 
         if norm != 0:  # Проверка для избежания деления на ноль
             direction = (dx / norm, dy / norm)
-            grenade = Grenade(self.rect.center, direction)
-            grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
-            grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
-            grenade.is_launched = True
-            grenade.time = 0  # сброс времени для нового броска
-            self.grenades.add(grenade)
+            self.grenade = Grenade(self.rect.center, direction)
+            self.grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            self.grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            self.grenade.is_launched = True
+            self.grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(self.grenade)
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -106,6 +106,7 @@ class Player(Entity):
         super().__init__(POS1, SPEED)
         self.x_speed = SPEED
         self.kolvo = 5
+        self.granat = 3
         self.count = self.kolvo
         self.score = 0
         self.image.fill('green')
@@ -115,6 +116,8 @@ class Player(Entity):
         super().update(scene)
         if self.is_alive == False:
             print(self.score)
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
             self.xvel = self.x_speed
         if b:
@@ -161,6 +164,7 @@ class Player(Entity):
 ENEMY_SPEED = 3.5
 
 
+
 class Enemy(Entity):
     def __init__(self, pos):
         super().__init__(pos, ENEMY_SPEED)
@@ -185,6 +189,7 @@ class Land_enemy(Entity):
         super().update(scene)
         if not self.is_alive:
             player.score += 1
+            pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
         player_pos = player.rect
         if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                 self.rect.y - player_pos.y) <= self.y_vision * 30:
