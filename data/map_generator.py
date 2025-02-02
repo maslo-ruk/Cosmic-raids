@@ -299,6 +299,7 @@ class Stairs(Strategy):
         self.door_cells = []
         self.poses = list(range(4, self.room.height, 8))
         for j in range(3):
+            print(self.entry, 'entry')
             b = self.entry[0], self.entry[1] - j
             self.door_cells.append((self.entry[0], self.entry[1] - j))
 
@@ -317,10 +318,6 @@ class Stairs(Strategy):
             b = self.end[0], self.end[1] - j
             self.door_cells.append((self.end[0], self.end[1] - j))
 
-    def set_ending(self, ending):
-        self.end = self.room.width - 1, ending
-        self.room.end = self.end
-
     def generate(self):
         h_pos = 0
         v_pos = self.entry[1] + 1
@@ -329,19 +326,6 @@ class Stairs(Strategy):
         check = dir > 0
         step = 1
         amount = abs(end - v_pos + 2 * check) // step
-        # while amount >= self.width // 2:
-        #     # if step >= 4:
-        #     #     break
-        #     step += 1
-        #     amount = abs(end - v_pos + 2 * check) // step
-        # if step >= 4:
-        #     while amount > self.width:
-        #         self.set_ending(self.end[1] - 1)
-        #         end = self.end[1]
-        #         dir = (end - v_pos) // abs(end - v_pos)
-        #         check = dir > 0
-        #         amount = abs(end - v_pos + 2 * check) // step
-
         lengths = sep(self.width, amount)
         for i in range(len(lengths)):
             for j in range(v_pos, self.height):

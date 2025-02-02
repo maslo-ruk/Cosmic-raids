@@ -1,6 +1,7 @@
 import random
 
 from data.map_generator import *
+from data.config import *
 
 
 class Level:
@@ -14,7 +15,7 @@ class Level:
         self.total_length = 0
         self.rooms: list[Room] = []
         self.scene = scene
-        self.enemies_amount = 0
+        self.enemies_amount = 10 + DIFFICULTY * 5
 
     def all(self):
         self.make_rooms()
@@ -42,17 +43,19 @@ class Level:
                     self.scene.spawns.add(spawn)
                     self.scene.all_sprites.add(spawn)
                     beg = False
+        self.spawn_pos = self.rooms[0].entry[0] + 1, self.rooms[0].entry[1]
+        print(self.spawn_pos, 'voov')
         return self.map
 
     def make_rooms(self):
-        type = True # random.choice([True, False])
+        type = random.choice([True, False])
         for i in range(self.length):
             d = random.randrange(-self.rooms_size_x//2, self.rooms_size_x//2)
             room_x = self.rooms_size_x + d
             if i == 0:
                 entry = (0, 20)
             else:
-                entry = self.rooms[-1].end
+                entry = 0, self.rooms[-1].end[1]
             if type:
                 room = Room(room_x, self.rooms_size_y, entry, None)
                 strategy = Platforms(room, 10)

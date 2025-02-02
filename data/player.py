@@ -58,6 +58,7 @@ class Entity(pygame.sprite.Sprite):
 
     def die(self):
         self.is_alive = False
+        print(self.rect.center)
         self.kill()
 
     def throw(self, velocity, dest_x, dest_y, all_sp):
@@ -110,8 +111,15 @@ class Player(Entity):
         self.granat = 3
         self.count = self.kolvo
         self.score = 0
+        self.total_score = 0
         self.image.fill('green')
 
+    def set_def(self):
+        self.hp += 5 - DIFFICULTY
+        if self.hp > 10:
+            self.hp = 10
+        self.kolvo = 5
+        self.granat = 3
 
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
@@ -267,6 +275,8 @@ class CommonEnemy(Land_enemy):
             self.x_vision = 12
             self.y_vision = 4
             self.x_range = 6
+            self.image = pygame.Surface(self.size)
+            self.image.fill('red')
 
 
 
@@ -345,10 +355,12 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 5
+        self.hp = 1
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2
+        self.image = pygame.Surface(self.size)
+        self.image.fill('yellow')
 
 
     def punch(self, player):
