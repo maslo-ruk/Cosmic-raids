@@ -135,5 +135,7 @@ class Platformer(Scene):
             for i in self.Enemies:
                 i.update(self.screen, self.blocks)
                 self.screen.blit(i.image, (i.rect.x, i.rect.y))
+            for i in self.player.grenades:
+                self.screen.blit(i.image, (self.player.grenade.rect.x, self.player.grenade.rect.y))
             pygame.display.flip()
         pygame.quit()
