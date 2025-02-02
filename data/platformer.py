@@ -206,10 +206,6 @@ class Platformer(Scene):
                 #     self.blocks.add(enemy)
                 #     self.Enemies.add(enemy)
                 #     self.all_sprites.add(enemy)
-                if event.type == self.BABAX:
-                    self.vzriv = True
-                    pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
-                    pygame.time.set_timer(self.BABAX, 0)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
                 right = True
@@ -237,6 +233,7 @@ class Platformer(Scene):
                 if i.image:
                     self.screen.blit(i.image, self.camera.apply(i))
             if self.player.score == self.level.enemies_amount:
+                pygame.mixer.Sound('sounds/zvuk-pobedyi-vyiigryisha.mp3').play()
                 self.player.total_score += self.player.score
                 self.player.score = 0
                 self.new_level = True
