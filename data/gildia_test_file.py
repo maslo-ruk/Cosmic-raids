@@ -11,7 +11,7 @@ class Gildia:
         self.size = self.width, self.height
         self.cloks = 0
 
-    def run(self):
+    def run(self, sound):
         fon = pygame.image.load("images/for_gildia/gildia.png").convert_alpha()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         rules = pygame.image.load("images/for_gildia/rules.png")
@@ -72,10 +72,7 @@ class Gildia:
                     ding_dong.events()
                     ding_dong.clicking()
                     if back_button.events():
-                        current_scene = Hub(self.size, self.screen, clock)
-                        runi = True
-                        while runi:
-                            current_scene.run()
+                        return 4
                         pygame.quit()
                     elif name_button.events():
                         rules = pygame.transform.scale(rules, (self.width, self.height))
@@ -87,7 +84,7 @@ class Gildia:
                         didntt = pygame.transform.scale(didntt, (self.width, self.height))
                         didnt = True
                     elif zadania_button.events():
-                        menu_ecr = Platformer((self.width, self.height), self.screen, clock)
+                        return 1
                         running = True
                         while running:
                             menu_ecr.run()

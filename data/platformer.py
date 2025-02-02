@@ -127,7 +127,6 @@ class Platformer(Scene):
     def run(self, sound):
         self.make_map()
         self.spawn_enemies()
-        print(self.level.spawn_pos, 'sfaas')
         self.player.rect.x = self.level.spawn_pos[0] * 30
         self.player.rect.y = self.level.spawn_pos[1] * 30 - self.player.size[1]
         running = True
@@ -162,9 +161,7 @@ class Platformer(Scene):
                     break
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        print('ass')
                         self.pause = not self.pause
-                        print(self.pause)
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
@@ -194,6 +191,9 @@ class Platformer(Scene):
                             i.punch(self.player)
                 if event.type == self.MOVEEVENT:
                     for i in self.Enemies:
+                        if not i.unseed:
+                            i.random_move()
+                    for i in self.CloseEnemies:
                         if not i.unseed:
                             i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
@@ -275,7 +275,7 @@ class Hub(Scene):
                     self.blocks.add(block)
                     self.blocks_map.add(block)
 
-    def run(self):
+    def run(self, sound):
         fon = pygame.image.load("images/for_hub/hub_pic_test1.png")
         fon = pygame.transform.scale(fon, (self.width, self.height)).convert_alpha()
         self.screen.blit(fon, (0, 0))
@@ -331,7 +331,8 @@ class Hub(Scene):
             if keys[pygame.K_e]:
                 if self.in_gildia:
                     print('sdad')
-                    return 4
+                    pygame.mouse.set_visible(True)
+                    return 5
             #Егор, разработай ограничения передвижения в хабе
             if keys[pygame.K_h]:
                 pass

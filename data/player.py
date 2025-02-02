@@ -123,6 +123,20 @@ class Player(Entity):
         self.score = 0
         self.total_score = 0
         self.image.fill('green')
+        self.level = 0
+        self.character = get_character()
+
+    def update_char(self):
+        self.character = get_character()
+
+    def update_level(self):
+        con = sqlite3.connect('db/characters_and_achievements.sqlite')
+        cur = con.cursor()
+        result = cur.execute("""UPDATE player SET cur_level = ? WHERE id = 1""", (self.level,)).fetchall()
+        if self.level >= 5:
+            cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Астра'""")
+        elif self.level >= 10:
+            cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Октавия'""")
 
     def set_def(self):
         self.hp += 5 - DIFFICULTY
@@ -134,7 +148,11 @@ class Player(Entity):
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
         if self.is_alive == False:
-            print(self.score)
+            print(self.level)
+            print(self.total_score)
+            self.level += self.total_score // 10
+            self.update_level()
+            #саня добавь в бд изменение левела
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
@@ -149,7 +167,6 @@ class Player(Entity):
             self.rect.y -= CELL_SIZE
             prev = self.col1
             self.col1 = self.collides(rects)
-            print(self.col1)
             if self.col1 or self.inair:
                 self.col1 = prev
                 self.rect.y += CELL_SIZE
@@ -307,13 +324,10 @@ class FlyingEnemy(Entity):
 
     def update(self, scene, screen, rects, map_graph: nx.Graph, player):
         if cast_ray(self.rect.center, player.rect.center, rects):
-            print('0000')
             self.move_to(player.rect.center)
         else:
             target = player.rect.center[1] // 30, player.rect.center[0] // 30
-            print(target)
             self_pos = self.rect.center[1] // 30, self.rect.center[0] // 30
-            print(self_pos)
             if map_graph.has_node(target) and map_graph.has_node(self_pos):
                 way = nx.shortest_path(map_graph, self_pos, target, weight=1)
                 dest = (way[0][1] * 30, way[0][0] * 30)
@@ -322,7 +336,6 @@ class FlyingEnemy(Entity):
                 #     counter += 1
                 #     dest = (way[counter][1] * 30, [counter][0] * 30)
             else:
-                print(':[[[[[')
                 dest = (player.rect.center)
             self.move_to(dest)
 
@@ -331,10 +344,7 @@ class FlyingEnemy(Entity):
 
     def get_direction(self, target):
         dx = target[0] - self.rect.x
-        print(dx)
         dy = target[1] - self.rect.y
-        print(dy)
-        print('------------')
         gip = (dx**2 + dy**2) ** 0.5
         if gip != 0:
             sin = dx / gip
@@ -377,4 +387,3 @@ class Close_Enemy(Land_enemy):
         player_pos = player.rect
         if abs(self.rect.x - player_pos.x) <= self.x_range * 30 and player_pos.bottom >= self.rect.top:
             player.hp -= self.atk
-        print(player.hp)

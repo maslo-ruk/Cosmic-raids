@@ -12,7 +12,7 @@ class Menu(Scene):
         self.player = player
 
 
-    def run(self):
+    def run(self, sound):
         fon = pygame.image.load("images/for_menu/Space_sky.png").convert()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         self.screen.blit(fon, (0, 0))

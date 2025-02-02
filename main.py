@@ -1,9 +1,12 @@
 import pygame
-from data.platformer import Platformer, Scene
+from data.platformer import Platformer, Scene, Hub
 from data.player import Player, Hub_Player
 from data.menu_test_file import Menu
 from data.sound_function import sound
 from data.platformer import Platformer
+from data.functions import *
+from data.gildia_test_file import Gildia
+from data.config import *
 
 
 def main_lena():
@@ -27,11 +30,20 @@ def main_lena():
 def main():
     pygame.init()
     size = width, height = 1500, 900
-    screen = pygame.display.set_mode(size)
+    screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+    e_width = screen_info.current_w - 30  # ширина
+    e_height = screen_info.current_h - 30
+    screen = pygame.display.set_mode((e_width, e_height))
+    # screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
     player = Player((300, 200))
-    current_scene = Platformer((3000, 1200), screen, clock, player)
+    player.level = get_level()
+    hub_player = Hub_Player((300, 200))
+    menu = Menu(e_width, e_height, screen, hub_player)
+    hub = Hub(menu.size, screen, clock, hub_player)
+    gildia = Gildia(e_width, e_height, screen)
+    current_scene = menu
     scenes = []
     scenes.append(current_scene)
     runi = True
@@ -41,12 +53,19 @@ def main():
     while runi:
         a = current_scene.run(sound)
         if a == 1:
-            current_scene = Platformer((3000, 1200), screen, clock, player)
+            current_scene = Platformer((width, height), screen, clock, player)
             scenes.append(current_scene)
+            # screen = pygame.display.set_mode(size)
         elif a == 2:
             current_scene = Scene((3000, 1200), screen, clock, player)
+        elif a == 3:
+            continue
+        elif a == 4:
+            current_scene = hub
+        elif a == 5:
+            current_scene = gildia
     pygame.quit()
 
 
 if __name__ == '__main__':
-    main_lena()
+    main()
