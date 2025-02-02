@@ -4,11 +4,12 @@ from data.buttons import Button
 from data.platformer import *
 from data.map_generator import *
 class Menu(Scene):
-    def __init__(self, width, height, screen):
+    def __init__(self, width, height, screen, player):
         self.width = width
         self.height = height
         self.screen = screen
         self.size = self.width, self.height
+        self.player = player
 
 
     def run(self):
@@ -65,11 +66,12 @@ class Menu(Scene):
                     new_game_button.events()
                     settings_button.events()
                     if start_button.events():
-                        current_scene = Hub(self.size, self.screen, clock)
-                        runi = True
-                        while runi:
-                            current_scene.run()
-                        pygame.quit()
+                        # current_scene = Hub(self.size, self.screen, clock, self.player)
+                        # runi = True
+                        # while runi:
+                        #     current_scene.run()
+                        # pygame.quit()
+                        return 4
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     start_button.check_mishka(x_pos)

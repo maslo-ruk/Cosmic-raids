@@ -1,6 +1,6 @@
 import pygame
 from data.platformer import Platformer, Scene
-from data.player import Player
+from data.player import Player, Hub_Player
 from data.menu_test_file import Menu
 from data.sound_function import sound
 from data.platformer import Platformer
@@ -18,7 +18,8 @@ def main_lena():
     screen = pygame.display.set_mode((width, height))
     clock = pygame.time.Clock()
     pygame.display.set_caption("Тестовое меню")
-    menu_ecr = Menu(width, height, screen)
+    player = Hub_Player((300, 200))
+    menu_ecr = Menu(width, height, screen, player)
     running = True
     while running:
         menu_ecr.run()
@@ -48,4 +49,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main_lena()

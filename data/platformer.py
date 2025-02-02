@@ -240,19 +240,21 @@ class Platformer(Scene):
             if self.new_level:
                 for i in self.doors:
                     if self.player.rect.colliderect(i):
-                        return True
+                        return 1
             pygame.display.flip()
         pygame.quit()
 
 
 class Hub(Scene):
-    def __init__(self, size, screen, clock):
-        super().__init__(size, screen, clock)
+    def __init__(self, size, screen, clock, player):
+        super().__init__(size, screen, clock, player)
         self.width = size[0]
         self.height = size[1]
         self.player = Hub_Player((size[0] // 2, size[1] // 2))
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
+        self.gildia = pygame.Rect(CELL_SIZE * 6, 0, CELL_SIZE * 12, CELL_SIZE * 10)
+        self.in_gildia = False
 
     def make_map(self):
         self.map_y = []
@@ -324,10 +326,14 @@ class Hub(Scene):
                     vert = 1
                 else:
                     vert = 0
+            if keys[pygame.K_e]:
+                if self.in_gildia:
+                    print('sdad')
+                    return 4
             #Егор, разработай ограничения передвижения в хабе
             if keys[pygame.K_h]:
                 pass
-            self.player.update(self, self.screen, hor,vert, self.blocks_map)
+            self.player.update(self, self.screen, hor,vert, self.blocks_map, self.gildia)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
             hor = 0

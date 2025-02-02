@@ -91,10 +91,11 @@ class Hub_Player(Entity):
         self.image = pygame.Surface(self.size)
         self.image.fill(COLOR)
 
-    def update(self, scene, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
+        self.in_gildia(gildia, scene)
         if self.col1 and (hor > 0):
             self.rect.right = self.col1.left
         if self.col1 and (hor < 0):
@@ -105,6 +106,12 @@ class Hub_Player(Entity):
             self.rect.top = self.col2.bottom
         if self.col2 and (vert > 0):
             self.rect.bottom = self.col2.top
+
+    def in_gildia(self, gildia, scene):
+        if self.rect.colliderect(gildia):
+            scene.in_gildia = True
+        else:
+            scene.in_gildia = False
 
 class Player(Entity):
     def __init__(self, POS1):
