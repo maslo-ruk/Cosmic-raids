@@ -48,7 +48,7 @@ class Button:
             self.mishka_on = self.rect.collidepoint(mouse_pos)
     def events(self):
         if self.mishka_on:
-            # print("Вы нажали кнопку^^")
+            print("Вы нажали кнопку^^")
             if self.sound:
                 self.sound.play()
             pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
@@ -230,4 +230,73 @@ class Dostig_dutton:
 
     def events(self):
         pass
+
+class Buttton_for_settings:
+    def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after1=None, image_before2=None, image_after2=None,
+                 sound=None, sound2=None,
+                 diapazone_x=None, diapazone_y=None, person=None, clocks=None):
+        self.x_cord = x_cord
+        self.y_cord = y_cord
+        self.w = width
+        self.h = height
+        self.text = text
+        self.diapaz_x = diapazone_x
+        self.diapaz_y = diapazone_y
+        self.clocks = clocks
+
+        self.image_before = pygame.image.load(image_before)
+        self.image_before = pygame.transform.scale(self.image_before, (width, height))
+        self.image_before1 = pygame.image.load(image_before2)
+        self.image_before1 = pygame.transform.scale(self.image_before1, (width, height))
+        self.image_after = self.image_before
+        self.mishka_on = True
+
+        if image_after1:
+            self.image_after1 = pygame.image.load(image_after1).convert_alpha()
+            self.image_after1 = pygame.transform.scale(self.image_after1, (width, height))
+        if image_after2:
+            self.image_after2 = pygame.image.load(image_after2).convert_alpha()
+            self.image_after2 = pygame.transform.scale(self.image_after2, (width, height))
+        self.rect = self.image_before.get_rect(topleft=(x_cord, y_cord))
+        self.sound = sound
+        self.sound2 = sound2
+        if sound:
+            self.sound = pygame.mixer.Sound(sound)
+        self.clicked = 0
+
+    def draw(self, screen):
+        if self.mishka_on:
+            if self.clicked % 2 == 0:
+                current_img = self.image_after1
+            else:
+                current_img = self.image_after2
+            screen.blit(current_img, self.rect.topleft)
+        else:
+            if self.clicked % 2 == 0:
+                current_img = self.image_before
+            else:
+                current_img = self.image_before1
+            screen.blit(current_img, self.rect.topleft)
+
+    def check_mishka(self, mouse_pos):
+        # print(mouse_pos)
+        if self.diapaz_x and self.diapaz_y:
+            if int(mouse_pos[0]) > int(self.diapaz_x[0]) and int(mouse_pos[0]) < int(self.diapaz_x[1]) and int(
+                    mouse_pos[1]) > int(self.diapaz_y[0]) and int(mouse_pos[1]) < int(self.diapaz_y[1]):
+                self.mishka_on = True
+            else:
+                self.mishka_on = False
+        else:
+            self.mishka_on = self.rect.collidepoint(mouse_pos)
+
+    def clicking(self):
+        # print(self.mishka_on)
+        if self.mishka_on:
+            self.clicked += 1
+            # print("Да")
+
+    def events(self):
+        if self.mishka_on:
+            pygame.event.post(pygame.event.Event(pygame.USEREVENT, button=self))
+            return True
 

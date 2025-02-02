@@ -4,8 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="окончательно доделаны уровни + ближний враг">
-      <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/end_of_testfile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/fon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/knopka_snat_s_pausi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/knopka_to_hub.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/end_of/fon.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/end_of/fon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Kulpinsky_Helen" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,7 +45,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/maslo-ruk/Cosmic-raids&quot;,
-    &quot;accountId&quot;: &quot;f9f66426-9466-40c0-a040-9f92052237af&quot;
+    &quot;accountId&quot;: &quot;c722e578-a338-45c4-b09e-1187715b4c52&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -54,6 +63,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.Block.executor": "Run",
+    "Python.dostich_test_file.executor": "Run",
+    "Python.dostig_funk.executor": "Run",
     "Python.graphs_experiments.executor": "Run",
     "Python.hub.executor": "Run",
     "Python.main.executor": "Run",
@@ -64,18 +75,67 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Kulpinsky__Helen",
-    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids/data",
-    "settings.editor.selected.configurable": "preferences.keymap"
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/pausa",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
-      <recent name="C:\Users\user\CosmicRaid\data" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\pausa" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\end_of" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\start_game" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\settings" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs\main_gg" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.hub">
+    <configuration name="dostig_funk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Comic_raids" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/dostig_funk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="hub" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Comic_raids" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hub.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Cosmic-raids" />
       <option name="ENV_FILES" value="" />
@@ -85,7 +145,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13 (Cosmic-raids)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -99,11 +158,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.hub" />
+        <item itemvalue="Python.dostig_funk" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
+        <option value="bundled-python-sdk-7a29c1521ef0-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
       </set>
     </attachedChunks>
   </component>
@@ -172,39 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736531928743</updated>
     </task>
-    <task id="LOCAL-00008" summary="работа нгад летающим врагом">
+    <task id="LOCAL-00008" summary="добавлены все файлы">
       <option name="closed" value="true" />
-      <created>1737483938054</created>
+      <created>1738518175692</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1737483938054</updated>
+      <updated>1738518175692</updated>
     </task>
-    <task id="LOCAL-00009" summary="окончательно доделаны уровни + ближний враг">
-      <option name="closed" value="true" />
-      <created>1738328210801</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1738328210801</updated>
-    </task>
-    <task id="LOCAL-00010" summary="окончательно доделаны уровни + ближний враг">
-      <option name="closed" value="true" />
-      <created>1738434142722</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1738434142722</updated>
-    </task>
-    <task id="LOCAL-00011" summary="добавлен фон + некоторые бд">
-      <option name="closed" value="true" />
-      <created>1738528571580</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1738528571580</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,19 +271,26 @@
     <MESSAGE value="Начата работа над генерацией карты" />
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
-    <MESSAGE value="хз" />
-    <MESSAGE value="работа нгад летающим врагом" />
-    <MESSAGE value="окончательно доделаны уровни + ближний враг" />
-    <MESSAGE value="добавлен фон + некоторые бд" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавлен фон + некоторые бд" />
+    <MESSAGE value="добавлены все файлы" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлены все файлы" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/map_generator.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/map_generator_copy.py</url>
           <line>170</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dostich_test_file.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
