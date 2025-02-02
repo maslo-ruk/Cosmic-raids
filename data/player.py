@@ -60,7 +60,7 @@ class Entity(pygame.sprite.Sprite):
         self.is_alive = False
         self.kill()
 
-    def throw(self, velocity, dest_x, dest_y):
+    def throw(self, velocity, dest_x, dest_y, all_sp):
         from data.projectiles import Grenade
         dx = dest_x - self.rect.centerx
         dy = dest_y - self.rect.centery
@@ -74,6 +74,7 @@ class Entity(pygame.sprite.Sprite):
             self.grenade.is_launched = True
             self.grenade.time = 0  # сброс времени для нового броска
             self.grenades.add(self.grenade)
+            all_sp.add(self.grenade)
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -90,10 +91,11 @@ class Hub_Player(Entity):
         self.image = pygame.Surface(self.size)
         self.image.fill(COLOR)
 
-    def update(self, scene, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
+        self.in_gildia(gildia, scene)
         if self.col1 and (hor > 0):
             self.rect.right = self.col1.left
         if self.col1 and (hor < 0):
@@ -105,6 +107,12 @@ class Hub_Player(Entity):
         if self.col2 and (vert > 0):
             self.rect.bottom = self.col2.top
 
+    def in_gildia(self, gildia, scene):
+        if self.rect.colliderect(gildia):
+            scene.in_gildia = True
+        else:
+            scene.in_gildia = False
+
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
@@ -113,13 +121,22 @@ class Player(Entity):
         self.granat = 3
         self.count = self.kolvo
         self.score = 0
+        self.total_score = 0
         self.image.fill('green')
 
+    def set_def(self):
+        self.hp += 5 - DIFFICULTY
+        if self.hp > 10:
+            self.hp = 10
+        self.kolvo = 5
+        self.granat = 3
 
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
         if self.is_alive == False:
             print(self.score)
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
+            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
             self.xvel = self.x_speed
         if b:
@@ -161,12 +178,6 @@ class Player(Entity):
 
         self.all_b.update(rects, self.rect)
         self.grenades.update(screen, rects, self.rect)
-        self.grenades.draw(screen)
-        if self.hp <= 0:
-            self.kill()
-            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
-            pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
-            self.is_alive = False
 
 ENEMY_SPEED = 3.5
 
@@ -182,7 +193,7 @@ class Land_enemy(Entity):
         self.borders = borders
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.hp = 1
+        self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
         self.x_shooting = 6
@@ -194,12 +205,9 @@ class Land_enemy(Entity):
 
     def update(self, scene, screen, rects, player):
         super().update(scene)
-        if self.hp <= 0:
-            self.kill()
-            pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
-            self.is_alive = False
         if not self.is_alive:
             player.score += 1
+            pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
         player_pos = player.rect
         if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                 self.rect.y - player_pos.y) <= self.y_vision * 30:
@@ -277,6 +285,8 @@ class CommonEnemy(Land_enemy):
             self.x_vision = 12
             self.y_vision = 4
             self.x_range = 6
+            self.image = pygame.Surface(self.size)
+            self.image.fill('red')
 
 
 
@@ -355,10 +365,12 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 5
+        self.hp = 7
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2
+        self.image = pygame.Surface(self.size)
+        self.image.fill('yellow')
 
 
     def punch(self, player):

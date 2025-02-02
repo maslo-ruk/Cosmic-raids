@@ -1,4 +1,6 @@
 import pygame
+from data.platformer import Platformer, Scene
+from data.player import Player, Hub_Player
 from data.menu_test_file import Menu
 from data.sound_function import sound
 from data.platformer import Platformer
@@ -16,7 +18,8 @@ def main_lena():
     screen = pygame.display.set_mode((width, height))
     clock = pygame.time.Clock()
     pygame.display.set_caption("Тестовое меню")
-    menu_ecr = Menu(width, height, screen)
+    player = Hub_Player((300, 200))
+    menu_ecr = Menu(width, height, screen, player)
     running = True
     while running:
         menu_ecr.run()
@@ -27,12 +30,23 @@ def main():
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
     pygame.display.set_caption("CosmicRaids")
-    current_scene = Platformer((3000, 1200), screen, clock)
+    player = Player((300, 200))
+    current_scene = Platformer((3000, 1200), screen, clock, player)
+    scenes = []
+    scenes.append(current_scene)
     runi = True
+    sound = 'sounds/cosmic_battle.mp3'
+    pygame.mixer.Sound(sound).play(-1)
+    pygame.mixer.Sound(sound).set_volume(1.0)
     while runi:
-        current_scene.run()
+        a = current_scene.run(sound)
+        if a == 1:
+            current_scene = Platformer((3000, 1200), screen, clock, player)
+            scenes.append(current_scene)
+        elif a == 2:
+            current_scene = Scene((3000, 1200), screen, clock, player)
     pygame.quit()
-#у меня другой мейн, я оставил твой, позже договоримся
+
 
 if __name__ == '__main__':
-    main()
+    main_lena()

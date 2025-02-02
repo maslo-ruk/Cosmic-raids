@@ -89,15 +89,14 @@ class Grenade(pygame.sprite.Sprite):
                 pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                 self.babax(rects)
 
-            # Если квадрат упал достаточно низко, сбрасываем флаг
-            if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
-                self.is_launched = False
+            # # Если квадрат упал достаточно низко, сбрасываем флаг
+            # if self.rect.y >= 600 - 50 and abs(self.velocity_y) < 1:
+            #     self.is_launched = False
 
     def collides(self, rects, player_rect):
         for i in rects:
             if self.rect.colliderect(i.rect) and i.rect != player_rect:
                 return i.rect
-        return  False
         return False
 
     def babax(self, rects):
