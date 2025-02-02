@@ -66,11 +66,6 @@ class Menu(Scene):
                     new_game_button.events()
                     settings_button.events()
                     if start_button.events():
-                        # current_scene = Hub(self.size, self.screen, clock, self.player)
-                        # runi = True
-                        # while runi:
-                        #     current_scene.run()
-                        # pygame.quit()
                         return 4
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos

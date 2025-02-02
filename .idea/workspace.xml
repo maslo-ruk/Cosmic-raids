@@ -4,56 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлена заготовка хаба">
-      <change afterPath="$PROJECT_DIR$/data/charackter_funk.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/dostig_funk.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/characters_texsturs/main_gg/for_fight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/astra.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/fon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/gg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/info_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/ne_win.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/oktavia.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/end_of/win.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst2_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst2_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst3_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst3_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst4_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst4_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst5_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst5_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst6_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst6_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst7_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst7_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst8_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst8_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst9_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst9_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/for_dostiz/knopochka.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/chit_kod.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/fon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/Astra_info.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/astra_c.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/fon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/gg_c.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/gg_info.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/oktavia_c.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/start_game/oktavia_info.png" afterDir="false" />
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/end_of_testfile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/fon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/knopka_snat_s_pausi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pausa/knopka_to_hub.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dostich_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostich_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/end_of/fon.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/end_of/fon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,17 +75,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Kulpinsky__Helen",
-    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/start_game",
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/pausa",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\Comic_raids\images\pausa" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\end_of" />
       <recent name="D:\PycharmProjects\Comic_raids\images\start_game" />
       <recent name="D:\PycharmProjects\Comic_raids\images\settings" />
       <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\end_of" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\start_fight" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs\main_gg" />
@@ -207,7 +168,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
+        <option value="bundled-python-sdk-7a29c1521ef0-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
       </set>
     </attachedChunks>
   </component>
@@ -276,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736531928743</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="добавлены все файлы">
+      <option name="closed" value="true" />
+      <created>1738518175692</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1738518175692</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,7 +271,8 @@
     <MESSAGE value="Начата работа над генерацией карты" />
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена заготовка хаба" />
+    <MESSAGE value="добавлены все файлы" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлены все файлы" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
