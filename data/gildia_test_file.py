@@ -1,8 +1,8 @@
 # Тест меню
 import pygame
+from data.dostich_test_file import Dostich
 from data.buttons import *
-from data.platformer import *
-from data.dostich_test_file import *
+from data.platformer import Hub, Platformer
 class Gildia:
     def __init__(self, width, height, screen):
         self.width = width
