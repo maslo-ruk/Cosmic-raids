@@ -4,12 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="окончательно доделаны уровни + ближний враг">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлена заготовка хаба">
+      <change afterPath="$PROJECT_DIR$/data/charackter_funk.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/dostig_funk.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/characters_texsturs/main_gg/for_fight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/astra.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/fon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/gg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/info_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/ne_win.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/next.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/oktavia.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/end_of/win.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst2_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst2_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst3_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst3_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst4_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst4_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst5_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst5_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst6_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst6_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst7_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst7_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst8_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst8_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst9_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/dst9_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/for_dostiz/knopochka.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/chit_kod.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/fon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/settings/zvuk_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/Astra_info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/astra_c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/fon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/gg_c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/gg_info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/oktavia_c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/start_game/oktavia_info.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dostich_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostich_test_file.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/gildia_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gildia_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/menu_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/menu_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +70,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Kulpinsky_Helen" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,7 +84,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/maslo-ruk/Cosmic-raids&quot;,
-    &quot;accountId&quot;: &quot;f9f66426-9466-40c0-a040-9f92052237af&quot;
+    &quot;accountId&quot;: &quot;c722e578-a338-45c4-b09e-1187715b4c52&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -55,31 +99,82 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
-    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Zhavoronkov__Egor&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Егор/PycharmProjects/Cosmic-raids/data&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Block.executor": "Run",
+    "Python.dostich_test_file.executor": "Run",
+    "Python.dostig_funk.executor": "Run",
+    "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.map_generator.executor": "Run",
+    "Python.map_generator_copy.executor": "Run",
+    "Python.platformer.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Kulpinsky__Helen",
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/start_game",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
-      <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids" />
-      <recent name="C:\Users\user\CosmicRaid\data" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\start_game" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\settings" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\end_of" />
+      <recent name="D:\PycharmProjects\Comic_raids\images\start_fight" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs\main_gg" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.hub">
+    <configuration name="dostig_funk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Comic_raids" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/dostig_funk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="hub" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Comic_raids" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hub.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Cosmic-raids" />
       <option name="ENV_FILES" value="" />
@@ -89,7 +184,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13 (Cosmic-raids)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -103,11 +197,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.hub" />
+        <item itemvalue="Python.dostig_funk" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
+        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
       </set>
     </attachedChunks>
   </component>
@@ -176,31 +276,7 @@
       <option name="project" value="LOCAL" />
       <updated>1736531928743</updated>
     </task>
-    <task id="LOCAL-00008" summary="работа нгад летающим врагом">
-      <option name="closed" value="true" />
-      <created>1737483938054</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1737483938054</updated>
-    </task>
-    <task id="LOCAL-00009" summary="окончательно доделаны уровни + ближний враг">
-      <option name="closed" value="true" />
-      <created>1738328210801</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1738328210801</updated>
-    </task>
-    <task id="LOCAL-00010" summary="окончательно доделаны уровни + ближний враг">
-      <option name="closed" value="true" />
-      <created>1738434142722</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1738434142722</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,18 +302,25 @@
     <MESSAGE value="Начата работа над генерацией карты" />
     <MESSAGE value="На карте случайным образом генерируются враги" />
     <MESSAGE value="Добавлена заготовка хаба" />
-    <MESSAGE value="хз" />
-    <MESSAGE value="работа нгад летающим врагом" />
-    <MESSAGE value="окончательно доделаны уровни + ближний враг" />
-    <option name="LAST_COMMIT_MESSAGE" value="окончательно доделаны уровни + ближний враг" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена заготовка хаба" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/map_generator.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/map_generator_copy.py</url>
           <line>170</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dostich_test_file.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

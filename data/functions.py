@@ -1,7 +1,6 @@
 import pygame
 import random
 from data.config import *
-import networkx as nx
 
 def camera_conf(camera, target, scene):
     r_s = scene.size
