@@ -51,7 +51,8 @@ class Bullets(pygame.sprite.Sprite):
 class Grenade(pygame.sprite.Sprite):
     def __init__(self, start_pos, rects):
         super().__init__()
-        self.image = pygame.image.load('images/oktavia_grenade.png').convert_alpha() # картинка гранаты
+
+        self.image = pygame.transform.scale(pygame.image.load('images/oktavia_grenade.png'), (20, 20)) # картинка гранаты
         # self.image.fill((130, 150, 52)) # болотный зеленый
         self.rect = self.image.get_rect(center=start_pos)
         self.rects = rects
