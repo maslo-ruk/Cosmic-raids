@@ -66,3 +66,5 @@ This game about a space mercenary who kills all kinds of evil spirits...
 
 
 (ссылка на скринкаст)
+
+Приятной игры!
