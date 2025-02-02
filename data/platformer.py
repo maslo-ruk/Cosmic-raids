@@ -141,6 +141,8 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SPAWNEVENT, 3000)
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
         count = 0
+        fon = pygame.image.load("images/for_hub/fon1.png")
+        fon = pygame.transform.scale(fon, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE)).convert_alpha()
         while running:
             if self.pause:
                 self.screen.fill('blue')
@@ -154,7 +156,7 @@ class Platformer(Scene):
                 continue
             self.vzriv = False
             tick = self.clock.tick(60)
-            self.screen.fill('blue')
+            self.screen.blit(fon, (0, 0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()

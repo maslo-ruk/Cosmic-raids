@@ -148,8 +148,8 @@ class Player(Entity):
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
         if self.is_alive == False:
-            print(self.level)
-            print(self.total_score)
+            print(self.level, 'x')
+            print(self.total_score, 'y')
             self.level += self.total_score // 10
             self.update_level()
             #саня добавь в бд изменение левела

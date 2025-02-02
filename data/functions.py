@@ -84,3 +84,9 @@ def make_graph(map):
                         graph.add_node((i + 1, j))
                         graph.add_edge((i, j), (i + 1, j))
     return graph
+
+
+def make_new_game():
+    con = sqlite3.connect('db/characters_and_achievements.sqlite')
+    cur = con.cursor()
+    result = cur.execute("""INSERT INTO player(cur_level, completed_levels) VALUES(0, 0)""").fetchall()

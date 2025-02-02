@@ -10,7 +10,7 @@ class Dostich:
         self.size = self.width, self.height
 
     def run(self):
-        fon = pygame.image.load("images/for_dostiz/fon.png").convert_alpha()
+        fon = pygame.image.load("images/for_dostiz/fon3.png").convert_alpha()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         self.screen.blit(fon, (0, 0))
         clock = pygame.time.Clock()
