@@ -23,21 +23,6 @@ class Scene:
         self.all_sprites = pygame.sprite.Group()
 
 
-class Pause(Scene):
-    def __init__(self, size, screen, clock, player):
-        super().__init__(size, screen, clock, player)
-
-    def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    break
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        return 3
-
-
 class Platformer(Scene):
     def __init__(self, size, screen, clock, player):
         super().__init__(size, screen, clock, player)
@@ -185,7 +170,6 @@ class Platformer(Scene):
                     pygame.mixer.Sound(sound).set_volume(0.3)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and self.player.count > 0:
-                        print(self.camera.apply_point(pygame.mouse.get_pos()))
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
                         self.player.count -= 1
@@ -258,17 +242,21 @@ class Platformer(Scene):
             if self.new_level:
                 for i in self.doors:
                     if self.player.rect.colliderect(i):
-                        return True
+                        return 1
             pygame.display.flip()
         pygame.quit()
 
 
 class Hub(Scene):
-    def __init__(self, size, screen, clock):
-        super().__init__(size, screen, clock)
+    def __init__(self, size, screen, clock, player):
+        super().__init__(size, screen, clock, player)
+        self.width = size[0]
+        self.height = size[1]
         self.player = Hub_Player((size[0] // 2, size[1] // 2))
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
+        self.gildia = pygame.Rect(CELL_SIZE * 6, 0, CELL_SIZE * 12, CELL_SIZE * 10)
+        self.in_gildia = False
 
     def make_map(self):
         self.map_y = []
@@ -276,22 +264,8 @@ class Hub(Scene):
             if i == 0 or i == self.size[1] // 30 - 1:
                 self.map_y.append('#' * (self.size[0] // 30))
             else:
-                self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
+                self.map_y.append('#' + '0' * (self.size[0] // 30 - 2) + '#')
         self.map = self.map_y[:]
-        # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
-        # strategy = Platforms(room, 10)
-        # self.map_x = strategy.all(self)
-        # self.map = []
-        # for i in self.map_y:
-        #     print(i)
-        # for i in range(len(self.map_x)):
-        #     new_str = ''
-        #     for j in range(len(self.map_x[i])):
-        #         if self.map_x[i][j] == '#':
-        #             new_str += self.map_x[i][j]
-        #         else:
-        #             new_str += self.map_y[i][j]
-        #     self.map.append(new_str)
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
@@ -302,19 +276,38 @@ class Hub(Scene):
                     self.blocks_map.add(block)
 
     def run(self):
+        fon = pygame.image.load("images/for_hub/hub_pic_test1.png")
+        fon = pygame.transform.scale(fon, (self.width, self.height)).convert_alpha()
+        self.screen.blit(fon, (0, 0))
+        pet = pygame.image.load("images/for_hub/pet_pose_normal.png")
+        pet = pygame.transform.scale(pet, (self.width, self.height)).convert_alpha()
+        self.screen.blit(pet, (0, 0))
+        nouneim = pygame.image.load("images/for_hub/who_normal.png")
+        nouneim = pygame.transform.scale(nouneim, (self.width, self.height)).convert_alpha()
+        self.screen.blit(nouneim, (0, 0))
+        clock = pygame.time.Clock()
+        pygame.display.set_caption("Тестовое меню")
+        pygame.mouse.set_visible(False)
         self.make_map()
         running = True
         hor = 0
         vert = 0
+        a = 0
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             self.blocks_map.draw(self.screen)
+            self.screen.blit(fon, (0, 0))
+            self.screen.blit(pet, (0, 0))
+            self.screen.blit(nouneim, (0, 0))
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+            if keys[pygame.K_ESCAPE]:
+                pygame.quit()
+                exit()
             if keys[pygame.K_d]:
                 if hor == 0:
                     hor = 1
@@ -335,9 +328,17 @@ class Hub(Scene):
                     vert = 1
                 else:
                     vert = 0
-            self.player.update(self.screen, hor,vert, self.blocks_map)
+            if keys[pygame.K_e]:
+                if self.in_gildia:
+                    print('sdad')
+                    return 4
+            #Егор, разработай ограничения передвижения в хабе
+            if keys[pygame.K_h]:
+                pass
+            self.player.update(self, self.screen, hor,vert, self.blocks_map, self.gildia)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
             hor = 0
             vert = 0
+            a += 1
         pygame.quit()

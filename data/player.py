@@ -8,7 +8,7 @@ WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
-HUB_SPEED = 4
+HUB_SPEED = 10
 JUMPSPEED = 14
 GRAVI = 0.8
 COLOR = 'red'
@@ -58,7 +58,6 @@ class Entity(pygame.sprite.Sprite):
 
     def die(self):
         self.is_alive = False
-        print(self.rect.center)
         self.kill()
 
     def throw(self, velocity, dest_x, dest_y, all_sp):
@@ -87,11 +86,16 @@ class Entity(pygame.sprite.Sprite):
 class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
+        self.size = CELL_SIZE * 6, CELL_SIZE * 9
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image = pygame.Surface(self.size)
+        self.image.fill(COLOR)
 
-    def update(self, scene, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
+        self.in_gildia(gildia, scene)
         if self.col1 and (hor > 0):
             self.rect.right = self.col1.left
         if self.col1 and (hor < 0):
@@ -102,6 +106,12 @@ class Hub_Player(Entity):
             self.rect.top = self.col2.bottom
         if self.col2 and (vert > 0):
             self.rect.bottom = self.col2.top
+
+    def in_gildia(self, gildia, scene):
+        if self.rect.colliderect(gildia):
+            scene.in_gildia = True
+        else:
+            scene.in_gildia = False
 
 class Player(Entity):
     def __init__(self, POS1):
