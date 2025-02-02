@@ -167,7 +167,7 @@ class Platformer(Scene):
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and self.player.is_alive:
                     if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
