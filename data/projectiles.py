@@ -24,8 +24,8 @@ class Projectile(pygame.sprite.Sprite):
 class Bullets(pygame.sprite.Sprite):
     def __init__(self, start_pos, angle):
         super().__init__()
-        self.image = pygame.Surface((5, 5))
-        self.image.fill('pink')
+        self.image = pygame.transform.scale(pygame.image.load('images/bullet.png'),
+                                                (20, 20)) # картинка пули
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
 
