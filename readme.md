@@ -10,7 +10,7 @@ This game about a space mercenary who kills all kinds of evil spirits...
 Данная игра написана на движке pygame. Внутри игры вы должны изничтожать инопланетную нечисть, также там доступны 3 
 персонажа и другие интересные возможности. Побеждай врагов и проходи множество уровней. Приятной игры!
 
-Количество строк: 1400+ строк
+Количество строк: 1400+ 
 
 Ссылка на ТЗ: [technical_specification.md](materials%2Ftechnical_specification.md)
 
