@@ -48,12 +48,24 @@ def sep(length, amount):
         res[ind + dir] -= delta
     print(len, sum(res))
     return res
+import pygame, sqlite3
 
 def cast_ray(self_pos, target_pos, rects):
     for i in rects:
         if i.rect.clipline(target_pos, self_pos):
             return False
     return True
+
+def generate(size):
+    pass
+
+def get_character():
+    con = sqlite3.connect('db/characters_and_achievements.sqlite')
+    cur = con.cursor()
+    result = cur.execute("""SELECT * FROM characters
+                WHERE selected = 1""").fetchall()
+    return result
+
 
 def make_graph(map):
     graph = nx.Graph()

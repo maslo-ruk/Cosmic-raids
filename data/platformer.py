@@ -240,6 +240,8 @@ class Platformer(Scene):
 
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
+            # for i in self.player.grenades:
+            #     self.screen.blit(i.image, (self.player.grenade.rect.x, self.player.grenade.rect.y))
             for i in self.Enemies:
                 i.update(self, self.screen, self.blocks, self.player)
             for i in self.CloseEnemies:

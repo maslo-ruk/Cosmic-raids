@@ -1,5 +1,5 @@
 import pygame
-
+from data.functions import get_character
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, start_pos, angle):
@@ -51,8 +51,16 @@ class Bullets(pygame.sprite.Sprite):
 class Grenade(pygame.sprite.Sprite):
     def __init__(self, start_pos, rects):
         super().__init__()
-        self.image = pygame.Surface((20, 20))
-        self.image.fill((130, 150, 52)) # болотный зеленый
+        if get_character()[0][0] == 'Ричард':
+            self.image = pygame.transform.scale(pygame.image.load('images/richards_grenade.png'),
+                                                (30, 30)) # картинка гранаты
+        elif get_character()[0][0] == 'Октавия':
+            self.image = pygame.transform.scale(pygame.image.load('images/oktavia_grenade.png'),
+                                                (30, 30))  # картинка гранаты
+        else:
+            self.image = pygame.transform.scale(pygame.image.load('images/astras_grenade.png'),
+                                                (30, 30))  # картинка гранаты
+            # self.image.fill((130, 150, 52)) # болотный зеленый
         self.rect = self.image.get_rect(center=start_pos)
         self.rects = rects
         self.velocity_x = 0  # начальная скорость по x
