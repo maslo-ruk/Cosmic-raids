@@ -7,6 +7,7 @@ from data.Block import *
 from data.camera import Camera
 from data.level import *
 from data.map_generator import *
+from data.buttons import *
 
 pygame.init()
 
@@ -144,14 +145,27 @@ class Platformer(Scene):
         count = 0
         while running:
             if self.pause:
-                self.screen.fill('blue')
+                fon = pygame.image.load("images/pause/fon.png").convert()
+                fon = pygame.transform.scale(fon, (self.width, self.height))
+                continuee = Button(0, 0, self.width, self.height, '', "images/pausa/knopka_cnat_s_pausi.png",
+                               "images/pausa/knopka_cnat_s_pausi.png", '',
+                               ((643 * (self.width / 1536), 893 * (self.width / 1536)),
+                              (307 * (self.height / 864), 578 * (self.height / 854))))
+                to_hub = Button(0, 0, self.width, self.height, '', "images/pausa/knopka_cnat_s_pausi.png",
+                               "images/pausa/knopka_cnat_s_pausi.png", '',
+                               ((643 * (self.width / 1536), 893 * (self.width / 1536)),
+                              (307 * (self.height / 864), 578 * (self.height / 854))))
+                self.screen.blit(fon, (0, 0))
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
+                    elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        if continuee.events():
                             self.pause = not self.pause
+                    if event.type == pygame.MOUSEMOTION:
+                        x_pos = event.pos
+                        continuee.check_mishka(x_pos)
                 continue
             self.vzriv = False
             tick = self.clock.tick(60)
