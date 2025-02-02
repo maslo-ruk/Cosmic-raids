@@ -3,6 +3,7 @@ from data.platformer import Platformer, Scene, Hub
 from data.player import Player, Hub_Player
 from data.menu_test_file import Menu
 from data.sound_function import sound
+from data.end_of_testfile import The_end
 from data.platformer import Platformer
 from data.functions import *
 from data.gildia_test_file import Gildia
@@ -64,6 +65,8 @@ def main():
             current_scene = hub
         elif a == 5:
             current_scene = gildia
+        elif a == 6:
+            current_scene = The_end((width, height), screen, player)
     pygame.quit()
 
 

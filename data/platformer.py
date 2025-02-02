@@ -242,6 +242,8 @@ class Platformer(Scene):
                 for i in self.doors:
                     if self.player.rect.colliderect(i):
                         return 1
+            if not self.player.is_alive:
+                return 6
             pygame.display.flip()
         pygame.quit()
 
