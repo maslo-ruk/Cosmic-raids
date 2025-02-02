@@ -13,6 +13,10 @@ JUMPSPEED = 14
 GRAVI = 0.8
 COLOR = 'red'
 POS = (250, 200)
+# CLOSE_IMAGE = pygame.image.load("images/enemies/close_enemy.png")
+# CLOSE_IMAGE = pygame.transform.scale(CLOSE_IMAGE, SIZE).convert_alpha()
+# COMMON_IMAGE = pygame.image.load("images/for_hub/common_enemy.png")
+# COMMON_IMAGE = pygame.transform.scale(COMMON_IMAGE, SIZE).convert_alpha()
 
 
 class Entity(pygame.sprite.Sprite):
@@ -302,8 +306,10 @@ class CommonEnemy(Land_enemy):
             self.x_vision = 12
             self.y_vision = 4
             self.x_range = 6
-            self.image = pygame.Surface(self.size)
-            self.image.fill('red')
+            COMMON_IMAGE = pygame.image.load("images/enemies/common_enemy.png")
+            COMMON_IMAGE = pygame.transform.scale(COMMON_IMAGE, SIZE).convert_alpha()
+            self.image : pygame.Surface = COMMON_IMAGE
+
 
 
 
@@ -379,8 +385,9 @@ class Close_Enemy(Land_enemy):
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2
-        self.image = pygame.Surface(self.size)
-        self.image.fill('yellow')
+        CLOSE_IMAGE = pygame.image.load("images/enemies/close_enemy.png")
+        CLOSE_IMAGE = pygame.transform.scale(CLOSE_IMAGE, SIZE).convert_alpha()
+        self.image: pygame.Surface = CLOSE_IMAGE
 
 
     def punch(self, player):
