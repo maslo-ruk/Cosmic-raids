@@ -90,13 +90,21 @@ class Entity(pygame.sprite.Sprite):
 class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
-        self.size = CELL_SIZE * 1, CELL_SIZE * 3
+        self.size = CELL_SIZE * 4, CELL_SIZE * 4
         self.rect = pygame.Rect(self.pos, self.size)
-        self.image = pygame.Surface(self.size)
+        self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image = self.image1
         self.image.fill(COLOR)
 
     def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
+        if hor > 0:
+            self.image = self.image1
+        else:
+            self.image = self.image2
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
         self.in_gildia(gildia, scene)
@@ -121,9 +129,9 @@ class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
         self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
-                                            (self.size[0] + 50, self.size[1])).convert_alpha()
+                                            (self.size[0], self.size[1])).convert_alpha()
         self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
-                                            (self.size[0] + 50, self.size[1])).convert_alpha()
+                                            (self.size[0], self.size[1])).convert_alpha()
         self.image = self.image1
         self.x_speed = SPEED
         self.kolvo = 5

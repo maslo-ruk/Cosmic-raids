@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлены картинки">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлено все (работала вся команда)">
+      <change afterPath="$PROJECT_DIR$/materials/bandicam 2025-02-03 15-39-18-359.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/materials/Cosmic Raids.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +78,7 @@
       <recent name="C:\Users\user\CosmicRaid\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\egorzhsvor\PycharmProjects\Cosmic-raids\materials" />
       <recent name="C:\Users\egorzhsvor\PycharmProjects\Cosmic-raids\images\enemies" />
       <recent name="C:\Users\egorzhsvor\PycharmProjects\Cosmic-raids\images\for_hub" />
     </key>
@@ -211,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738531465387</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Добавлено все (работала вся команда)">
+      <option name="closed" value="true" />
+      <created>1738585987847</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1738585987847</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,7 +250,8 @@
     <MESSAGE value="работа нгад летающим врагом" />
     <MESSAGE value="окончательно доделаны уровни + ближний враг" />
     <MESSAGE value="Добавлены картинки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены картинки" />
+    <MESSAGE value="Добавлено все (работала вся команда)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено все (работала вся команда)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
