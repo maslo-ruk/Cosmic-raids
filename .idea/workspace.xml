@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hub.py" beforeDir="false" afterPath="$PROJECT_DIR$/hub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,17 +67,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Kulpinsky__Helen",
-    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/pausa",
+    "last_opened_file_path": "D:/PycharmProjects/Comic_raids/images/gildia_paskalka",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\Comic_raids\images\gildia_paskalka" />
       <recent name="D:\PycharmProjects\Comic_raids\images\pausa" />
       <recent name="D:\PycharmProjects\Comic_raids\images\end_of" />
       <recent name="D:\PycharmProjects\Comic_raids\images\start_game" />
       <recent name="D:\PycharmProjects\Comic_raids\images\settings" />
-      <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PycharmProjects\Comic_raids\images\characters_texsturs\main_gg" />
@@ -246,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738528004516</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="добавлены все файлы">
+      <option name="closed" value="true" />
+      <created>1738530093040</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1738530093040</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
