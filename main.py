@@ -7,6 +7,8 @@ from data.end_of_testfile import The_end
 from data.platformer import Platformer
 from data.functions import *
 from data.gildia_test_file import Gildia
+from data.settings import Settings
+from data.dostich_test_file import Dostich
 from data.config import *
 
 
@@ -68,6 +70,12 @@ def main():
             current_scene = gildia
         elif a == 6:
             current_scene = The_end((e_width, e_height), screen, player)
+        elif a == 7:
+            current_scene = Settings((e_width, e_height), screen, player)
+        elif a == 8:
+            current_scene = menu
+        elif a == 9:
+            current_scene = Dostich(e_width, e_height, screen)
     pygame.quit()
 
 

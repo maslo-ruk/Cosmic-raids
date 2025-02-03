@@ -59,8 +59,7 @@ class Gildia:
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if keys[pygame.K_ESCAPE]:
-                    pygame.quit()
-                    exit()
+                    return 4
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     zadania_button.events()
                     shop_button.events()
@@ -89,10 +88,7 @@ class Gildia:
                         while running:
                             menu_ecr.run()
                     elif dostig_button.events():
-                        menu_ecr = Dostich(self.width, self.height, self.screen)
-                        running = True
-                        while running:
-                            menu_ecr.run()
+                        return 9
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     zadania_button.check_mishka(x_pos)

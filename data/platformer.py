@@ -128,8 +128,8 @@ class Platformer(Scene):
     def run(self, sound):
         self.make_map()
         self.spawn_enemies()
-        self.player.rect.x = self.level.spawn_pos[0] * 30
-        self.player.rect.y = self.level.spawn_pos[1] * 30 - self.player.size[1]
+        self.player.rect.x = self.level.spawn_pos[0] * CELL_SIZE
+        self.player.rect.y = self.level.spawn_pos[1] * CELL_SIZE - self.player.size[1]
         running = True
         all_b = pygame.sprite.Group()
         grenades = pygame.sprite.Group()
@@ -288,16 +288,16 @@ class Hub(Scene):
 
     def make_map(self):
         self.map_y = []
-        for i in range(self.size[1] // 30):
-            if i == 0 or i == self.size[1] // 30 - 1:
-                self.map_y.append('#' * (self.size[0] // 30))
+        for i in range(self.size[1] // CELL_SIZE):
+            if i == 0 or i == self.size[1] // CELL_SIZE - 1:
+                self.map_y.append('#' * (self.size[0] // CELL_SIZE))
             else:
-                self.map_y.append('#' + '0' * (self.size[0] // 30 - 2) + '#')
+                self.map_y.append('#' + '0' * (self.size[0] // CELL_SIZE - 2) + '#')
         self.map = self.map_y[:]
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
-                pos = (j * 30, i * 30)
+                pos = (j * CELL_SIZE, i * CELL_SIZE)
                 if string[j] == '-' or string[j] == '#':
                     block = Block(pos, self.screen)
                     self.blocks.add(block)
@@ -334,8 +334,8 @@ class Hub(Scene):
                     pygame.quit()
                     break
             if keys[pygame.K_ESCAPE]:
-                pygame.quit()
-                exit()
+                pygame.mouse.set_visible(True)
+                return 8
             if keys[pygame.K_d]:
                 if hor == 0:
                     hor = 1
@@ -358,7 +358,6 @@ class Hub(Scene):
                     vert = 0
             if keys[pygame.K_e]:
                 if self.in_gildia:
-                    print('sdad')
                     pygame.mouse.set_visible(True)
                     return 5
             #Егор, разработай ограничения передвижения в хабе

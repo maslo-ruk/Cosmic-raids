@@ -12,7 +12,7 @@ class Settings(Scene):
         self.size = self.width, self.height
 
 
-    def run(self):
+    def run(self, sound):
         fon = pygame.image.load("images/settings/fon.png").convert()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         zvuk_button = Buttton_for_settings(0, 0, self.width, self.height, '', "images/settings/zvuk_1.png",
@@ -32,11 +32,12 @@ class Settings(Scene):
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if keys[pygame.K_ESCAPE]: #возвращаемся в меню
-                    return 11
+                    return 8
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     zvuk_button.events()
                     zvuk_button.clicking()
-                    chiti.events()
+                    if chiti.events():
+                        raise Exception("читы - бан (ошибка вызвана специально)")
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     zvuk_button.check_mishka(x_pos)

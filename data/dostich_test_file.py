@@ -10,12 +10,12 @@ class Dostich:
         self.screen = screen
         self.size = self.width, self.height
 
-    def run(self):
-        fon = pygame.image.load("images/for_dostiz/fon3.png").convert_alpha()
+    def run(self, sound):
+        fon = pygame.image.load("images/for_dostiz/fon.png").convert_alpha()
         fon = pygame.transform.scale(fon, (self.width, self.height))
         knopochka = pygame.image.load("images/for_dostiz/knopochka.png").convert_alpha()
         knopochka = pygame.transform.scale(knopochka, (self.width, self.height))
-        if "охотник I" in str(self.dostig):
+        if "охотник I" in str(dostig):
             oxotnik_1 = pygame.image.load("images/for_dostiz/dst1_2.png").convert_alpha()
         else:
             oxotnik_1 = pygame.image.load("images/for_dostiz/dst1_1.png").convert_alpha()
@@ -64,8 +64,7 @@ class Dostich:
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if keys[pygame.K_ESCAPE]:
-                    pygame.quit()
-                    exit()
+                    return 4
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     pass
                 if event.type == pygame.MOUSEMOTION:

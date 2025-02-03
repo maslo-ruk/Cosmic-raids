@@ -90,7 +90,7 @@ class Entity(pygame.sprite.Sprite):
 class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
-        self.size = CELL_SIZE * 6, CELL_SIZE * 9
+        self.size = CELL_SIZE * 1, CELL_SIZE * 3
         self.rect = pygame.Rect(self.pos, self.size)
         self.image = pygame.Surface(self.size)
         self.image.fill(COLOR)
@@ -120,13 +120,17 @@ class Hub_Player(Entity):
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
+        self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
+                                            (self.size[0] + 50, self.size[1])).convert_alpha()
+        self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
+                                            (self.size[0] + 50, self.size[1])).convert_alpha()
+        self.image = self.image1
         self.x_speed = SPEED
         self.kolvo = 5
         self.granat = 3
         self.count = self.kolvo
         self.score = 0
         self.total_score = 0
-        self.image.fill('green')
         self.level = 0
         self.character = get_character()
 
@@ -159,8 +163,10 @@ class Player(Entity):
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
             self.xvel = self.x_speed
+            self.image = self.image1
         if b:
             self.xvel = -self.x_speed
+            self.image = self.image2
         if (not a) and (not b):
             self.xvel = 0
         self.rect.x += self.xvel

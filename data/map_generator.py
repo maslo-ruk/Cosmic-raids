@@ -2,6 +2,7 @@ import pygame
 import random
 from data.player import JUMPSPEED, SPEED, GRAVI, CommonEnemy, FlyingEnemy, HEIGHT, Close_Enemy
 from data.functions import sep
+from data.config import *
 import math
 
 vx = SPEED
@@ -11,7 +12,6 @@ g = GRAVI
 WIDTH = 30
 HEIGHT = 30
 COLOR = pygame.Color(215, 215, 215)
-CELL_SIZE = 30
 
 
 class Cell:

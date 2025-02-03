@@ -64,12 +64,14 @@ class Menu(Scene):
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     start_button.events()
                     new_game_button.events()
-                    settings_button.events()
                     if start_button.events():
                         return 4
                     elif new_game_button.events():
                         make_new_game()
                         return 4
+                    elif settings_button.events():
+                        print('fsfd')
+                        return 7
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos
                     start_button.check_mishka(x_pos)
