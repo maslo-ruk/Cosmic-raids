@@ -76,6 +76,7 @@ class Entity(pygame.sprite.Sprite):
             self.grenade.time = 0  # сброс времени для нового броска
             self.grenades.add(self.grenade)
             all_sp.add(self.grenade)
+            all_sp.add(self.grenade.exp)
 
     def collides(self, rects: list[Block]):
         for i in rects:
