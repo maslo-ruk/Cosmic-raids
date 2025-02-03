@@ -66,7 +66,7 @@ class Grenade(pygame.sprite.Sprite):
         self.velocity_y = 0  # начальная скорость по y
         self.is_launched = False  # флаг, указывающий, был ли осуществлен бросок
         self.time = 0  # время
-        self.exp = Explosion(self.rect.center)
+        self.exp = Explosion()
 
     def update(self, screen, rects, player_rect):
         if self.is_launched:
@@ -96,7 +96,7 @@ class Grenade(pygame.sprite.Sprite):
             if self.time == 60 * 3: #отслеживаем время взрыва по кадрам, где 60 - fps
                 pygame.mixer.Sound('sounds/bolshoy-vzryiv.mp3').play()
                 self.babax(rects)
-                self.exp.update()
+                self.exp.update(self.rect.center)
 
 
 
@@ -121,16 +121,16 @@ explosion_anim = ['images/vzr1.png', 'images/vzr2.png', 'images/vzr3.png', 'imag
 
 
 class Explosion(pygame.sprite.Sprite):
-    def __init__(self, center):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(explosion_anim[0])
         self.rect = self.image.get_rect()
-        self.rect.center = center
         self.frame = 0
         self.last_update = pygame.time.get_ticks()
         self.frame_rate = 50
 
-    def update(self):
+    def update(self, center):
+        print(self.rect.center)
         now = pygame.time.get_ticks()
         if now - self.last_update >= 1000:
             self.last_update = now
@@ -139,6 +139,6 @@ class Explosion(pygame.sprite.Sprite):
                 self.kill()
             else:
                 center = self.rect.center
-                self.image = pygame.transform.scale(pygame.image.load(explosion_anim[self.frame]), (75, 75))
+                self.image = pygame.transform.scale(pygame.image.load(explosion_anim[self.frame]), (75, 75)).convert_alpha()
                 self.rect = self.image.get_rect()
                 self.rect.center = center
