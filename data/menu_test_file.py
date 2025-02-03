@@ -69,7 +69,6 @@ class Menu(Scene):
                         return 4
                     elif new_game_button.events():
                         make_new_game()
-                        print('hui')
                         return 4
                 if event.type == pygame.MOUSEMOTION:
                     x_pos = event.pos

@@ -40,12 +40,13 @@ class Button:
     def check_mishka(self, mouse_pos):
         print(mouse_pos)
         if self.diapaz_x and self.diapaz_y:
-            if int(mouse_pos[0]) > int(self.diapaz_x[0]) and int(mouse_pos[0]) < int(self.diapaz_x[1]) and int(mouse_pos[1]) > int(self.diapaz_y[0]) and int(mouse_pos[1]) < int(self.diapaz_y[1]):
+            if mouse_pos[0] > self.diapaz_x[0] and mouse_pos[0] < self.diapaz_x[1] and mouse_pos[1] > self.diapaz_y[0] and mouse_pos[1] < self.diapaz_y[1]:
                 self.mishka_on = True
             else:
                 self.mishka_on = False
         else:
             self.mishka_on = self.rect.collidepoint(mouse_pos)
+        print(self.mishka_on)
     def events(self):
         if self.mishka_on:
             print("Вы нажали кнопку^^")

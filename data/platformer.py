@@ -144,34 +144,41 @@ class Platformer(Scene):
         count = 0
         fon = pygame.image.load("images/for_hub/fon1.png")
         fon = pygame.transform.scale(fon, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE)).convert_alpha()
+        screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+        e_width = screen_info.current_w  # ширина
+        e_height = screen_info.current_h
+        print(e_width, e_height)
+        fon_p = pygame.image.load("images/pausa/fon.png").convert()
+        fon_p = pygame.transform.scale(fon_p, (e_width, e_height))
+        continuee = Button(0, 0, e_width, e_height, '', "images/pausa/knopka_snat_s_pausi.png",
+                           "images/pausa/knopka_snat_s_pausi.png", '',
+                              (800 * (e_width / 1920), 1099 * (e_width / 1920)),
+                              ((344 * (e_height / 1080)), 689 * (e_height / 1080)))
+        to_hubb = Button(0, 0, e_width, e_height, '', "images/pausa/knopka_to_hub.png",
+                           "images/pausa/knopka_to_hub.png", '',
+                              (28 * (e_width / 1920), 558 * (e_width / 1920)),
+                              ((906 * (e_height / 1080)), 1041 * (e_height / 1080)))
         while running:
             if self.pause:
-                fon_p = pygame.image.load("images/pausa/fon.png").convert()
-                fon_p = pygame.transform.scale(fon_p, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE))
-                continuee = Button(0, 0, self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE, '', "images/pausa/knopka_snat_s_pausi.png",
-                               "images/pausa/knopka_snat_s_pausi.png", '',
-                               ((643 * (self.level.total_length * CELL_SIZE / 1536), 893 * (self.level.total_length * CELL_SIZE / 1536)),
-                              (307 * (self.level.rooms_size_y * CELL_SIZE / 864), 578 * (self.level.rooms_size_y * CELL_SIZE / 854))))
-                to_hub = Button(0, 0, self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE, '', "images/pausa/knopka_snat_s_pausi.png",
-                               "images/pausa/knopka_snat_s_pausi.png", '',
-                               ((643 * (self.level.total_length * CELL_SIZE / 1536), 893 * (self.level.total_length * CELL_SIZE / 1536)),
-                              (307 * (self.level.rooms_size_y * CELL_SIZE / 864), 578 * (self.level.rooms_size_y * CELL_SIZE / 854))))
-                self.screen.blit(fon_p, (0, 0))
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            self.pause = not self.pause
-                        elif event.key == pygame.K_q:
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_q:
                             return 4
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        if to_hubb.events():
+                            return 4
                         if continuee.events():
-                            self.pause = not self.pause
-                    if event.type == pygame.MOUSEMOTION:
+                             self.pause = not self.pause
+                    elif event.type == pygame.MOUSEMOTION:
                         x_pos = event.pos
+                        to_hubb.check_mishka(x_pos)
                         continuee.check_mishka(x_pos)
+                self.screen.blit(fon_p, (0, 0))
+                continuee.draw(self.screen)
+                to_hubb.draw(self.screen)
                 pygame.display.flip()
                 continue
             self.vzriv = False
