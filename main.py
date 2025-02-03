@@ -11,25 +11,6 @@ from data.settings import Settings
 from data.dostich_test_file import Dostich
 from data.config import *
 
-
-def main_lena():
-    pygame.init()
-    screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
-    width = screen_info.current_w  # ширина
-    height = screen_info.current_h  # высота
-    increase_byx = (width / 631)  # увеличение по x и y
-    increase_byy = (height / 330)
-    # print("Ширина экрана:", width)
-    # print("Высота экрана:", height)
-    screen = pygame.display.set_mode((width, height))
-    clock = pygame.time.Clock()
-    pygame.display.set_caption("Тестовое меню")
-    player = Hub_Player((300, 200))
-    menu_ecr = Menu(width, height, screen, player)
-    running = True
-    while running:
-        menu_ecr.run()
-
 def main():
     pygame.init()
     size = width, height = 1500, 900
