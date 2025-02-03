@@ -212,7 +212,7 @@ class Land_enemy(Entity):
         self.borders = borders
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.hp = 1
+        self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
         self.x_shooting = 6
@@ -379,7 +379,7 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 1
+        self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2

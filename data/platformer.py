@@ -146,27 +146,33 @@ class Platformer(Scene):
         fon = pygame.transform.scale(fon, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE)).convert_alpha()
         while running:
             if self.pause:
-                fon = pygame.image.load("images/pause/fon.png").convert()
-                fon = pygame.transform.scale(fon, (self.width, self.height))
-                continuee = Button(0, 0, self.width, self.height, '', "images/pausa/knopka_cnat_s_pausi.png",
-                               "images/pausa/knopka_cnat_s_pausi.png", '',
-                               ((643 * (self.width / 1536), 893 * (self.width / 1536)),
-                              (307 * (self.height / 864), 578 * (self.height / 854))))
-                to_hub = Button(0, 0, self.width, self.height, '', "images/pausa/knopka_cnat_s_pausi.png",
-                               "images/pausa/knopka_cnat_s_pausi.png", '',
-                               ((643 * (self.width / 1536), 893 * (self.width / 1536)),
-                              (307 * (self.height / 864), 578 * (self.height / 854))))
-                self.screen.blit(fon, (0, 0))
+                fon_p = pygame.image.load("images/pausa/fon.png").convert()
+                fon_p = pygame.transform.scale(fon_p, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE))
+                continuee = Button(0, 0, self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE, '', "images/pausa/knopka_snat_s_pausi.png",
+                               "images/pausa/knopka_snat_s_pausi.png", '',
+                               ((643 * (self.level.total_length * CELL_SIZE / 1536), 893 * (self.level.total_length * CELL_SIZE / 1536)),
+                              (307 * (self.level.rooms_size_y * CELL_SIZE / 864), 578 * (self.level.rooms_size_y * CELL_SIZE / 854))))
+                to_hub = Button(0, 0, self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE, '', "images/pausa/knopka_snat_s_pausi.png",
+                               "images/pausa/knopka_snat_s_pausi.png", '',
+                               ((643 * (self.level.total_length * CELL_SIZE / 1536), 893 * (self.level.total_length * CELL_SIZE / 1536)),
+                              (307 * (self.level.rooms_size_y * CELL_SIZE / 864), 578 * (self.level.rooms_size_y * CELL_SIZE / 854))))
+                self.screen.blit(fon_p, (0, 0))
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
-                    elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.pause = not self.pause
+                        elif event.key == pygame.K_q:
+                            return 4
+                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                         if continuee.events():
                             self.pause = not self.pause
                     if event.type == pygame.MOUSEMOTION:
                         x_pos = event.pos
                         continuee.check_mishka(x_pos)
+                pygame.display.flip()
                 continue
             self.vzriv = False
             tick = self.clock.tick(60)
