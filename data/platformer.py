@@ -246,6 +246,13 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
+            if keys[pygame.K_p]:
+                for i in self.Enemies:
+                    i.kill()
+                    self.player.score += 1
+                for i in self.CloseEnemies:
+                    i.kill()
+                    self.player.score += 1
 
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
