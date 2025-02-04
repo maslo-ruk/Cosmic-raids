@@ -2,6 +2,7 @@ import pygame
 import random
 from data.player import JUMPSPEED, SPEED, GRAVI, CommonEnemy, FlyingEnemy, HEIGHT, Close_Enemy
 from data.functions import sep
+from data.config import *
 import math
 
 vx = SPEED
@@ -11,7 +12,6 @@ g = GRAVI
 WIDTH = 30
 HEIGHT = 30
 COLOR = pygame.Color(215, 215, 215)
-CELL_SIZE = 30
 
 
 class Cell:
@@ -139,7 +139,6 @@ class Platforms(Strategy):
     def generate(self):
         length = self.room.width
         height = self.room.height
-        print(length)
         v_step = 4
         h_step = self.av + 4
         v_pos = 0
@@ -177,7 +176,6 @@ class Platforms(Strategy):
         while (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and points:
             self.ending_point = random.choice(points)
             points.remove(self.ending_point)
-            print(self.ending_point, points)
         if (self.room.width - self.grid_platforms[self.ending_point][-1].rect.right >= 4) and not points:
             self.ending_point = self.room.height - 2
             check = False
@@ -188,10 +186,7 @@ class Platforms(Strategy):
         return check
 
     def find_entry(self):
-        print(len(self.grid_platforms), 'len')
         for i in range(len(self.grid_platforms)):
-            print(i, 'íiiii')
-            print(self.grid_platforms[i])
             if self.grid_platforms[i][0].rect.top >= self.room.entry[1]:
                 vert_pos = self.grid_platforms[i][0].rect.top - 1
                 for j in range(3):
@@ -203,7 +198,6 @@ class Platforms(Strategy):
         poses = []
         final_poses = set()
         beginning = self.find_entry()
-        print(self.grid_platforms[beginning][0].rect.top)
         poses.append((beginning, 0))
         if self.find_ending():
             popi = len(self.grid_platforms[self.ending_point]) - 1
@@ -299,7 +293,6 @@ class Stairs(Strategy):
         self.door_cells = []
         self.poses = list(range(4, self.room.height, 8))
         for j in range(3):
-            print(self.entry, 'entry')
             b = self.entry[0], self.entry[1] - j
             self.door_cells.append((self.entry[0], self.entry[1] - j))
 
@@ -351,8 +344,6 @@ class Stairs(Strategy):
             res.append('')
             for j in i:
                 res[-1] += str(j)
-        for i in res:
-            print(i)
         return res
 
     def all(self):

@@ -64,7 +64,6 @@ This game about a space mercenary who kills all kinds of evil spirits...
 
 ![vibor.png](materials%2Fvibor.png)
 
-
-(ссылка на скринкаст)
+Скринкаст: [bandicam 2025-02-03 15-39-18-359.mp4](materials/bandicam%202025-02-03%2015-39-18-359.mp4)
 
 Приятной игры!

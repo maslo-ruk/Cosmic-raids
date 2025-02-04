@@ -8,11 +8,15 @@ WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
 SPEED = 6
-HUB_SPEED = 4
+HUB_SPEED = 10
 JUMPSPEED = 14
 GRAVI = 0.8
 COLOR = 'red'
 POS = (250, 200)
+# CLOSE_IMAGE = pygame.image.load("images/enemies/close_enemy.png")
+# CLOSE_IMAGE = pygame.transform.scale(CLOSE_IMAGE, SIZE).convert_alpha()
+# COMMON_IMAGE = pygame.image.load("images/for_hub/common_enemy.png")
+# COMMON_IMAGE = pygame.transform.scale(COMMON_IMAGE, SIZE).convert_alpha()
 
 
 class Entity(pygame.sprite.Sprite):
@@ -58,7 +62,6 @@ class Entity(pygame.sprite.Sprite):
 
     def die(self):
         self.is_alive = False
-        print(self.rect.center)
         self.kill()
 
     def throw(self, velocity, dest_x, dest_y, all_sp):
@@ -88,11 +91,24 @@ class Entity(pygame.sprite.Sprite):
 class Hub_Player(Entity):
     def __init__(self, pos):
         super().__init__(pos, HUB_SPEED)
+        self.size = CELL_SIZE * 4, CELL_SIZE * 4
+        self.rect = pygame.Rect(self.pos, self.size)
+        self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image = self.image1
+        self.image.fill(COLOR)
 
-    def update(self, scene, screen, hor, vert, rects):
+    def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
+        if hor > 0:
+            self.image = self.image1
+        else:
+            self.image = self.image2
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
+        self.in_gildia(gildia, scene)
         if self.col1 and (hor > 0):
             self.rect.right = self.col1.left
         if self.col1 and (hor < 0):
@@ -104,16 +120,40 @@ class Hub_Player(Entity):
         if self.col2 and (vert > 0):
             self.rect.bottom = self.col2.top
 
+    def in_gildia(self, gildia, scene):
+        if self.rect.colliderect(gildia):
+            scene.in_gildia = True
+        else:
+            scene.in_gildia = False
+
 class Player(Entity):
     def __init__(self, POS1):
         super().__init__(POS1, SPEED)
+        self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
+                                            (self.size[0], self.size[1])).convert_alpha()
+        self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
+                                            (self.size[0], self.size[1])).convert_alpha()
+        self.image = self.image1
         self.x_speed = SPEED
         self.kolvo = 5
         self.granat = 3
         self.count = self.kolvo
         self.score = 0
         self.total_score = 0
-        self.image.fill('green')
+        self.level = 0
+        self.character = get_character()
+
+    def update_char(self):
+        self.character = get_character()
+
+    def update_level(self):
+        con = sqlite3.connect('db/characters_and_achievements.sqlite')
+        cur = con.cursor()
+        result = cur.execute("""UPDATE player SET cur_level = ? WHERE id = 1""", (self.level,)).fetchall()
+        if self.level >= 5:
+            cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Астра'""")
+        elif self.level >= 10:
+            cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Октавия'""")
 
     def set_def(self):
         self.hp += 5 - DIFFICULTY
@@ -125,13 +165,17 @@ class Player(Entity):
     def update(self, scene, screen, a, b, c, rects):
         super().update(scene)
         if self.is_alive == False:
-            print(self.score)
+            self.level += self.total_score / 10
+            self.update_level()
+            self.total_score = 0
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
             self.xvel = self.x_speed
+            self.image = self.image1
         if b:
             self.xvel = -self.x_speed
+            self.image = self.image2
         if (not a) and (not b):
             self.xvel = 0
         self.rect.x += self.xvel
@@ -140,7 +184,6 @@ class Player(Entity):
             self.rect.y -= CELL_SIZE
             prev = self.col1
             self.col1 = self.collides(rects)
-            print(self.col1)
             if self.col1 or self.inair:
                 self.col1 = prev
                 self.rect.y += CELL_SIZE
@@ -184,7 +227,7 @@ class Land_enemy(Entity):
         self.borders = borders
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.hp = 1
+        self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
         self.x_shooting = 6
@@ -276,8 +319,10 @@ class CommonEnemy(Land_enemy):
             self.x_vision = 12
             self.y_vision = 4
             self.x_range = 6
-            self.image = pygame.Surface(self.size)
-            self.image.fill('red')
+            COMMON_IMAGE = pygame.image.load("images/enemies/common_enemy.png")
+            COMMON_IMAGE = pygame.transform.scale(COMMON_IMAGE, SIZE).convert_alpha()
+            self.image : pygame.Surface = COMMON_IMAGE
+
 
 
 
@@ -298,13 +343,10 @@ class FlyingEnemy(Entity):
 
     def update(self, scene, screen, rects, map_graph: nx.Graph, player):
         if cast_ray(self.rect.center, player.rect.center, rects):
-            print('0000')
             self.move_to(player.rect.center)
         else:
             target = player.rect.center[1] // 30, player.rect.center[0] // 30
-            print(target)
             self_pos = self.rect.center[1] // 30, self.rect.center[0] // 30
-            print(self_pos)
             if map_graph.has_node(target) and map_graph.has_node(self_pos):
                 way = nx.shortest_path(map_graph, self_pos, target, weight=1)
                 dest = (way[0][1] * 30, way[0][0] * 30)
@@ -313,7 +355,6 @@ class FlyingEnemy(Entity):
                 #     counter += 1
                 #     dest = (way[counter][1] * 30, [counter][0] * 30)
             else:
-                print(':[[[[[')
                 dest = (player.rect.center)
             self.move_to(dest)
 
@@ -322,10 +363,7 @@ class FlyingEnemy(Entity):
 
     def get_direction(self, target):
         dx = target[0] - self.rect.x
-        print(dx)
         dy = target[1] - self.rect.y
-        print(dy)
-        print('------------')
         gip = (dx**2 + dy**2) ** 0.5
         if gip != 0:
             sin = dx / gip
@@ -356,16 +394,16 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 1
+        self.hp = 5
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2
-        self.image = pygame.Surface(self.size)
-        self.image.fill('yellow')
+        CLOSE_IMAGE = pygame.image.load("images/enemies/close_enemy.png")
+        CLOSE_IMAGE = pygame.transform.scale(CLOSE_IMAGE, SIZE).convert_alpha()
+        self.image: pygame.Surface = CLOSE_IMAGE
 
 
     def punch(self, player):
         player_pos = player.rect
         if abs(self.rect.x - player_pos.x) <= self.x_range * 30 and player_pos.bottom >= self.rect.top:
             player.hp -= self.atk
-        print(player.hp)

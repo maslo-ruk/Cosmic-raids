@@ -16,7 +16,6 @@ def camera_conf(camera, target, scene):
 
 
 def sep(length, amount):
-    print(length, amount)
     av = length // amount
     pos = 0
     res = []
@@ -29,7 +28,6 @@ def sep(length, amount):
             res[ind] += 1
     disp_amount = amount // 2
     for i in range(disp_amount):
-        print(av, 'av')
         try:
             delta = random.randrange(av // 2)
         except Exception:
@@ -41,12 +39,10 @@ def sep(length, amount):
             dir = 1
         else:
             dir = random.choice([1, -1])
-        print(res, ind, dir)
         while delta >= res[ind + dir] - 2:
             delta -= 1
         res[ind] += delta
         res[ind + dir] -= delta
-    print(len, sum(res))
     return res
 import pygame, sqlite3
 
@@ -66,11 +62,16 @@ def get_character():
                 WHERE selected = 1""").fetchall()
     return result
 
+def get_level():
+    con = sqlite3.connect('db/characters_and_achievements.sqlite')
+    cur = con.cursor()
+    result = cur.execute("""SELECT cur_level FROM player
+                    WHERE id = 1""").fetchall()
+    return result[0][0]
 
 def make_graph(map):
     graph = nx.Graph()
     for i in range(len(map)):
-        print(map[i])
         for j in range(len(map[i])):
             if map[i][j] == '0':
                 graph.add_node((i, j))
@@ -82,5 +83,10 @@ def make_graph(map):
                     if map[i+ 1][j] == '0':
                         graph.add_node((i + 1, j))
                         graph.add_edge((i, j), (i + 1, j))
-    print(graph.nodes)
     return graph
+
+
+def make_new_game():
+    con = sqlite3.connect('db/characters_and_achievements.sqlite')
+    cur = con.cursor()
+    result = cur.execute("""INSERT INTO player(cur_level, completed_levels) VALUES(0, 0)""").fetchall()

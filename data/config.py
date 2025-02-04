@@ -1,3 +1,5 @@
+
+
 CELL_SIZE = 30
 WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
@@ -12,6 +14,10 @@ POS = (250, 200)
 DIFFICULTY = 0
 
 WINDOW_SIZE = 1500, 900
+def set_windowsize(a, b):
+    global WINDOW_SIZE
+    WINDOW_SIZE = a, b
+# set_windowsize()
 DOOR_SIZE = CELL_SIZE * 3
 
 ROOM_SIZE = 3000, 1200

@@ -7,6 +7,7 @@ from data.Block import *
 from data.camera import Camera
 from data.level import *
 from data.map_generator import *
+from data.buttons import *
 
 pygame.init()
 
@@ -21,21 +22,6 @@ class Scene:
         self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1], self)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.all_sprites = pygame.sprite.Group()
-
-
-class Pause(Scene):
-    def __init__(self, size, screen, clock, player):
-        super().__init__(size, screen, clock, player)
-
-    def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    break
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        return 3
 
 
 class Platformer(Scene):
@@ -142,9 +128,8 @@ class Platformer(Scene):
     def run(self, sound):
         self.make_map()
         self.spawn_enemies()
-        print(self.level.spawn_pos, 'sfaas')
-        self.player.rect.x = self.level.spawn_pos[0] * 30
-        self.player.rect.y = self.level.spawn_pos[1] * 30 - self.player.size[1]
+        self.player.rect.x = self.level.spawn_pos[0] * CELL_SIZE
+        self.player.rect.y = self.level.spawn_pos[1] * CELL_SIZE - self.player.size[1]
         running = True
         all_b = pygame.sprite.Group()
         grenades = pygame.sprite.Group()
@@ -157,35 +142,60 @@ class Platformer(Scene):
         pygame.time.set_timer(self.SPAWNEVENT, 3000)
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
         count = 0
+        fon = pygame.image.load("images/for_hub/fon1.png")
+        fon = pygame.transform.scale(fon, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE)).convert_alpha()
+        screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+        e_width = screen_info.current_w  # ширина
+        e_height = screen_info.current_h
+        print(e_width, e_height)
+        fon_p = pygame.image.load("images/pausa/fon.png").convert()
+        fon_p = pygame.transform.scale(fon_p, (e_width, e_height))
+        continuee = Button(0, 0, e_width, e_height, '', "images/pausa/knopka_snat_s_pausi.png",
+                           "images/pausa/knopka_snat_s_pausi.png", '',
+                              (800 * (e_width / 1920), 1099 * (e_width / 1920)),
+                              ((344 * (e_height / 1080)), 689 * (e_height / 1080)))
+        to_hubb = Button(0, 0, e_width, e_height, '', "images/pausa/knopka_to_hub.png",
+                           "images/pausa/knopka_to_hub.png", '',
+                              (28 * (e_width / 1920), 558 * (e_width / 1920)),
+                              ((906 * (e_height / 1080)), 1041 * (e_height / 1080)))
         while running:
             if self.pause:
-                self.screen.fill('blue')
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            self.pause = not self.pause
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_q:
+                            return 4
+                    elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        if to_hubb.events():
+                            return 4
+                        if continuee.events():
+                             self.pause = not self.pause
+                    elif event.type == pygame.MOUSEMOTION:
+                        x_pos = event.pos
+                        to_hubb.check_mishka(x_pos)
+                        continuee.check_mishka(x_pos)
+                self.screen.blit(fon_p, (0, 0))
+                continuee.draw(self.screen)
+                to_hubb.draw(self.screen)
+                pygame.display.flip()
                 continue
             self.vzriv = False
             tick = self.clock.tick(60)
-            self.screen.fill('blue')
+            self.screen.blit(fon, (0, 0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        print('ass')
                         self.pause = not self.pause
-                        print(self.pause)
                 if event.type == self.MUSICBGEVENT:
                     pygame.mixer.Sound(sound).play(-1)
                     pygame.mixer.Sound(sound).set_volume(0.3)
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and self.player.is_alive:
                     if event.button == 1 and self.player.count > 0:
-                        print(self.camera.apply_point(pygame.mouse.get_pos()))
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
                         self.player.count -= 1
@@ -212,6 +222,9 @@ class Platformer(Scene):
                     for i in self.Enemies:
                         if not i.unseed:
                             i.random_move()
+                    for i in self.CloseEnemies:
+                        if not i.unseed:
+                            i.random_move()
                 if event.type == self.RELOADEVENT and self.player.count < self.player.kolvo:
                     self.player.count += 1
                 # if event.type == self.SPAWNEVENT and len(self.Enemies) < 6:
@@ -233,6 +246,13 @@ class Platformer(Scene):
                 up = True
             else:
                 up = False
+            if keys[pygame.K_p]:
+                for i in self.Enemies:
+                    i.kill()
+                    self.player.score += 1
+                for i in self.CloseEnemies:
+                    i.kill()
+                    self.player.score += 1
 
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
@@ -255,63 +275,74 @@ class Platformer(Scene):
             if self.new_level:
                 for i in self.doors:
                     if self.player.rect.colliderect(i):
-                        return True
+                        return 1
+            if not self.player.is_alive:
+                return 6
             pygame.display.flip()
         pygame.quit()
 
 
 class Hub(Scene):
-    def __init__(self, size, screen, clock):
-        super().__init__(size, screen, clock)
+    def __init__(self, size, screen, clock, player):
+        super().__init__(size, screen, clock, player)
+        self.width = size[0]
+        self.height = size[1]
         self.player = Hub_Player((size[0] // 2, size[1] // 2))
         self.blocks = pygame.sprite.Group()
         self.blocks_map = pygame.sprite.Group()
+        self.gildia = pygame.Rect(CELL_SIZE * 6, 0, CELL_SIZE * 12, CELL_SIZE * 10)
+        self.in_gildia = False
 
     def make_map(self):
         self.map_y = []
-        for i in range(self.size[1] // 30):
-            if i == 0 or i == self.size[1] // 30 - 1:
-                self.map_y.append('#' * (self.size[0] // 30))
+        for i in range(self.size[1] // CELL_SIZE):
+            if i == 0 or i == self.size[1] // CELL_SIZE - 1:
+                self.map_y.append('#' * (self.size[0] // CELL_SIZE))
             else:
-                self.map_y.append('#' + '0'* (self.size[0] // 30 - 2) + '#')
+                self.map_y.append('#' + '0' * (self.size[0] // CELL_SIZE - 2) + '#')
         self.map = self.map_y[:]
-        # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 0), (25, 25))
-        # strategy = Platforms(room, 10)
-        # self.map_x = strategy.all(self)
-        # self.map = []
-        # for i in self.map_y:
-        #     print(i)
-        # for i in range(len(self.map_x)):
-        #     new_str = ''
-        #     for j in range(len(self.map_x[i])):
-        #         if self.map_x[i][j] == '#':
-        #             new_str += self.map_x[i][j]
-        #         else:
-        #             new_str += self.map_y[i][j]
-        #     self.map.append(new_str)
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
-                pos = (j * 30, i * 30)
+                pos = (j * CELL_SIZE, i * CELL_SIZE)
                 if string[j] == '-' or string[j] == '#':
                     block = Block(pos, self.screen)
                     self.blocks.add(block)
                     self.blocks_map.add(block)
 
-    def run(self):
+    def run(self, sound):
+        fon = pygame.image.load("images/for_hub/hub_pic_test1.png")
+        fon = pygame.transform.scale(fon, (self.width, self.height)).convert_alpha()
+        self.screen.blit(fon, (0, 0))
+        pet = pygame.image.load("images/for_hub/pet_pose_normal.png")
+        pet = pygame.transform.scale(pet, (self.width, self.height)).convert_alpha()
+        self.screen.blit(pet, (0, 0))
+        nouneim = pygame.image.load("images/for_hub/who_normal.png")
+        nouneim = pygame.transform.scale(nouneim, (self.width, self.height)).convert_alpha()
+        self.screen.blit(nouneim, (0, 0))
+        clock = pygame.time.Clock()
+        pygame.display.set_caption("Тестовое меню")
+        pygame.mouse.set_visible(False)
         self.make_map()
         running = True
         hor = 0
         vert = 0
+        a = 0
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
             self.blocks_map.draw(self.screen)
+            self.screen.blit(fon, (0, 0))
+            self.screen.blit(pet, (0, 0))
+            self.screen.blit(nouneim, (0, 0))
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+            if keys[pygame.K_ESCAPE]:
+                pygame.mouse.set_visible(True)
+                return 8
             if keys[pygame.K_d]:
                 if hor == 0:
                     hor = 1
@@ -332,9 +363,17 @@ class Hub(Scene):
                     vert = 1
                 else:
                     vert = 0
-            self.player.update(self.screen, hor,vert, self.blocks_map)
+            if keys[pygame.K_e]:
+                if self.in_gildia:
+                    pygame.mouse.set_visible(True)
+                    return 5
+            #Егор, разработай ограничения передвижения в хабе
+            if keys[pygame.K_h]:
+                pass
+            self.player.update(self, self.screen, hor,vert, self.blocks_map, self.gildia)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
             hor = 0
             vert = 0
+            a += 1
         pygame.quit()
