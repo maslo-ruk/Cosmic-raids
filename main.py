@@ -31,13 +31,16 @@ def main():
     scenes = []
     scenes.append(current_scene)
     runi = True
-    sound = 'sounds/cosmic_battle.mp3'
-    pygame.mixer.Sound(sound).play(-1)
-    pygame.mixer.Sound(sound).set_volume(1.0)
+    pygame.mixer.music.load('sounds/DORA_bg.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1.0)
     while runi:
         a = current_scene.run(sound)
         if a == 1:
             player.is_alive = True
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('sounds/cosmic_battle.mp3')
+            pygame.mixer.music.play(-1)
             current_scene = Platformer((width, height), screen, clock, player)
             scenes.append(current_scene)
             # screen = pygame.display.set_mode(size)
@@ -47,6 +50,9 @@ def main():
             continue
         elif a == 4:
             current_scene = hub
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('sounds/DORA_bg.mp3')
+            pygame.mixer.music.play(-1)
         elif a == 5:
             current_scene = gildia
         elif a == 6:

@@ -39,7 +39,6 @@ class Entity(pygame.sprite.Sprite):
         self.lines = pygame.sprite.Group()
         self.is_alive = True
 
-
     def update(self, *args, **kwargs):
         if self.hp <= 0:
             self.die()
@@ -79,7 +78,7 @@ class Entity(pygame.sprite.Sprite):
             self.grenade.time = 0  # сброс времени для нового броска
             self.grenades.add(self.grenade)
             all_sp.add(self.grenade)
-            all_sp.add(self.grenade.exp)
+
 
     def collides(self, rects: list[Block]):
         for i in rects:
@@ -94,17 +93,17 @@ class Hub_Player(Entity):
         self.size = CELL_SIZE * 4, CELL_SIZE * 4
         self.rect = pygame.Rect(self.pos, self.size)
         self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
-                                             (self.size[0], self.size[1])).convert_alpha()
+                                             (self.size[0], self.size[1] + 50)).convert_alpha()
         self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
-                                             (self.size[0], self.size[1])).convert_alpha()
+                                             (self.size[0], self.size[1] + 50)).convert_alpha()
         self.image = self.image1
-        self.image.fill(COLOR)
+
 
     def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
         if hor > 0:
             self.image = self.image1
-        else:
+        elif hor < 0:
             self.image = self.image2
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)
@@ -142,6 +141,24 @@ class Player(Entity):
         self.total_score = 0
         self.level = 0
         self.character = get_character()
+
+
+    def throw(self, velocity, dest_x, dest_y, all_sp):
+        from data.projectiles import Grenade
+        dx = dest_x - self.rect.centerx
+        dy = dest_y - self.rect.centery
+        norm = (dx ** 2 + dy ** 2) ** 0.5
+
+        if norm != 0:  # Проверка для избежания деления на ноль
+            direction = (dx / norm, dy / norm)
+            self.grenade = Grenade(self.rect.center, direction, self.screen)
+            self.grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
+            self.grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
+            self.grenade.is_launched = True
+            self.grenade.time = 0  # сброс времени для нового броска
+            self.grenades.add(self.grenade)
+            all_sp.add(self.grenade)
+
 
     def update_char(self):
         self.character = get_character()
