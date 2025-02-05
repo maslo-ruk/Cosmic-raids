@@ -46,7 +46,7 @@ def main():
             scenes.append(current_scene)
             # screen = pygame.display.set_mode(size)
         elif a == 2:
-            current_scene = Scene((3000, 1200), screen, clock, player)
+            current_scene = Scene((3000, 800), screen, clock, player)
         elif a == 3:
             continue
         elif a == 4:
@@ -66,6 +66,8 @@ def main():
             current_scene = Dostich(e_width, e_height, screen)
     pygame.quit()
 
-
-if __name__ == '__main__':
-    main()
+try:
+    if __name__ == '__main__':
+        main()
+except Exception as e:
+    print(e)
