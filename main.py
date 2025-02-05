@@ -14,7 +14,8 @@ from data.config import *
 def main():
     pygame.init()
     size = width, height = 1500, 900
-    screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+    screen_info = pygame.display.Info()
+    # узнаем размеры экрана пользователя
     e_width = screen_info.current_w  # ширина
     e_height = screen_info.current_h
     screen = pygame.display.set_mode((e_width, e_height))

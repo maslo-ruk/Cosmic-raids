@@ -143,23 +143,6 @@ class Player(Entity):
         self.character = get_character()
 
 
-    def throw(self, velocity, dest_x, dest_y, all_sp):
-        from data.projectiles import Grenade
-        dx = dest_x - self.rect.centerx
-        dy = dest_y - self.rect.centery
-        norm = (dx ** 2 + dy ** 2) ** 0.5
-
-        if norm != 0:  # Проверка для избежания деления на ноль
-            direction = (dx / norm, dy / norm)
-            self.grenade = Grenade(self.rect.center, direction, self.screen)
-            self.grenade.velocity_x = velocity * dx / norm #делим общую скорость на косинус
-            self.grenade.velocity_y = velocity * dy / norm #делим общую скорость на синус
-            self.grenade.is_launched = True
-            self.grenade.time = 0  # сброс времени для нового броска
-            self.grenades.add(self.grenade)
-            all_sp.add(self.grenade)
-
-
     def update_char(self):
         self.character = get_character()
 
