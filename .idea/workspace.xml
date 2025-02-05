@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлено все (работала вся команда)">
+    <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="добавлены достижения">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/Block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dostich_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostich_test_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dostig_funk.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostig_funk.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/graphs_experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/graphs_experiments.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/level.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/camera.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/projectiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/projectiles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738769078260</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="добавлены достижения">
+      <option name="closed" value="true" />
+      <created>1738776776888</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1738776776888</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,7 +285,8 @@
     <MESSAGE value="окончательно доделаны уровни + ближний враг" />
     <MESSAGE value="Добавлены картинки" />
     <MESSAGE value="Добавлено все (работала вся команда)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено все (работала вся команда)" />
+    <MESSAGE value="добавлены достижения" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлены достижения" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

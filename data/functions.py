@@ -3,7 +3,7 @@ import random
 from data.config import *
 import networkx as nx
 
-def camera_conf(camera, target, scene):
+def camera_conf(camera, target, scene, WINDOW_SIZE):
     r_s = scene.size
     pos_x, pos_y = target.center
     _, _, width, height = camera

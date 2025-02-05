@@ -19,4 +19,4 @@ class Camera(object):
         return target[0] - self.state.left, target[1] - self.state.top
 
     def update(self, target):
-        self.state = self.camera_func(self.state, target.rect, self.scene)
+        self.state = self.camera_func(self.state, target.rect, self.scene, (self.width, self.height))

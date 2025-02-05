@@ -19,7 +19,10 @@ class Scene:
         self.clock = clock
         self.score = 0
         self.player = player
-        self.camera = Camera(camera_conf, WINDOW_SIZE[0], WINDOW_SIZE[1], self)
+        screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+        e_width = screen_info.current_w  # ширина
+        e_height = screen_info.current_h
+        self.camera = Camera(camera_conf, e_width, e_height, self)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
         self.all_sprites = pygame.sprite.Group()
 
@@ -256,7 +259,7 @@ class Platformer(Scene):
                 up = False
             if keys[pygame.K_p]:
                 for i in self.Enemies:
-                    i.kill()
+                    i.die()
                     self.player.score += 1
                 for i in self.CloseEnemies:
                     i.kill()
