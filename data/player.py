@@ -141,6 +141,10 @@ class Player(Entity):
         self.total_score = 0
         self.level = 0
         self.character = get_character()
+        self.shots = 0
+        self.health_lost = 0
+        self.levels_passed = 0
+        self.time = 0
 
     def update_char(self):
         self.character = get_character()
@@ -162,11 +166,11 @@ class Player(Entity):
         self.granat = 3
 
     def update(self, scene, screen, a, b, c, rects):
+        self.time += 1
         super().update(scene)
         if self.is_alive == False:
             self.level += self.total_score / 10
             self.update_level()
-            self.total_score = 0
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
@@ -209,7 +213,7 @@ class Player(Entity):
         if not self.col2:
             self.inair = True
 
-        self.all_b.update(rects, self.rect)
+        self.all_b.update(rects, self)
         self.grenades.update(screen, rects, self.rect)
 
 ENEMY_SPEED = 3.5
@@ -226,7 +230,7 @@ class Land_enemy(Entity):
         self.borders = borders
         super().__init__(pos, ENEMY_SPEED)
         self.x_speed = ENEMY_SPEED
-        self.hp = 5
+        self.hp = 2
         self.x_vision = 12
         self.y_vision = 4
         self.x_shooting = 6
@@ -240,7 +244,10 @@ class Land_enemy(Entity):
         super().update(scene)
         if not self.is_alive:
             player.score += 1
+            player.total_score += 1
             pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
+            for i in self.all_b:
+                i.kill()
         player_pos = player.rect
         if abs(self.rect.x - player_pos.x) <= self.x_vision * 30 and abs(
                 self.rect.y - player_pos.y) <= self.y_vision * 30:
@@ -265,7 +272,7 @@ class Land_enemy(Entity):
 
         self.move_to_player(self.xvel, rects)
         self.fall(rects)
-        self.all_b.update(rects, self.rect)
+        self.all_b.update(rects, self)
 
     def move_to_player(self, vel, rects):
         self.rect.x += self.x_speed * self.xvel
@@ -393,7 +400,7 @@ class Close_Enemy(Land_enemy):
     def __init__(self, pos, borders):
         super().__init__(pos, borders)
         self.atk = 2
-        self.hp = 5
+        self.hp = 3
         self.x_vision = 12
         self.y_vision = 4
         self.x_range = 2

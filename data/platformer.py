@@ -158,6 +158,11 @@ class Platformer(Scene):
                            "images/pausa/knopka_to_hub.png", '',
                               (28 * (e_width / 1920), 558 * (e_width / 1920)),
                               ((906 * (e_height / 1080)), 1041 * (e_height / 1080)))
+        if self.player.levels_passed == 0:
+            self.player.time = 0
+            self.player.total_score = 0
+            self.player.shots = 0
+            self.player.health_lost = 0
         while running:
             if self.pause:
                 for event in pygame.event.get():
@@ -199,6 +204,7 @@ class Platformer(Scene):
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
                         self.player.shoot(dest_x, dest_y, all_b, self.all_sprites)
                         self.player.count -= 1
+                        self.player.shots += 1
                         shot = 'sounds/laser-blast-descend_gy7c5deo.mp3'
                         pygame.mixer.Sound(shot).play()
                         pygame.mixer.Sound(shot).set_volume(0.1)
@@ -253,6 +259,8 @@ class Platformer(Scene):
                 for i in self.CloseEnemies:
                     i.kill()
                     self.player.score += 1
+            if keys[pygame.K_o]:
+                self.player.die()
 
             if self.player.is_alive:
                 self.player.update(self, self.screen, right, left, up, self.blocks)
@@ -268,8 +276,8 @@ class Platformer(Scene):
                     self.screen.blit(i.image, self.camera.apply(i))
             if self.player.score == self.level.enemies_amount:
                 pygame.mixer.Sound('sounds/zvuk-pobedyi-vyiigryisha.mp3').play()
-                self.player.total_score += self.player.score
                 self.player.score = 0
+                self.player.levels_passed += 1
                 self.new_level = True
                 self.open_doors()
             if self.new_level:

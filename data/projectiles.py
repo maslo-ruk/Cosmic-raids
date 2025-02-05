@@ -40,11 +40,15 @@ class Bullets(pygame.sprite.Sprite):
             self.kill()
 
     def collides(self, rects, own_rect):
-        from data.player import Entity
+        from data.player import Entity, Player, Land_enemy
         for i in rects:
-            if self.rect.colliderect(i.rect) and i.rect != own_rect:
+            if self.rect.colliderect(i.rect) and i.rect != own_rect.rect:
                 if isinstance(i, Entity):
-                    i.hp -= 1
+                    if isinstance(i, Player) and isinstance(own_rect, Land_enemy):
+                        i.hp -= 1
+                        i.health_lost += 1
+                    if isinstance(i, Land_enemy) and isinstance(own_rect, Player):
+                        i.hp -= 1
                 return True
 
 
