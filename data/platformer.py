@@ -374,6 +374,7 @@ class Hub(Scene):
             #Егор, разработай ограничения передвижения в хабе
             if keys[pygame.K_h]:
                 pass
+            # создание окна помощи
             self.menu = pygame_menu.Menu("Помощь", 900, 600, theme=pygame_menu.themes.THEME_SOLARIZED)
             self.menu.add.label('Управление:', 'purple')
             self.menu.add.label("'w', 'a', 's', 'd' - управление")
