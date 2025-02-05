@@ -3,14 +3,12 @@ from data.Block import Block
 from data.config import *
 from data.functions import *
 import networkx as nx
+from  data.config import *
 
 WIDTH = CELL_SIZE
 HEIGHT = CELL_SIZE * 1.5
 SIZE = (WIDTH, HEIGHT)
-SPEED = 6
 HUB_SPEED = 10
-JUMPSPEED = 14
-GRAVI = 0.8
 COLOR = 'red'
 POS = (250, 200)
 # CLOSE_IMAGE = pygame.image.load("images/enemies/close_enemy.png")
@@ -22,7 +20,7 @@ POS = (250, 200)
 class Entity(pygame.sprite.Sprite):
     def __init__(self, pos, speed):
         super().__init__()
-        self.hp = 10
+        self.hp = 5
         self.x_speed = speed
         self.xvel = 0
         self.y_speed = 0
@@ -97,7 +95,6 @@ class Hub_Player(Entity):
         self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
                                              (self.size[0], self.size[1])).convert_alpha()
         self.image = self.image1
-        self.image.fill(COLOR)
 
     def update(self, scene, screen, hor, vert, rects, gildia):
         super().update(scene)
@@ -140,6 +137,7 @@ class Player(Entity):
         self.score = 0
         self.total_score = 0
         self.level = 0
+        self.set_level()
         self.character = get_character()
         self.shots = 0
         self.health_lost = 0
@@ -152,25 +150,39 @@ class Player(Entity):
     def update_level(self):
         con = sqlite3.connect('db/characters_and_achievements.sqlite')
         cur = con.cursor()
-        result = cur.execute("""UPDATE player SET cur_level = ? WHERE id = 1""", (self.level,)).fetchall()
+        result = cur.execute("""SELECT cur_level FROM player WHERE id = 1""").fetchall()[0][0]
+        print(result + self.level)
+        cur.execute("""UPDATE player SET cur_level = ? WHERE id = 1""", (result + 1,))
         if self.level >= 5:
             cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Астра'""")
         elif self.level >= 10:
             cur.execute("""UPDATE characters SET avaibility = 1 WHERE character = 'Октавия'""")
+        con.commit()
+        cur.close()
 
     def set_def(self):
         self.hp += 5 - DIFFICULTY
-        if self.hp > 10:
-            self.hp = 10
+        if self.hp > 5:
+            self.hp = 5
         self.kolvo = 5
         self.granat = 3
+
+    def set_level(self):
+        con = sqlite3.connect('db/characters_and_achievements.sqlite')
+        cur = con.cursor()
+        result = cur.execute("""SELECT cur_level FROM player WHERE id = 1""").fetchall()[0][0]
+        self.level = result
+
+    def enemy_killed(self):
+        self.score += 1
+        self.total_score += 1
+        self.level = self.total_score
+        self.update_level()
 
     def update(self, scene, screen, a, b, c, rects):
         self.time += 1
         super().update(scene)
         if self.is_alive == False:
-            self.level += self.total_score / 10
-            self.update_level()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').play()
             pygame.mixer.Sound('sounds/dark-souls-you-died-sound-effect_hm5sYFG.mp3').set_volume(1.0)
         if a:
@@ -216,8 +228,15 @@ class Player(Entity):
         self.all_b.update(rects, self)
         self.grenades.update(screen, rects, self.rect)
 
-ENEMY_SPEED = 3.5
 
+class Astra(Player):
+    def __init__(self, pos):
+        super().__init__(pos)
+        self.image1 = pygame.transform.scale(pygame.image.load('images/enemies/richard1.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image2 = pygame.transform.scale(pygame.image.load('images/enemies/richard2.png'),
+                                             (self.size[0], self.size[1])).convert_alpha()
+        self.image = self.image1
 
 
 class Enemy(Entity):
@@ -243,8 +262,7 @@ class Land_enemy(Entity):
     def update(self, scene, screen, rects, player):
         super().update(scene)
         if not self.is_alive:
-            player.score += 1
-            player.total_score += 1
+            player.enemy_killed()
             pygame.mixer.Sound('sounds/tmp_7901-951678082.mp3').play()
             for i in self.all_b:
                 i.kill()

@@ -52,10 +52,7 @@ class Platformer(Scene):
         self.pause = False
 
     def make_map(self):
-        # room = Room(self.size[0] // 30, self.size[1] // 30, (0, 24), (self.size[0]//30 - 1, 30))
-        # strategy = Platforms(room, 10)
-        # self.map_x = strategy.all(self)
-        level = Level(4, (25, 40), self)
+        level = Level(4, (25, 40), self, self.player)
         self.map_x = level.all()
         self.size = (CELL_SIZE * level.total_length, level.rooms_size_y * CELL_SIZE)
         self.rect = pygame.Rect(0, 0, self.size[0], self.size[1])
@@ -80,7 +77,7 @@ class Platformer(Scene):
         for i in range(len(self.map)):
             string = self.map[i]
             for j in range(len(string)):
-                pos = (j * 30, i * 30)
+                pos = (j * CELL_SIZE, i * CELL_SIZE)
                 if string[j] == '-' or string[j] == '#':
                     block = Block(pos, self.screen)
                     self.blocks.add(block)
@@ -158,6 +155,11 @@ class Platformer(Scene):
                            "images/pausa/knopka_to_hub.png", '',
                               (28 * (e_width / 1920), 558 * (e_width / 1920)),
                               ((906 * (e_height / 1080)), 1041 * (e_height / 1080)))
+        health_bars = []
+        for i in range(6):
+            new_photo = pygame.image.load(f'images/for_fight/health_bullets_experience{str(i)}.png')
+            new_photo = pygame.transform.scale(new_photo, (e_width//2, e_height//2)).convert_alpha()
+            health_bars.append(new_photo)
         if self.player.levels_passed == 0:
             self.player.time = 0
             self.player.total_score = 0
@@ -286,6 +288,7 @@ class Platformer(Scene):
                         return 1
             if not self.player.is_alive:
                 return 6
+            self.screen.blit(health_bars[self.player.hp], (0, 0))
             pygame.display.flip()
         pygame.quit()
 

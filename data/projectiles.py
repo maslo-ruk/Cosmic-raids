@@ -8,6 +8,7 @@ class Projectile(pygame.sprite.Sprite):
         self.image.fill('red')
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
+        self.speed = 24
 
 
 
@@ -28,11 +29,12 @@ class Bullets(pygame.sprite.Sprite):
                                                 (20, 20)) # картинка пули
         self.rect = self.image.get_rect(center=start_pos)
         self.angle = angle
+        self.speed = 24
 
     def update(self, rects, t):
         # Двигаем линию в зависимости от угла
-        self.rect.x += 12 * self.angle[0]
-        self.rect.y += 12 * self.angle[1]
+        self.rect.x += self.speed * self.angle[0]
+        self.rect.y += self.speed * self.angle[1]
 
         a = self.collides(rects, t)
         # Удаляем линию, если она выходит за границы экрана

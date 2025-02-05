@@ -1,14 +1,13 @@
 import random
 
 import pygame
+from data.config import *
 
-WIDTH = 30
-HEIGHT = 30
 COLOR = pygame.Color(215, 215, 215)
 
 class Images:
     def __init__(self):
-        self.size = (WIDTH, HEIGHT)
+        self.size = (CELL_SIZE, CELL_SIZE)
         kubik1 = pygame.image.load("images/for_hub/kubic_1.png")
         kubik1 = pygame.transform.scale(kubik1, self.size)
         kubik2 = pygame.image.load("images/for_hub/kubik_2.png")
@@ -21,7 +20,7 @@ imags = imag.imags
 class Block(pygame.sprite.Sprite):
     def __init__(self, pos, screen):
         super().__init__()
-        self.size = (WIDTH, HEIGHT)
+        self.size = (CELL_SIZE, CELL_SIZE)
         # kubik1 = pygame.image.load("images/for_hub/kubic_1.png")
         # kubik1 = pygame.transform.scale(kubik1, self.size).convert_alpha()
         # kubik2 = pygame.image.load("images/for_hub/kubik_2.png")
@@ -35,7 +34,7 @@ class Block(pygame.sprite.Sprite):
 class Door(pygame.sprite.Sprite):
     def __init__(self, pos, screen):
         super().__init__()
-        self.size = (WIDTH, HEIGHT)
+        self.size = (CELL_SIZE, CELL_SIZE)
         # kubik1 = pygame.image.load("images/for_hub/kubic_1.png")
         # kubik1 = pygame.transform.scale(kubik1, self.size).convert_alpha()
         # kubik2 = pygame.image.load("images/for_hub/kubik_2.png")

@@ -6,11 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="0185cf5e-9d57-4ec7-923a-b59b05c46af3" name="Changes" comment="Добавлено все (работала вся команда)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/end_of_testfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/end_of_testfile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/Block.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dostich_test_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostich_test_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dostig_funk.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dostig_funk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/graphs_experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/graphs_experiments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/map_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/map_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/platformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/platformer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/projectiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/projectiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/db/characters_and_achievements.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,23 +63,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Block.executor&quot;: &quot;Run&quot;,
-    &quot;Python.graphs_experiments.executor&quot;: &quot;Run&quot;,
-    &quot;Python.hub.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.map_generator_copy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.platformer.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Егор/PycharmProjects/Cosmic-raids/data&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Block.executor": "Run",
+    "Python.gildia_test_file.executor": "Run",
+    "Python.graphs_experiments.executor": "Run",
+    "Python.hub.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.map_generator.executor": "Run",
+    "Python.map_generator_copy.executor": "Run",
+    "Python.platformer.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Егор/PycharmProjects/Cosmic-raids/data",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Егор\PycharmProjects\Cosmic-raids\data" />
@@ -238,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738587822493</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Добавлено все (работала вся команда)">
+      <option name="closed" value="true" />
+      <created>1738769078260</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738769078260</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -278,6 +294,15 @@
           <url>file://$PROJECT_DIR$/data/map_generator_copy.py</url>
           <line>170</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/Block.py</url>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dostich_test_file.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

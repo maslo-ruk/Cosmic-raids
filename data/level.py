@@ -5,8 +5,12 @@ from data.config import *
 
 
 class Level:
-    def __init__(self, length, av_room_size, scene):
+    def __init__(self, length, av_room_size, scene, player):
         self.length = length
+        self.player = player
+        self.koef = self.player.level // 10
+        if self.koef > 5:
+            self.koef = 5
         self.map = []
         for i in range(av_room_size[1]):
             self.map.append('')
@@ -15,7 +19,7 @@ class Level:
         self.total_length = 0
         self.rooms: list[Room] = []
         self.scene = scene
-        self.enemies_amount = 10 + DIFFICULTY * 5
+        self.enemies_amount = 10 + DIFFICULTY * 5 + self.koef * 5
 
     def all(self):
         self.make_rooms()
@@ -31,20 +35,17 @@ class Level:
                     continue
                 if beg and self.map[i][j] != '#':
                     e_p = i, j
-                    print(e_p, s_p)
                     spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
                     self.scene.spawns.add(spawn)
                     self.scene.all_sprites.add(spawn)
                     beg =False
                 if j == len(self.map[i]) - 1 and beg:
                     e_p = i, j
-                    print(e_p, s_p)
                     spawn = Spawn_zone(s_p[1], i, 3, e_p[1] - s_p[1])
                     self.scene.spawns.add(spawn)
                     self.scene.all_sprites.add(spawn)
                     beg = False
         self.spawn_pos = self.rooms[0].entry[0] + 1, self.rooms[0].entry[1]
-        print(self.spawn_pos, 'voov')
         return self.map
 
     def make_rooms(self):

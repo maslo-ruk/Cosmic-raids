@@ -179,8 +179,8 @@ class Ding_dong:
     def clicking(self):
         # print(self.mishka_on)
         if self.mishka_on:
-            # if self.sound:
-            #     self.sound = pygame.mixer.Sound(self.sound)
+            if self.sound:
+                self.sound = pygame.mixer.Sound(self.sound)
             print("динь дон")
     def events(self):
         if self.mishka_on:

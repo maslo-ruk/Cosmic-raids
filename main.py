@@ -56,7 +56,7 @@ def main():
         elif a == 8:
             current_scene = menu
         elif a == 9:
-            current_scene = Dostich(e_width, e_height, screen)
+            current_scene = Dostich(e_width, e_height, screen, player)
     pygame.quit()
 
 

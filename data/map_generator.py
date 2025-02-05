@@ -9,8 +9,6 @@ vx = SPEED
 vy = JUMPSPEED
 g = GRAVI
 
-WIDTH = 30
-HEIGHT = 30
 COLOR = pygame.Color(215, 215, 215)
 
 
