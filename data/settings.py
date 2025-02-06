@@ -10,6 +10,7 @@ class Settings(Scene):
         self.height = size[1]
         self.screen = screen
         self.size = self.width, self.height
+        self.zvuk = False
 
 
     def run(self, sound):
@@ -35,7 +36,7 @@ class Settings(Scene):
                     return 8
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     zvuk_button.events()
-                    zvuk_button.clicking()
+                    self.zvuk = zvuk_button.clicking()
                     if chiti.events():
                         raise Exception("читы - бан (ошибка вызвана специально)")
                 if event.type == pygame.MOUSEMOTION:

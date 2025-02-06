@@ -168,6 +168,8 @@ class Platformer(Scene):
             self.player.total_score = 0
             self.player.shots = 0
             self.player.health_lost = 0
+            # pygame.mixer.Sound(sound).play(-1)
+            # pygame.mixer.Sound(sound).set_volume(1.0)
         while running:
             if self.pause:
                 for event in pygame.event.get():

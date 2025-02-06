@@ -27,6 +27,7 @@ def main():
     menu = Menu(e_width, e_height, screen, hub_player)
     hub = Hub(menu.size, screen, clock, hub_player)
     gildia = Gildia(e_width, e_height, screen)
+    settings = Settings((e_width, e_height), screen, player)
     current_scene = menu
     scenes = []
     scenes.append(current_scene)
@@ -35,6 +36,8 @@ def main():
     pygame.mixer.Sound(sound).play(-1)
     pygame.mixer.Sound(sound).set_volume(1.0)
     while runi:
+        if current_scene == settings:
+
         a = current_scene.run(sound)
         if a == 1:
             player.is_alive = True
@@ -52,7 +55,7 @@ def main():
         elif a == 6:
             current_scene = The_end((e_width, e_height), screen, player)
         elif a == 7:
-            current_scene = Settings((e_width, e_height), screen, player)
+            current_scene = settings
         elif a == 8:
             current_scene = menu
         elif a == 9:
