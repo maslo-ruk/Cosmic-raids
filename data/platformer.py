@@ -1,6 +1,6 @@
 import random
 
-import pygame
+import pygame, pygame_menu
 from data.functions import *
 from data.player import Player, CommonEnemy, Hub_Player
 from data.Block import *
@@ -141,6 +141,7 @@ class Platformer(Scene):
         pygame.time.set_timer(self.RELOADEVENT, 1000)
         pygame.time.set_timer(self.SPAWNEVENT, 3000)
         pygame.time.set_timer(self.PUNCHEVENT, 1500)
+        pygame.time.set_timer(self.MUSICBGEVENT, 107000)
         count = 0
         fon = pygame.image.load("images/for_hub/fon1.png")
         fon = pygame.transform.scale(fon, (self.level.total_length * CELL_SIZE, self.level.rooms_size_y * CELL_SIZE)).convert_alpha()
@@ -193,7 +194,6 @@ class Platformer(Scene):
                 to_hubb.draw(self.screen)
                 pygame.display.flip()
                 continue
-            self.vzriv = False
             tick = self.clock.tick(60)
             self.screen.blit(fon, (0, 0))
             for event in pygame.event.get():
@@ -246,6 +246,7 @@ class Platformer(Scene):
                 #     self.blocks.add(enemy)
                 #     self.Enemies.add(enemy)
                 #     self.all_sprites.add(enemy)
+
             keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
                 right = True
@@ -326,6 +327,9 @@ class Hub(Scene):
                     self.blocks.add(block)
                     self.blocks_map.add(block)
 
+    def close_menu(self):
+        self.menu.disable()
+
     def run(self, sound):
         fon = pygame.image.load("images/for_hub/hub_pic_test1.png")
         fon = pygame.transform.scale(fon, (self.width, self.height)).convert_alpha()
@@ -386,7 +390,27 @@ class Hub(Scene):
             #Егор, разработай ограничения передвижения в хабе
             if keys[pygame.K_h]:
                 pass
-            self.player.update(self, self.screen, hor,vert, self.blocks_map, self.gildia)
+            # создание окна помощи
+            self.menu = pygame_menu.Menu("Помощь", 900, 600, theme=pygame_menu.themes.THEME_SOLARIZED)
+            self.menu.add.label('Управление:', 'purple')
+            self.menu.add.label("'w', 'a', 's', 'd' - управление")
+            self.menu.add.label("ПРОБЕЛ - прыжок")
+            self.menu.add.label("ЛКМ - стрельба")
+            self.menu.add.label("ПКМ - бросок гранаты")
+            self.menu.add.label("-------------------------------------------------------")
+            self.menu.add.label('Разработчики:')
+            self.menu.add.label('Егор Жаворонков, Кононов Александр, Кульпинская Елена')
+            self.menu.add.label('Репозиторий игры:')
+            self.menu.add.label('https://github.com/maslo-ruk/Cosmic-raids')
+            self.menu.add.button('Выйти', self.close_menu)
+            self.menu.disable()
+            if keys[pygame.K_i]:
+                self.menu.enable()
+                self.menu.mainloop(self.screen)
+            if keys[pygame.K_ESCAPE]:
+                self.menu.disable()
+
+            self.player.update(self, self.screen, hor, vert, self.blocks_map, self.gildia)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
             pygame.display.flip()
             hor = 0

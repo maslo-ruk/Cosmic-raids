@@ -100,7 +100,7 @@ class Hub_Player(Entity):
         super().update(scene)
         if hor > 0:
             self.image = self.image1
-        else:
+        elif hor < 0:
             self.image = self.image2
         self.rect.x += hor * self.x_speed
         self.col1 = self.collides(rects)

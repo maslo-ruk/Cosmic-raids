@@ -14,7 +14,8 @@ from data.config import *
 def main():
     pygame.init()
     size = width, height = 1500, 900
-    screen_info = pygame.display.Info()  # узнаем размеры экрана пользователя
+    screen_info = pygame.display.Info()
+    # узнаем размеры экрана пользователя
     e_width = screen_info.current_w  # ширина
     e_height = screen_info.current_h
     screen = pygame.display.set_mode((e_width, e_height))
@@ -32,24 +33,30 @@ def main():
     scenes = []
     scenes.append(current_scene)
     runi = True
-    sound = 'sounds/cosmic_battle.mp3'
-    pygame.mixer.Sound(sound).play(-1)
-    pygame.mixer.Sound(sound).set_volume(1.0)
+    pygame.mixer.music.load('sounds/DORA_bg.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1.0)
     while runi:
         if current_scene == settings:
 
         a = current_scene.run(sound)
         if a == 1:
             player.is_alive = True
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('sounds/cosmic_battle.mp3')
+            pygame.mixer.music.play(-1)
             current_scene = Platformer((width, height), screen, clock, player)
             scenes.append(current_scene)
             # screen = pygame.display.set_mode(size)
         elif a == 2:
-            current_scene = Scene((3000, 1200), screen, clock, player)
+            current_scene = Scene((3000, 800), screen, clock, player)
         elif a == 3:
             continue
         elif a == 4:
             current_scene = hub
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('sounds/DORA_bg.mp3')
+            pygame.mixer.music.play(-1)
         elif a == 5:
             current_scene = gildia
         elif a == 6:
@@ -62,6 +69,8 @@ def main():
             current_scene = Dostich(e_width, e_height, screen, player)
     pygame.quit()
 
-
-if __name__ == '__main__':
-    main()
+try:
+    if __name__ == '__main__':
+        main()
+except Exception as e:
+    print(e)
