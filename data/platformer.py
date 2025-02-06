@@ -332,6 +332,19 @@ class Hub(Scene):
         hor = 0
         vert = 0
         a = 0
+        self.menu = pygame_menu.Menu("Помощь", 900, 600, theme=pygame_menu.themes.THEME_SOLARIZED)
+        self.menu.add.label('Управление:', 'purple')
+        self.menu.add.label("'w', 'a', 's', 'd' - управление")
+        self.menu.add.label("ПРОБЕЛ - прыжок")
+        self.menu.add.label("ЛКМ - стрельба")
+        self.menu.add.label("ПКМ - бросок гранаты")
+        self.menu.add.label("-------------------------------------------------------")
+        self.menu.add.label('Разработчики:')
+        self.menu.add.label('Егор Жаворонков, Кононов Александр, Кульпинская Елена')
+        self.menu.add.label('Репозиторий игры:')
+        self.menu.add.label('https://github.com/maslo-ruk/Cosmic-raids')
+        self.menu.add.button('Выйти', self.close_menu)
+        self.menu.disable()
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -375,19 +388,7 @@ class Hub(Scene):
             if keys[pygame.K_h]:
                 pass
             # создание окна помощи
-            self.menu = pygame_menu.Menu("Помощь", 900, 600, theme=pygame_menu.themes.THEME_SOLARIZED)
-            self.menu.add.label('Управление:', 'purple')
-            self.menu.add.label("'w', 'a', 's', 'd' - управление")
-            self.menu.add.label("ПРОБЕЛ - прыжок")
-            self.menu.add.label("ЛКМ - стрельба")
-            self.menu.add.label("ПКМ - бросок гранаты")
-            self.menu.add.label("-------------------------------------------------------")
-            self.menu.add.label('Разработчики:')
-            self.menu.add.label('Егор Жаворонков, Кононов Александр, Кульпинская Елена')
-            self.menu.add.label('Репозиторий игры:')
-            self.menu.add.label('https://github.com/maslo-ruk/Cosmic-raids')
-            self.menu.add.button('Выйти', self.close_menu)
-            self.menu.disable()
+
             if keys[pygame.K_i]:
                 self.menu.enable()
                 self.menu.mainloop(self.screen)
