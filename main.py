@@ -37,8 +37,6 @@ def main():
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(1.0)
     while runi:
-        # if current_scene == settings:
-
         a = current_scene.run(sound)
         if a == 1:
             player.is_alive = True
