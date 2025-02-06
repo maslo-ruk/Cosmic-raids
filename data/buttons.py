@@ -1,4 +1,5 @@
 import pygame
+import sqlite3
 class Button:
     def __init__(self, x_cord, y_cord, width, height, text, image_before, image_after=None, sound=None, diapazone_x=None, diapazone_y=None):
         self.x_cord = x_cord
@@ -180,8 +181,14 @@ class Ding_dong:
         # print(self.mishka_on)
         if self.mishka_on:
             if self.sound:
-                self.sound = pygame.mixer.Sound(self.sound)
-            print("динь дон")
+                shot = self.sound
+                pygame.mixer.Sound(shot).play()
+                pygame.mixer.Sound(shot).set_volume(0.1)
+            con = sqlite3.connect('db/characters_and_achievements.sqlite')
+            cur = con.cursor()
+            cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'динь динь'""")
+            con.commit()
+            cur.close()
     def events(self):
         if self.mishka_on:
             if self.sound:

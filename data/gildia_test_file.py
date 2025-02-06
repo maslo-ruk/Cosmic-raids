@@ -46,7 +46,7 @@ class Gildia:
                                (499 * (self.width / 1536), 1064 * (self.width / 1536)),
                                (33 * (self.height / 864), 97 * (self.height / 864)))
         ding_dong = Ding_dong(0, 0, self.width, self.height, '', "images/for_gildia/zvonok_knop.png",
-                               "images/for_gildia/zvonok_knop.png", '',
+                               "images/for_gildia/zvonok_knop.png", 'sounds/zvonok-kak-v-kolokolchik.mp3',
                                (1026 * (self.width / 1536), 1053 * (self.width / 1536)),
                                (696 * (self.height / 864), 705 * (self.height / 864)))
         clock = pygame.time.Clock()

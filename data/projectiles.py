@@ -68,6 +68,7 @@ class Grenade(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(pygame.image.load('images/astras_grenade.png'),
                                                 (30, 30))  # картинка гранаты
         self.rect = self.image.get_rect(center=start_pos)
+        self.width = self.rect.width
         self.rects = rects
         self.velocity_x = 0  # начальная скорость по x
         self.velocity_y = 0  # начальная скорость по y
@@ -109,22 +110,25 @@ class Grenade(pygame.sprite.Sprite):
                                                 (40, 40))
         else:
             self.time += 1  # обновление времени
-            if self.time == 60 * 3.3: #отслеживаем время взрыва по кадрам, где 60 - fps
+            if self.time == 60 * 3: #отслеживаем время взрыва по кадрам, где 60 - fps
                 self.rect.y -= 10
                 self.image = pygame.transform.scale(pygame.image.load('images/vzr2.png'),
                                                 (60, 60))
+                self.rect.x += self.width - 30
 
-            if self.time == 60 * 3.6: #отслеживаем время взрыва по кадрам, где 60 - fps
+            if self.time == 60 * 3.1: #отслеживаем время взрыва по кадрам, где 60 - fps
                 self.rect.y -= 20
                 self.image = pygame.transform.scale(pygame.image.load('images/vzr3.png'),
                                                 (80, 80))
+                self.rect.x += self.width - 40
 
-            if self.time == 60 * 3.9: #отслеживаем время взрыва по кадрам, где 60 - fps
+            if self.time == 60 * 3.15: #отслеживаем время взрыва по кадрам, где 60 - fps
                 self.rect.y -= 25
                 self.image = pygame.transform.scale(pygame.image.load('images/vzr4.png'),
                                                 (100, 100))
+                self.rect.x += self.width - 50
 
-            if self.time == 60 * 4.3: #отслеживаем время взрыва по кадрам, где 60 - fps
+            if self.time == 60 * 3.2: #отслеживаем время взрыва по кадрам, где 60 - fps
                 self.rect.y += 55
                 self.kill()
 
@@ -141,6 +145,8 @@ class Grenade(pygame.sprite.Sprite):
             if n.colliderect(i.rect) and i.rect != n:
                 if isinstance(i, Entity):
                     i.hp -= 15
+                    if i.hp < 0:
+                        i.hp = 0
 
 
 explosion_anim = ['images/vzr1.png', 'images/vzr2.png', 'images/vzr3.png', 'images/vzr4.png']
