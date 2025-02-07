@@ -309,6 +309,7 @@ class Hub(Scene):
         self.blocks_map = pygame.sprite.Group()
         self.gildia = pygame.Rect(CELL_SIZE * 6, 0, CELL_SIZE * 12, CELL_SIZE * 10)
         self.in_gildia = False
+        self.font = pygame.font.Font(None, 60)
 
     def make_map(self):
         self.map_y = []
@@ -362,6 +363,10 @@ class Hub(Scene):
         self.menu.add.label('https://github.com/maslo-ruk/Cosmic-raids')
         self.menu.add.button('Выйти', self.close_menu)
         self.menu.disable()
+        con = sqlite3.connect('db/characters_and_achievements.sqlite')
+        cur = con.cursor()
+        level = cur.execute("""SELECT cur_level FROM player WHERE id = 1""").fetchall()[0][0]
+        text1 = self.font.render(f'Уровень: {str(level)}', 1, 'red')
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')
@@ -413,6 +418,7 @@ class Hub(Scene):
 
             self.player.update(self, self.screen, hor, vert, self.blocks_map, self.gildia)
             self.screen.blit(self.player.image, (self.player.rect.x, self.player.rect.y))
+            self.screen.blit(text1, (60, 60))
             pygame.display.flip()
             hor = 0
             vert = 0
