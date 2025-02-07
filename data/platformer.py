@@ -204,8 +204,8 @@ class Platformer(Scene):
                     if event.key == pygame.K_ESCAPE:
                         self.pause = not self.pause
                 if event.type == self.MUSICBGEVENT:
-                    pygame.mixer.Sound(sound).play(-1)
-                    pygame.mixer.Sound(sound).set_volume(0.3)
+                    pygame.mixer.music.load('sounds/cosmic_battle.mp3')
+                    pygame.mixer.music.play(-1)
                 if event.type == pygame.MOUSEBUTTONDOWN and self.player.is_alive:
                     if event.button == 1 and self.player.count > 0:
                         dest_x, dest_y = self.camera.apply_point(pygame.mouse.get_pos())
@@ -366,7 +366,7 @@ class Hub(Scene):
         con = sqlite3.connect('db/characters_and_achievements.sqlite')
         cur = con.cursor()
         level = cur.execute("""SELECT cur_level FROM player WHERE id = 1""").fetchall()[0][0]
-        text1 = self.font.render(f'Уровень: {str(level)}', 1, 'red')
+        text1 = self.font.render(f'Уровень: {str(level // 10)}', 1, 'red')
         while running:
             tick = self.clock.tick(60)
             self.screen.fill('blue')

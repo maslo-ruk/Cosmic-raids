@@ -302,8 +302,8 @@ class Buttton_for_settings:
         if self.mishka_on:
             self.clicked += 1
             if self.clicked % 2 == 1:
-                return True
-        return False
+                return False
+        return True
 
 
     def events(self):

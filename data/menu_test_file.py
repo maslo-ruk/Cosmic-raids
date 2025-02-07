@@ -58,9 +58,10 @@ class Menu(Scene):
         while running:
             keys = pygame.key.get_pressed()
             for event in pygame.event.get():
-                if keys[pygame.K_ESCAPE]:
-                    pygame.quit()
-                    exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     start_button.events()
                     new_game_button.events()
