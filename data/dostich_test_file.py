@@ -18,14 +18,23 @@ class Dostich:
         con = sqlite3.connect('db/characters_and_achievements.sqlite')
         cur = con.cursor()
         level = cur.execute("""SELECT cur_level FROM player WHERE id = 1""").fetchall()[0][0]
+        print(level)
         if level >= 10:
             cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'охотник I'""")
+        else:
+            cur.execute("""UPDATE achievements SET completed = 0 WHERE achievement = 'охотник I'""")
         if level >= 20:
             cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'охотник II'""")
+        else:
+            cur.execute("""UPDATE achievements SET completed = 0 WHERE achievement = 'охотник II'""")
         if level >= 30:
             cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'охотник III'""")
+        else:
+            cur.execute("""UPDATE achievements SET completed = 0 WHERE achievement = 'охотник III'""")
         if level >= 50:
             cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'полная команда'""")
+        else:
+            cur.execute("""UPDATE achievements SET completed = 0 WHERE achievement = 'полная команда'""")
         con.commit()
         cur.close()
 
@@ -34,6 +43,7 @@ class Dostich:
         fon = pygame.transform.scale(fon, (self.width, self.height))
         knopochka = pygame.image.load("images/for_dostiz/knopochka.png").convert_alpha()
         knopochka = pygame.transform.scale(knopochka, (self.width, self.height))
+        self.make_achievements()
         if "охотник I" in self.dostig:
             oxotnik_1 = pygame.image.load("images/for_dostiz/dst1_2.png").convert_alpha()
         else:
