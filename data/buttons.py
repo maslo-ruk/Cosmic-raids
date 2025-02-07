@@ -189,6 +189,9 @@ class Ding_dong:
             cur.execute("""UPDATE achievements SET completed = 1 WHERE achievement = 'динь динь'""")
             con.commit()
             cur.close()
+            print('dasda')
+        else:
+            print('dododo')
     def events(self):
         if self.mishka_on:
             if self.sound:
